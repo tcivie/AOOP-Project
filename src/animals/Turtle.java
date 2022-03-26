@@ -16,11 +16,6 @@ public class Turtle extends Animal {
     }
 
     @Override
-    public void setWeight(int i) {
-
-    }
-
-    @Override
     public void setName(String name) {
 
     }

@@ -12,6 +12,7 @@ public abstract class Animal extends Mobile implements IEdible {
     private double weight;
     private IDiet diet;
 
+
     public Animal(String name, Point point) {
         super();
         // TODO: ctor
@@ -36,7 +37,13 @@ public abstract class Animal extends Mobile implements IEdible {
         return null;
     }
 
-    public abstract void setWeight(int i);
+    public double getWeight() {
+        return this.weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 
     public abstract void setName(String name);
 }

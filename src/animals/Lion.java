@@ -14,11 +14,6 @@ public class Lion extends Animal{
     }
 
     @Override
-    public void setWeight(int i) {
-
-    }
-
-    @Override
     public void setName(String name) {
 
     }

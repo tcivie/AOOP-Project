@@ -4,6 +4,8 @@ import animals.Animal;
 import food.EFoodType;
 import food.IEdible;
 
+import java.util.InputMismatchException;
+
 public class Carnivore implements IDiet {
     /**
      * Checks if the other food type can be eaten
@@ -13,18 +15,24 @@ public class Carnivore implements IDiet {
      */
     @Override
     public boolean canEat(EFoodType food) {
-        return false; //TODO: finish the method
+        if (food == EFoodType.MEAT)
+            return true;
+        return false;
     }
 
     /**
      * Method of eating the selected food
+     * In case of wrong input the method will throw exception InputMismatchException
      *
      * @param animal the animal to feed
      * @param food   what to feed the animal with
-     * @return TODO: find out what is returned here
+     * @return the new weight of the animal
      */
     @Override
     public double eat(Animal animal, IEdible food) {
-        return 0; //TODO: finish the method
+        if (canEat(food.getFoodtype())) {
+            return animal.getWeight() * 1.1;
+        } // else
+        throw new InputMismatchException("Carnivore cannot eat this type of food");
     }
 }
