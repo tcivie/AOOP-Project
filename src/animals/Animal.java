@@ -5,6 +5,7 @@ import food.EFoodType;
 import food.IEdible;
 import mobility.Mobile;
 import mobility.Point;
+import utilities.MessageUtility;
 
 public abstract class Animal extends Mobile implements IEdible {
 
@@ -12,19 +13,14 @@ public abstract class Animal extends Mobile implements IEdible {
     private double weight;
     private IDiet diet;
 
-
     public Animal(String name, Point point) {
-        super();
-        // TODO: ctor
+        super(point);
+        this.name = name;
+        MessageUtility.logConstractor("Animal", name);
     }
 
     public void makeSound() {
-        //TODO: implement method
-    }
-
-    public boolean eat(IEdible edible) {
-        // TODO: implement method
-        return true;
+        // TODO: add get sound method to each of the animals and make them include them all. (Maybe add interface or add method in the animal abstract class)
     }
 
     /**
@@ -33,17 +29,52 @@ public abstract class Animal extends Mobile implements IEdible {
      * @return type of food from the Enum
      */
     @Override
-    public EFoodType getFoodtype() {
-        return null;
-    }
+    public abstract EFoodType getFoodtype();
 
     public double getWeight() {
+        MessageUtility.logGetter(this.getClass().getSimpleName(), "getWeight", this.weight);
         return this.weight;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public boolean setWeight(double weight) {
+        boolean isSuccess = (weight >= 0);
+        if (isSuccess)
+            this.weight = weight;
+        else
+            this.weight = 0;
+        MessageUtility.logSetter(this.getClass().getSimpleName(), "setWeight", weight, isSuccess);
+        return isSuccess;
     }
 
-    public abstract void setName(String name);
+    public IDiet getDiet() {
+        MessageUtility.logGetter(this.getClass().getSimpleName(), "getDiet", this.diet);
+        return this.diet;
+    }
+
+    public boolean setDiet(IDiet diet) {
+        this.diet = diet;
+        MessageUtility.logSetter(this.getClass().getSimpleName(), "setDiet", diet, true);
+        return true; //TODO: Check if there is some thing to check here
+    }
+
+    public boolean setName(String name) {
+        this.name = name;
+        MessageUtility.logSetter(this.getClass().getSimpleName(), "setName", name, true);
+        return true;
+    }
+
+    public String getName() {
+        MessageUtility.logGetter(this.getClass().getSimpleName(), "getName", this.name);
+        return this.name;
+    }
+
+    public boolean eat(IEdible food) {
+        this.weight = this.diet.eat(this,food);
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.getClass().getSimpleName() + "] ";
+    }
 }

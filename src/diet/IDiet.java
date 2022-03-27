@@ -16,7 +16,7 @@ public interface IDiet {
      * Method of eating the selected food
      * @param animal the animal to feed
      * @param food what to feed the animal with
-     * @return TODO: find out what is returned here
+     * @return Returns the new weight of the animal after eating
      */
     double eat(Animal animal, IEdible food);
 }

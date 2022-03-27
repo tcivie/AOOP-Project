@@ -13,7 +13,9 @@ public class Omnivore implements IDiet {
      */
     @Override
     public boolean canEat(EFoodType food) {
-        return false; //TODO: make the implementation
+        if (food == EFoodType.MEAT || food == EFoodType.VEGETABLE)
+            return true;
+        return false;
     }
 
     /**
@@ -21,7 +23,7 @@ public class Omnivore implements IDiet {
      *
      * @param animal the animal to feed
      * @param food   what to feed the animal with
-     * @return TODO: find out what is returned here
+     * @return the new weight of the animal after eating it
      */
     @Override
     public double eat(Animal animal, IEdible food) {
