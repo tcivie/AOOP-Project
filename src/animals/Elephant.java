@@ -11,33 +11,36 @@ public class Elephant extends Animal{
 
     public Elephant(String name) {
         super(name, new Point(50,90));
-        this.trunkLength = 1;
-        setDiet(new Herbivore());
         MessageUtility.logConstractor("Elephant", name);
+        setWeight(500);
+        settrunkLength(1);
+        setDiet(new Herbivore());
     }
 
     public Elephant(String name, double length) {
         super(name, new Point(50,90));
-        this.trunkLength = length;
-        setDiet(new Herbivore());
         MessageUtility.logConstractor("Elephant", name);
+        setWeight(500);
+        settrunkLength(length);
+        setDiet(new Herbivore());
     }
 
     public void chew() {
-        
+
     }
 
-    public void settrunkLength(double length) {
-        this.trunkLength = length;
+    public double getTrunkLength() {
+        MessageUtility.logGetter(this.getClass().getSimpleName(), "getTrunkLength", this.trunkLength);
+        return this.trunkLength;
     }
 
-    /**
-     * Gets the food type
-     *
-     * @return type of food from the Enum
-     */
-    @Override
-    public EFoodType getFoodtype() {
-        return null;
+    public boolean settrunkLength(double length) {
+        boolean isSuccess = (length >= 0.5 && length <= 3);
+        if (isSuccess)
+            this.trunkLength = length;
+        else
+            this.trunkLength = 1;
+        MessageUtility.logSetter(this.getClass().getSimpleName(), "settrunkLength", length, isSuccess);
+        return isSuccess;
     }
 }

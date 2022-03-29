@@ -29,4 +29,15 @@ public class Omnivore implements IDiet {
     public double eat(Animal animal, IEdible food) {
         return 0; //TODO: add implementation
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "[" + this.getClass().getSimpleName() + "]";
+    }
+
 }

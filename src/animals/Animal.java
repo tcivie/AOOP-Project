@@ -15,7 +15,7 @@ public abstract class Animal extends Mobile implements IEdible {
 
     public Animal(String name, Point point) {
         super(point);
-        this.name = name;
+        setName(name);
         MessageUtility.logConstractor("Animal", name);
     }
 
@@ -28,11 +28,13 @@ public abstract class Animal extends Mobile implements IEdible {
      *
      * @return type of food from the Enum
      */
-    @Override
-    public abstract EFoodType getFoodtype();
+    public EFoodType getFoodtype() {
+        MessageUtility.logGetter(this.getClass().getSimpleName(), "getFoodType", EFoodType.MEAT);
+        return EFoodType.MEAT;
+    }
 
     public double getWeight() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getWeight", this.weight);
+        MessageUtility.logGetter(this.name, "getWeight", this.weight);
         return this.weight;
     }
 
@@ -42,34 +44,36 @@ public abstract class Animal extends Mobile implements IEdible {
             this.weight = weight;
         else
             this.weight = 0;
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "setWeight", weight, isSuccess);
+        MessageUtility.logSetter(this.name, "setWeight", weight, isSuccess);
         return isSuccess;
     }
 
     public IDiet getDiet() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getDiet", this.diet);
+        MessageUtility.logGetter(this.name, "getDiet", this.diet);
         return this.diet;
     }
 
     public boolean setDiet(IDiet diet) {
         this.diet = diet;
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "setDiet", diet, true);
+        MessageUtility.logSetter(this.name, "setDiet", diet, true);
         return true; //TODO: Check if there is some thing to check here
     }
 
     public boolean setName(String name) {
         this.name = name;
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "setName", name, true);
+        MessageUtility.logSetter(this.name, "setName", name, true);
         return true;
     }
 
     public String getName() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getName", this.name);
+        MessageUtility.logGetter(this.name, "getName", this.name);
         return this.name;
     }
 
     public boolean eat(IEdible food) {
-        this.weight = this.diet.eat(this,food);
+        if (this.diet.canEat(food.getFoodtype())) {
+            this.weight = this.diet.eat(this,food);
+        }
         return true;
     }
 

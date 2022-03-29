@@ -39,14 +39,4 @@ public class Turtle extends Animal {
     public void chew() {
 
     }
-
-    /**
-     * Gets the food type
-     *
-     * @return type of food from the Enum
-     */
-    @Override
-    public EFoodType getFoodtype() {
-        return null;
-    }
 }

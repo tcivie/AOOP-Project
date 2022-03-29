@@ -10,9 +10,9 @@ public class Lion extends Animal{
 
     public Lion(String name) {
         super(name, new Point(20,0));
-        setName(name);
-        setDiet(new Carnivore());
         MessageUtility.logConstractor("Lion", name);
+        setWeight(408.20);
+        setDiet(new Carnivore());
     }
 
     public int getScarCount() {
@@ -41,6 +41,7 @@ public class Lion extends Animal{
      */
     @Override
     public EFoodType getFoodtype() {
-        return null;
+        MessageUtility.logGetter(this.getClass().getSimpleName(), "getFoodType", EFoodType.NOTFOOD);
+        return EFoodType.NOTFOOD;
     }
 }

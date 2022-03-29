@@ -11,14 +11,14 @@ public class Giraffe extends Animal {
 
     public Giraffe(String name) {
         super(name, new Point(50,0));
-        this.neckLength = 1.5;
+        setNeckLength(1.5);
         setDiet(new Herbivore());
         MessageUtility.logConstractor("Giraffe", name);
     }
 
     public Giraffe(String name, double length) {
         super(name, new Point(50,0));
-        this.neckLength = length;
+        setNeckLength(length);
         setDiet(new Herbivore());
         MessageUtility.logConstractor("Giraffe", name);
     }
@@ -36,15 +36,5 @@ public class Giraffe extends Animal {
     public double getNeckLength() {
         MessageUtility.logGetter(this.getClass().getSimpleName(), "getNeckLength", this.neckLength);
         return this.neckLength;
-    }
-
-    /**
-     * Gets the food type
-     *
-     * @return type of food from the Enum
-     */
-    @Override
-    public EFoodType getFoodtype() {
-        return null;
     }
 }

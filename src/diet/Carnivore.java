@@ -30,9 +30,17 @@ public class Carnivore implements IDiet {
      */
     @Override
     public double eat(Animal animal, IEdible food) {
-        if (canEat(food.getFoodtype())) {
-            return animal.getWeight() * 1.1;
-        } // else
-        throw new InputMismatchException("Carnivore cannot eat this type of food");
+        return animal.getWeight() * 1.1;
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "[" + this.getClass().getSimpleName() + "]";
+    }
+
 }

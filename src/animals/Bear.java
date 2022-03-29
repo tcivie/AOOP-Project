@@ -2,6 +2,7 @@ package animals;
 
 import diet.Carnivore;
 import diet.Herbivore;
+import diet.Omnivore;
 import food.EFoodType;
 import mobility.Point;
 import utilities.MessageUtility;
@@ -16,15 +17,17 @@ public class Bear extends Animal{
     public Bear(String name) {
         super(name, new Point(100,5));
         MessageUtility.logConstractor("Bear", name);
-        this.furColor = "GRAY";
-        setDiet(new Carnivore());
+        setWeight(308.2);
+        setFurColor("GRAY");
+        setDiet(new Omnivore());
     }
 
     public Bear(String name, String color) {
         super(name, new Point(100,5));
         MessageUtility.logConstractor("Bear", name);
-        this.furColor = color;
-        setDiet(new Carnivore());
+        setWeight(308.2);
+        setFurColor(color);
+        setDiet(new Omnivore());
     }
 
     public boolean setFurColor(String color) {
@@ -44,15 +47,5 @@ public class Bear extends Animal{
 
     public void roar() {
 
-    }
-
-    /**
-     * Gets the food type
-     *
-     * @return type of food from the Enum
-     */
-    @Override
-    public EFoodType getFoodtype() {
-        return null;
     }
 }
