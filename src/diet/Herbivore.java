@@ -4,7 +4,7 @@ import animals.Animal;
 import food.EFoodType;
 import food.IEdible;
 
-public class Herbivore implements IDiet{
+public class Herbivore extends Diet implements IDiet{
     /**
      * Checks if the other food type can be eaten
      *

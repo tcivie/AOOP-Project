@@ -6,7 +6,7 @@ import food.IEdible;
 
 import java.util.InputMismatchException;
 
-public class Carnivore implements IDiet {
+public class Carnivore extends Diet implements IDiet {
     /**
      * Checks if the other food type can be eaten
      *

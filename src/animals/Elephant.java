@@ -25,8 +25,13 @@ public class Elephant extends Animal{
         setDiet(new Herbivore());
     }
 
-    public void chew() {
+    @Override
+    public void makeSound() {
+        chew();
+    } //TODO: find better approach
 
+    public void chew() {
+        fireLog("logSound","Trumpets with joy while flapping its ears, then chews");
     }
 
     public double getTrunkLength() {

@@ -36,7 +36,12 @@ public class Turtle extends Animal {
         return isSuccess;
     }
 
-    public void chew() {
+    @Override
+    public void makeSound() {
+        chew();
+    } //TODO: find better approach
 
+    public void chew() {
+        fireLog("logSound","Retracts its head in then eats quietly");
     }
 }

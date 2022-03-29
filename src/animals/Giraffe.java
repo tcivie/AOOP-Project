@@ -37,4 +37,13 @@ public class Giraffe extends Animal {
         fireLog("logGetter", "getNeckLength", this.neckLength);
         return this.neckLength;
     }
+
+    @Override
+    public void makeSound() {
+        chew();
+    } //TODO: find better approach
+
+    public void chew() {
+        fireLog("logSound","Bleats and Stomps its legs, then chews");
+    }
 }

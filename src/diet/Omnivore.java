@@ -4,7 +4,7 @@ import animals.Animal;
 import food.EFoodType;
 import food.IEdible;
 
-public class Omnivore implements IDiet {
+public class Omnivore extends Diet implements IDiet {
 
 
     /**

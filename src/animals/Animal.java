@@ -21,9 +21,7 @@ public abstract class Animal extends Mobile implements IEdible {
         setName(name);
     }
 
-    public void makeSound() {
-        // TODO: add get sound method to each of the animals and make them include them all. (Maybe add interface or add method in the animal abstract class)
-    }
+    public abstract void makeSound();
 
     /**
      * Gets the food type
@@ -104,10 +102,10 @@ public abstract class Animal extends Mobile implements IEdible {
         }
     }
 
-    public void fireLog(String methodName , String funcName) {
+    public void fireLog(String methodName , String message) {
         switch (methodName) {
             case "logSound":
-                MessageUtility.logSound(this.name,funcName);
+                MessageUtility.logSound(this.name,message);
                 break;
         }
     }

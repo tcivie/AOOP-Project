@@ -30,8 +30,13 @@ public class Lion extends Animal {
         return isSuccess;
     }
 
-    public void roar() {
+    @Override
+    public void makeSound() {
+        roar();
+    } //TODO: find better approach
 
+    public void roar() {
+        fireLog("logSound","Roars, then stretches and shakes its mane");
     }
 
     /**

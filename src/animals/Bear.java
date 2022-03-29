@@ -45,7 +45,12 @@ public class Bear extends Animal{
         return this.furColor;
     }
 
-    public void roar() {
+    @Override
+    public void makeSound() {
+        roar();
+    } //TODO: find better approach
 
+    public void roar() {
+        fireLog("logSound","Stands on its hind legs, roars and scratches its belly");
     }
 }
