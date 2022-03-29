@@ -36,12 +36,12 @@ public class Bear extends Animal{
             this.furColor = color;
         else
             this.furColor = "GRAY";
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "setFurColor", color, isSuccess);
+        fireLog("logSetter","setFurColor",color,isSuccess);
         return isSuccess;
     }
 
     public String getFurColor() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getFurColor", this.furColor);
+        fireLog("logGetter", "getFurColor", this.furColor);
         return this.furColor;
     }
 

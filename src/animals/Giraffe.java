@@ -29,12 +29,12 @@ public class Giraffe extends Animal {
             this.neckLength = length;
         else
             this.neckLength = 1.5;
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "setNeckLength", length, isSuccess);
+        fireLog("logSetter", "setNeckLength", length, isSuccess);
         return isSuccess;
     }
 
     public double getNeckLength() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getNeckLength", this.neckLength);
+        fireLog("logGetter", "getNeckLength", this.neckLength);
         return this.neckLength;
     }
 }

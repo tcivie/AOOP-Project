@@ -30,7 +30,7 @@ public class Elephant extends Animal{
     }
 
     public double getTrunkLength() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getTrunkLength", this.trunkLength);
+        fireLog("logGetter", "getTrunkLength", this.trunkLength);
         return this.trunkLength;
     }
 
@@ -40,7 +40,7 @@ public class Elephant extends Animal{
             this.trunkLength = length;
         else
             this.trunkLength = 1;
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "settrunkLength", length, isSuccess);
+        fireLog("logSetter", "settrunkLength", length, isSuccess);
         return isSuccess;
     }
 }

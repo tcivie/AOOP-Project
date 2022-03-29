@@ -3,7 +3,7 @@ package diet;
 import animals.Animal;
 import food.EFoodType;
 import food.IEdible;
-// TODO: create class animal that when eats meat gets weight increased by 10% and wehn eating plants increases by 7%
+
 public class Herbivore implements IDiet{
     /**
      * Checks if the other food type can be eaten
@@ -13,7 +13,9 @@ public class Herbivore implements IDiet{
      */
     @Override
     public boolean canEat(EFoodType food) {
-        return false; //TODO: add implementation
+        if (food == EFoodType.VEGETABLE)
+            return true;
+        return false;
     }
 
     /**
@@ -25,17 +27,8 @@ public class Herbivore implements IDiet{
      */
     @Override
     public double eat(Animal animal, IEdible food) {
-        return 0; //TODO: add implementation
+        if (animal.getDiet().canEat(food.getFoodtype()))
+            return animal.getWeight() * 1.07;
+        return animal.getWeight();
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "[" + this.getClass().getSimpleName() + "]";
-    }
-
 }

@@ -7,6 +7,8 @@ import mobility.Mobile;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import java.util.function.Function;
+
 public abstract class Animal extends Mobile implements IEdible {
 
     private String name;
@@ -15,8 +17,8 @@ public abstract class Animal extends Mobile implements IEdible {
 
     public Animal(String name, Point point) {
         super(point);
-        setName(name);
         MessageUtility.logConstractor("Animal", name);
+        setName(name);
     }
 
     public void makeSound() {
@@ -29,12 +31,12 @@ public abstract class Animal extends Mobile implements IEdible {
      * @return type of food from the Enum
      */
     public EFoodType getFoodtype() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getFoodType", EFoodType.MEAT);
+        fireLog("logGetter", "getFoodType", EFoodType.MEAT);
         return EFoodType.MEAT;
     }
 
     public double getWeight() {
-        MessageUtility.logGetter(this.name, "getWeight", this.weight);
+        fireLog("logGetter", "getWeight", this.weight);
         return this.weight;
     }
 
@@ -44,41 +46,69 @@ public abstract class Animal extends Mobile implements IEdible {
             this.weight = weight;
         else
             this.weight = 0;
-        MessageUtility.logSetter(this.name, "setWeight", weight, isSuccess);
+        fireLog("logSetter", "setWeight", weight, isSuccess);
         return isSuccess;
     }
 
     public IDiet getDiet() {
-        MessageUtility.logGetter(this.name, "getDiet", this.diet);
+        fireLog("logGetter", "getDiet", this.diet);
         return this.diet;
     }
 
     public boolean setDiet(IDiet diet) {
         this.diet = diet;
-        MessageUtility.logSetter(this.name, "setDiet", diet, true);
+        fireLog("logSetter", "setDiet", diet, true);
         return true; //TODO: Check if there is some thing to check here
     }
 
     public boolean setName(String name) {
         this.name = name;
-        MessageUtility.logSetter(this.name, "setName", name, true);
+        fireLog("logSetter", "setName", name, true);
         return true;
     }
 
     public String getName() {
-        MessageUtility.logGetter(this.name, "getName", this.name);
+        fireLog("logGetter", "getName", this.name);
         return this.name;
     }
 
     public boolean eat(IEdible food) {
-        if (this.diet.canEat(food.getFoodtype())) {
+        boolean isSuccess = (this.diet.canEat(food.getFoodtype()));
+        if (isSuccess)
             this.weight = this.diet.eat(this,food);
-        }
+        fireLog("logBooleanFunction", "eat", food, isSuccess);
         return true;
     }
 
     @Override
     public String toString() {
         return "[" + this.getClass().getSimpleName() + "] ";
+    }
+
+    public void fireLog(String methodName , String funcName, Object value, boolean isSuccess) {
+        switch (methodName) {
+            case "logBooleanFunction":
+                MessageUtility.logBooleanFunction(this.name, funcName, value, isSuccess);
+                break;
+            case "logSetter":
+                MessageUtility.logSetter(this.name, funcName, value, isSuccess);
+                break;
+        }
+    }
+
+    public void fireLog(String methodName , String funcName, Object value) {
+        switch (methodName) {
+            case "logGetter":
+                MessageUtility.logGetter(this.name, funcName, value);
+                break;
+        }
+    }
+
+    public void fireLog(String methodName , String funcName) {
+        switch (methodName) {
+            case "logSound":
+                MessageUtility.logSound(this.name,funcName);
+                break;
+        }
     }
 }

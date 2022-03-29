@@ -1,0 +1,165 @@
+********************************************
+		Initilize
+********************************************
+[+]new Animal	name: Simba
+[s]Simba:  		setName(Simba) => true
+[+]new Lion	name: Simba
+[s]Simba:  		setWeight(408.20) => true
+[s]Simba:  		setDiet([Carnivore]) => true
+[+]new Animal	name: Baloo
+[s]Baloo:  		setName(Baloo) => true
+[+]new Bear	name: Baloo
+[s]Baloo:  		setWeight(308.20) => true
+[s]Baloo:  		setFurColor(GRAY) => true
+[s]Baloo:  		setDiet([Omnivore]) => true
+[+]new Animal	name: Dumbo
+[s]Dumbo:  	setName(Dumbo) => true
+[+]new Elephant	name: Dumbo
+[s]Dumbo:  	setWeight(500.00) => true
+[s]Dumbo:  	settrunkLength(2.0) => true
+[s]Dumbo:  	SetDiet([Herbivore]) => true
+[+]new Animal	name: Melman
+[s]Melman:  	setName(Melman) => true
+[+]new Giraffe	name: Melman
+[s]Melman:  	setWeight(45.00) => true
+[s]Melman:  	setNeckLength(2.0) => true
+[s]Melman:  	setDiet([Herbivore]) => true
+[+]new Animal	name: Rafael
+[s]Rafael:  		setName(Rafael) => true
+[+]new Turtle	name: Rafael
+[s]Rafael:  		setWeight(1.00) => true
+[s]Rafael:  		setAge(50) => true
+[s]Rafael:  		setDiet([Herbivore]) => true
+[+]new Animal	name: Ted
+[s]Ted:  		setName(Ted) => true
+[+]new Bear	name: Ted
+[s]Ted:  		setWeight(308.20) => true
+[s]Ted:  		setFurColor(BROWN) => false
+[s]Ted:  		setFurColor(BLACK) => true
+[s]Ted:  		setDiet([Omnivore]) => true
+[+]new Plant	name: Plant
+[+]new Cabbage	name: Cabbage
+********************************************
+		Test Sounds
+********************************************
+[!]Simba:  		Roars, then stretches and shakes its mane
+[!]Baloo:  		Stands on its hind legs, roars and scratches its belly
+[!]Dumbo:  	Trumpets with joy while flapping its ears, then chews
+[!]Melman:  	Bleats and Stomps its legs, then chews
+[!]Rafael:  		Retracts its head in then eats quietly
+[!]Ted:  		Stands on its hind legs, roars and scratches its belly
+********************************************
+		Feed
+********************************************
+[g]Cabbage:  	getFoodType() => VEGETABLE
+[b]Simba:  		eat([Cabbage] ) => false
+[g]Simba:  		getFoodType() => NOTFOOD
+[b]Simba:  		eat([Lion] Simba) => false
+[g]Melman:  	getFoodtype() => MEAT
+[g]Simba:  		getWeight() => 408.20
+[s]Simba:  		setWeight(449.02) => true
+[!]Simba:  		Roars, then stretches and shakes its mane
+[b]Simba:  		eat([Giraffe] Melman) => true
+[s]Simba:  		setScars(1) => true
+[g]Cabbage:  	getFoodType() => VEGETABLE
+[g]Cabbage:  	getFoodType() => VEGETABLE
+[b]Baloo:  		eat([Cabbage] ) => false
+[g]Simba:  		getFoodType() => NOTFOOD
+[b]Baloo:  		eat([Lion] Simba) => false
+[g]Melman:  	getFoodtype() => MEAT
+[g]Melman:  	getFoodtype() => MEAT
+[g]Baloo:  		getWeight() => 308.20
+[s]Baloo:  		setWeight(339.02) => true
+[!]Baloo:  		Stands on its hind legs, roars and scratches its belly
+[b]Baloo:  		eat([Giraffe] Melman) => true
+[g]Cabbage:  	getFoodType() => VEGETABLE
+[g]Dumbo:  	getWeight() => 500.00
+[s]Dumbo:  	setWeight(535.00) => true
+[!]Dumbo:  	Trumpets with joy while flapping its ears, then chews
+[b]Dumbo:  	eat([Cabbage] ) => true
+[g]Simba:  		getFoodType() => NOTFOOD
+[b]Dumbo:  	eat([Lion] Simba) => false
+[g]Melman:  	getFoodtype() => MEAT
+[b]Dumbo:  	eat([Giraffe] Melman) => false
+[g]Cabbage:  	getFoodType() => VEGETABLE
+[g]Melman:  	getWeight() => 45.00
+[s]Melman:  	setWeight(48.15) => true
+[!]Melman:  	Bleats and Stomps its legs, then chews
+[b]Melman:  	eat([Cabbage] ) => true
+[g]Simba:  		getFoodType() => NOTFOOD
+[b]Melman:  	eat([Lion] Simba) => false
+[g]Melman:  	getFoodtype() => MEAT
+[b]Melman:  	eat([Giraffe] Melman) => false
+[g]Cabbage:  	getFoodType() => VEGETABLE
+[g]Rafael:  		getWeight() => 1.00
+[s]Rafael:  		setWeight(1.07) => true
+[!]Rafael:  		Retracts its head in then eats quietly
+[b]Rafael:  		eat([Cabbage] ) => true
+[g]Simba:  		getFoodType() => NOTFOOD
+[b]Rafael:  		eat([Lion] Simba) => false
+[g]Melman:  	getFoodtype() => MEAT
+[b]Rafael:  		eat([Giraffe] Melman) => false
+[g]Cabbage:  	getFoodType() => VEGETABLE
+[g]Cabbage:  	getFoodType() => VEGETABLE
+[b]Ted:  		eat([Cabbage] ) => false
+[g]Simba:  		getFoodType() => NOTFOOD
+[b]Ted:  		eat([Lion] Simba) => false
+[g]Melman:  	getFoodtype() => MEAT
+[g]Melman:  	getFoodtype() => MEAT
+[g]Ted:  		getWeight() => 308.20
+[s]Ted:  		setWeight(339.02) => true
+[!]Ted:  		Stands on its hind legs, roars and scratches its belly
+[b]Ted:  		eat([Giraffe] Melman) => true
+********************************************
+		Move
+********************************************
+[g]Simba:  		getWeight() => 449.02
+[s]Simba:  		setWeight(447.43) => true
+[b]Simba:  		move((10,10)) => true
+[g]Baloo:  		getWeight() => 339.02
+[s]Baloo:  		setWeight(331.70) => true
+[b]Baloo:  		move((15,20)) => true
+[g]Dumbo:  	getWeight() => 535.00
+[s]Dumbo:  	setWeight(526.03) => true
+[b]Dumbo:  	move((20,30)) => true
+[g]Melman:  	getWeight() => 48.15
+[s]Melman:  	setWeight(47.58) => true
+[b]Melman:  	move((25,40)) => true
+[g]Rafael:  		getWeight() => 1.07
+[s]Rafael:  		setWeight(1.05) => true
+[b]Rafael:  		move((30,50)) => true
+[g]Ted:  		getWeight() => 339.02
+[s]Ted:  		setWeight(331.80) => true
+[b]Ted:  		move((35,60)) => true
+[g]Simba:  		getWeight() => 447.43
+[s]Simba:  		setWeight(392.62) => true
+[b]Simba:  		move((10,500)) => true
+********************************************
+		Change Values
+********************************************
+[s]Simba:  		setWeight(-857.00) => false
+[b]Simba:  		move((1,700)) => false
+[b]Simba:  		move((-1,50)) => false
+[s]Baloo:  		setWeight(-857.00) => false
+[b]Baloo:  		move((1,700)) => false
+[b]Baloo:  		move((-1,50)) => false
+[s]Dumbo:  	setWeight(-857.00) => false
+[b]Dumbo:  	move((1,700)) => false
+[b]Dumbo:  	move((-1,50)) => false
+[s]Melman:  	setWeight(-857.00) => false
+[b]Melman:  	move((1,700)) => false
+[b]Melman:  	move((-1,50)) => false
+[s]Rafael:  		setWeight(-857.00) => false
+[b]Rafael:  		move((1,700)) => false
+[b]Rafael:  		move((-1,50)) => false
+[s]Ted:  		setWeight(-857.00) => false
+[b]Ted:  		move((1,700)) => false
+[b]Ted:  		move((-1,50)) => false
+[s]GreenBaloo:  	setName(GreenBaloo) => true
+[s]GreenBaloo:  	setFurColor(GREEN) => false
+[s]Melman:  	setNeckLength(4356.0) => false
+[s]Melman:  	setNeckLength(1.58) => true
+[s]Dumbo:  	settrunkLength(0.75) => true
+[s]Dumbo:  	settrunkLength(5.76) => false
+[s]Rafael:  		setAge(-8) => false
+[s]Rafael:  		setAge(456) => true

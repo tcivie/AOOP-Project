@@ -19,11 +19,4 @@ public interface IDiet {
      * @return Returns the new weight of the animal after eating
      */
     double eat(Animal animal, IEdible food);
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    String toString();
 }

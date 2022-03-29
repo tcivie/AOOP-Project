@@ -5,6 +5,8 @@ import food.EFoodType;
 import food.IEdible;
 
 public class Omnivore implements IDiet {
+
+
     /**
      * Checks if the other food type can be eaten
      *
@@ -27,17 +29,12 @@ public class Omnivore implements IDiet {
      */
     @Override
     public double eat(Animal animal, IEdible food) {
-        return 0; //TODO: add implementation
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "[" + this.getClass().getSimpleName() + "]";
+        if (animal.getDiet().canEat(food.getFoodtype())) {
+            if (food.getFoodtype() == EFoodType.MEAT)
+                return animal.getWeight() * 1.1;
+            return animal.getWeight() * 1.07;
+        }
+        return animal.getWeight();
     }
 
 }

@@ -24,7 +24,7 @@ public class Turtle extends Animal {
     }
 
     public int getAge() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getAge", this.Age);
+        fireLog("logGetter", "getAge", this.Age);
         return Age;
     }
 
@@ -32,7 +32,7 @@ public class Turtle extends Animal {
         boolean isSuccess = (0 <= age && age <= 500);
         if (isSuccess)
             this.Age = age;
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "setAge", age, isSuccess);
+        fireLog("logSetter", "setAge", age, isSuccess);
         return isSuccess;
     }
 

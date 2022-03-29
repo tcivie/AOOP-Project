@@ -5,7 +5,7 @@ import food.EFoodType;
 import mobility.Point;
 import utilities.MessageUtility;
 
-public class Lion extends Animal{
+public class Lion extends Animal {
     private int scarCount;
 
     public Lion(String name) {
@@ -16,7 +16,7 @@ public class Lion extends Animal{
     }
 
     public int getScarCount() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getScarCount", this.scarCount);
+        fireLog("logGetter", "getScarCount", this.scarCount);
         return this.scarCount;
     }
 
@@ -26,7 +26,7 @@ public class Lion extends Animal{
             this.scarCount = scarCount;
         else
             this.scarCount = 0;
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "setScarCount", scarCount, isSuccess);
+        fireLog("logSetter", "setScarCount", scarCount, isSuccess);
         return isSuccess;
     }
 
@@ -41,7 +41,7 @@ public class Lion extends Animal{
      */
     @Override
     public EFoodType getFoodtype() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getFoodType", EFoodType.NOTFOOD);
+        fireLog("logGetter", "getFoodType", EFoodType.NOTFOOD);
         return EFoodType.NOTFOOD;
     }
 }
