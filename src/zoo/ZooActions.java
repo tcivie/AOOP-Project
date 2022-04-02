@@ -14,7 +14,12 @@ public abstract class ZooActions{
      * @return True if the animal ate the food / False otherwise
      */
     public static boolean eat(Object animal, IEdible food) {
-        return ((Animal) animal).eat(food);
+        Animal ani = (Animal) animal;
+        boolean isSuccess = ani.eat(food);
+        if (isSuccess) {
+            ani.makeSound();
+        }
+        return isSuccess;
     }
 
     /**

@@ -125,7 +125,7 @@ public abstract class Animal extends Mobile implements IEdible {
      */
     @Override
     public String toString() {
-        return this.name;
+        return "[" +this.getClass().getSimpleName() + "]" +this.name;
     }
 
     /**
@@ -184,7 +184,7 @@ public abstract class Animal extends Mobile implements IEdible {
         if (isSuccess) {
             double weight = this.getWeight();
             double distance = calcDistance(point);
-            isSuccess = setWeight(Math.round((weight-(distance*weight*0.00025))* 100) / 100.);
+            isSuccess = setWeight(Math.round((weight - ( distance * weight * 0.00025 )) * 100) / 100.);
             setLocation(point);
             this.addTotalDistance(distance);
         }

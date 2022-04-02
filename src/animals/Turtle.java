@@ -74,6 +74,6 @@ public class Turtle extends Animal {
      */
     @Override
     public String toString() {
-        return "[" + this.getClass().getSimpleName() + "]: " + super.toString();
+        return super.toString();
     }
 }
