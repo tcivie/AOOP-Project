@@ -44,4 +44,14 @@ public class Turtle extends Animal {
     public void chew() {
         fireLog("logSound","Retracts its head in then eats quietly");
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "[" + this.getClass().getSimpleName() + "]: " + super.toString();
+    }
 }

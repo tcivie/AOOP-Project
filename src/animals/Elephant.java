@@ -48,4 +48,14 @@ public class Elephant extends Animal{
         fireLog("logSetter", "settrunkLength", length, isSuccess);
         return isSuccess;
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "[" + this.getClass().getSimpleName() + "]: " + super.toString();
+    }
 }

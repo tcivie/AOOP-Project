@@ -78,9 +78,14 @@ public abstract class Animal extends Mobile implements IEdible {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
-        return "[" + this.getClass().getSimpleName() + "] ";
+        return this.name;
     }
 
     public void fireLog(String methodName , String funcName, Object value, boolean isSuccess) {
@@ -119,4 +124,6 @@ public abstract class Animal extends Mobile implements IEdible {
         fireLog("logBooleanFunction","move",point,isSuccess);
         return (isSuccess) ? super.calcDistance(point) : 0 ;
     }
+
+
 }

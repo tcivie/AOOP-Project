@@ -49,4 +49,14 @@ public class Lion extends Animal {
         fireLog("logGetter", "getFoodType", EFoodType.NOTFOOD);
         return EFoodType.NOTFOOD;
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "[" + this.getClass().getSimpleName() + "]: " + super.toString();
+    }
 }

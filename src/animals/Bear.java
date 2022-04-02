@@ -53,4 +53,14 @@ public class Bear extends Animal{
     public void roar() {
         fireLog("logSound","Stands on its hind legs, roars and scratches its belly");
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "[" + this.getClass().getSimpleName() + "]: " + super.toString();
+    }
 }

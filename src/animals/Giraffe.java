@@ -46,4 +46,14 @@ public class Giraffe extends Animal {
     public void chew() {
         fireLog("logSound","Bleats and Stomps its legs, then chews");
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "[" + this.getClass().getSimpleName() + "]: " + super.toString();
+    }
 }
