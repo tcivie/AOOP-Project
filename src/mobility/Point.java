@@ -16,6 +16,11 @@ public class Point {
         this.y = y;
     }
 
+    public Point(Point point) {
+        this.x = point.getX();
+        this.y = point.getY();
+    }
+
     public static boolean checkBounderies(Point newLocation) {
         return (newLocation.x <= MAX_X && newLocation.x >= MIN_X
                 && newLocation.y <= MAX_Y && newLocation.y >= MIN_Y);
