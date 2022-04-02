@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class Bear extends Animal{
 
     private String furColor;
-    private static String[] COLORS = {"BLACK","WHITE","GRAY"};
+    public static String[] COLORS = {"BLACK","WHITE","GRAY"};
 
     /**
      * Ctor
@@ -20,6 +20,19 @@ public class Bear extends Animal{
      */
     public Bear(String name) {
         super(name, new Point(100,5));
+        MessageUtility.logConstractor("Bear", name);
+        setWeight(308.2);
+        setFurColor("GRAY");
+        setDiet(new Omnivore());
+    }
+
+    /**
+     * Ctor
+     * @param name Name of the bear
+     * @param point Start point of the bear
+     */
+    public Bear(String name, Point point) {
+        super(name, point);
         MessageUtility.logConstractor("Bear", name);
         setWeight(308.2);
         setFurColor("GRAY");

@@ -20,6 +20,18 @@ public class Lion extends Animal {
     }
 
     /**
+     * Ctor
+     * @param name Lions name
+     * @param point Starting point
+     */
+    public Lion(String name, Point point) {
+        super(name, point);
+        MessageUtility.logConstractor("Lion", name);
+        setWeight(408.20);
+        setDiet(new Carnivore());
+    }
+
+    /**
      * Gets the number of scars on the lion
      * @return
      */
