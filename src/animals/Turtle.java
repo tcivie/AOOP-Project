@@ -24,10 +24,11 @@ public class Turtle extends Animal {
     /**
      * Ctor
      * @param name Turtles name
-     * @param point Starting point
+     * @param x x point
+     * @param y y point
      */
-    public Turtle(String name, Point point) {
-        super(name, point);
+    public Turtle(String name, int x, int y) {
+        super(name, new Point(x,y));
         this.Age = 1;
         setDiet(new Herbivore());
         MessageUtility.logConstractor("Turtle", name);

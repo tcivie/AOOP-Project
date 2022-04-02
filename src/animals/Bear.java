@@ -29,10 +29,11 @@ public class Bear extends Animal{
     /**
      * Ctor
      * @param name Name of the bear
-     * @param point Start point of the bear
+     * @param x x point
+     * @param y y point
      */
-    public Bear(String name, Point point) {
-        super(name, point);
+    public Bear(String name, int x, int y) {
+        super(name, new Point(x,y));
         MessageUtility.logConstractor("Bear", name);
         setWeight(308.2);
         setFurColor("GRAY");

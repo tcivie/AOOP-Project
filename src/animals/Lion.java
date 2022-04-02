@@ -22,10 +22,11 @@ public class Lion extends Animal {
     /**
      * Ctor
      * @param name Lions name
-     * @param point Starting point
+     * @param x x point
+     * @param y y point
      */
-    public Lion(String name, Point point) {
-        super(name, point);
+    public Lion(String name, int x, int y) {
+        super(name, new Point(x,y));
         MessageUtility.logConstractor("Lion", name);
         setWeight(408.20);
         setDiet(new Carnivore());

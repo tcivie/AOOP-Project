@@ -23,10 +23,11 @@ public class Giraffe extends Animal {
     /**
      * Ctor
      * @param name Giraffes name
-     * @param point Starting point
+     * @param x x point
+     * @param y y point
      */
-    public Giraffe(String name, Point point) {
-        super(name, point);
+    public Giraffe(String name, int x, int y) {
+        super(name, new Point(x,y));
         setNeckLength(1.5);
         setDiet(new Herbivore());
         MessageUtility.logConstractor("Giraffe", name);

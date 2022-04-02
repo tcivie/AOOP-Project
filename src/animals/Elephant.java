@@ -24,10 +24,11 @@ public class Elephant extends Animal{
     /**
      * Ctor
      * @param name Elephants name
-     * @param point Starting point
+     * @param x x value
+     * @param y y value
      */
-    public Elephant(String name, Point point) {
-        super(name, point);
+    public Elephant(String name, int x, int y) {
+        super(name, new Point(x,y));
         MessageUtility.logConstractor("Elephant", name);
         setWeight(500);
         settrunkLength(1);
