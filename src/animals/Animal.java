@@ -183,7 +183,10 @@ public abstract class Animal extends Mobile implements IEdible {
         boolean isSuccess = Point.checkBounderies(point);
         if (isSuccess) {
             double weight = this.getWeight();
-            isSuccess = setWeight(Math.round((weight-(calcDistance(point)*weight*0.00025))* 100) / 100.);
+            double distance = calcDistance(point);
+            isSuccess = setWeight(Math.round((weight-(distance*weight*0.00025))* 100) / 100.);
+            setLocation(point);
+            this.addTotalDistance(distance);
         }
         fireLog("logBooleanFunction","move",point,isSuccess);
         return (isSuccess) ? super.calcDistance(point) : 0 ;

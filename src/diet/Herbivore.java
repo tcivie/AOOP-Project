@@ -23,7 +23,7 @@ public class Herbivore extends Diet implements IDiet{
      *
      * @param animal the animal to feed
      * @param food   what to feed the animal with
-     * @return TODO: find out what is returned here
+     * @return New animals weight
      */
     @Override
     public double eat(Animal animal, IEdible food) {
