@@ -8,6 +8,10 @@ import utilities.MessageUtility;
 public class Lion extends Animal {
     private int scarCount;
 
+    /**
+     * Ctor
+     * @param name Lions name
+     */
     public Lion(String name) {
         super(name, new Point(20,0));
         MessageUtility.logConstractor("Lion", name);
@@ -15,11 +19,20 @@ public class Lion extends Animal {
         setDiet(new Carnivore());
     }
 
+    /**
+     * Gets the number of scars on the lion
+     * @return
+     */
     public int getScarCount() {
         fireLog("logGetter", "getScarCount", this.scarCount);
         return this.scarCount;
     }
 
+    /**
+     * Sets new scar for the lion
+     * @param scarCount
+     * @return
+     */
     public boolean setScarCount(int scarCount) {
         boolean isSuccess = (scarCount >= 0);
         if (isSuccess)
@@ -35,13 +48,15 @@ public class Lion extends Animal {
         roar();
     } //TODO: find better approach
 
+    /**
+     * Plays the roar sound with the help of the Firelog method in Animal
+     */
     public void roar() {
         fireLog("logSound","Roars, then stretches and shakes its mane");
     }
 
     /**
      * Gets the food type
-     *
      * @return type of food from the Enum
      */
     @Override
