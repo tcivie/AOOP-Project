@@ -20,7 +20,7 @@ public class main {
     private static final int MIN_ARR_LEN = 3;
 
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-
+        double unknownNumber;
         Scanner sc = new Scanner(System.in);
         // GET NUMBER OF ANIMALS IN THE ZOO
         System.out.println("Please enter the number of animals in the zoo [Minimum :" + MIN_ARR_LEN + "] : ");
@@ -99,63 +99,41 @@ public class main {
             Constructor[] con = c.getConstructors();
 
             // gather all the args
-            System.out.println("Do you want to add additional parameters? [y/N]?");
-            String choice = sc.next();
-            if (choice.equals("y") || choice.equals("Y")) {
-                System.out.println("How many arguments are you going to give? ");
-                int choiceInt = sc.nextInt();
-                Object[] arr = new Object[choiceInt];
-                arr[0] = name;
-                int j = 1;
-                do {
-                    System.out.println("Enter argument No " + j + ": ");
-                    choice = sc.next();
-                    if (isNumeric(choice))
-                        arr[j] = Double.parseDouble(choice);
+
+            System.out.println("How many arguments are you going to give? ");
+            int choiceInt = sc.nextInt();
+            Object[] arr = new Object[choiceInt + 1];
+            arr[0] = name;
+            for (int k = 1; k < choiceInt + 1; k++) {
+                System.out.println("Enter argument No " + k + ": ");
+                String choice = sc.next();
+                if (isNumeric(choice)) {
+                    unknownNumber = Double.parseDouble(choice);
+                    if (unknownNumber == (int) unknownNumber) // Check if the number is int or double
+                        arr[k] = (int)unknownNumber; //TODO: Fix castign so that there will be stored int and not Integer or find another approach to issue on line 127
                     else
-                        arr[j] = choice;
-                }while (!choice.equals(0));
+                        arr[k] = unknownNumber;
+                } else
+                    arr[k] = choice;
+
             }
 
             for (Constructor ctor : con) {
                 Class<?>[] pType = ctor.getParameterTypes();
+                boolean match = true;
                 for (int j = 0; j < pType.length; j++) {
-                    if (pType[j].equals("BROWN")) {
-                        System.out.format("%s%n", ctor.toGenericString());
-
-                        Type[] gpType = ctor.getGenericParameterTypes();
-                        for (int k = 0; k < gpType.length; k++) {
-                            char ch = (pType[k].equals("BROWN") ? '*' : ' ');
-                            System.out.format("%7c%s[%d]: %s%n", ch,
-                                    "GenericParameterType", k, gpType[k]);
-                        }
+                    System.out.println(pType[j]);
+                    System.out.println(arr[j].getClass());
+                    if (!pType[j].isInstance(arr[j]) || pType.length != (choiceInt + 1)) { // Check if the parameters are of the same type
+                        match = false;
                         break;
                     }
                 }
-            }
-
-            System.out.println("Do you want to add additional parameters? [y/N]?");
-            String choice = sc.next();
-            if (choice.equals("y") || choice.equals("Y")) {
-                switch (type) {
-                    case "Bear":
-                            System.out.println("Please select fur color from the following list: [BLACK,WHITE,GRAY]");
-                            choice = sc.next();
-//                            zoo[i] = (Animal) con[1].newInstance(name,new );
-                        break;
-                    case "Elephant":
-                        break;
-                    case "Giraffe":
-                        break;
-                    case "Lion":
-                        break;
-                    case "Turtle":
-                        break;
-                    default:
-                        break;
+                if (match) { // Found the right ctor
+                    zoo[i] = (Animal) ctor.newInstance(arr);
+                    break;
                 }
             }
-            zoo[i] = (Animal) con[0].newInstance(name);
         }
 
 
