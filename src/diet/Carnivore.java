@@ -31,7 +31,7 @@ public class Carnivore extends Diet implements IDiet {
     @Override
     public double eat(Animal animal, IEdible food) {
         if (animal.getDiet().canEat(food.getFoodtype()))
-            return animal.getWeight() * 1.1;
+            return Math.round(animal.getWeight() * 1.1 * 100) / 100.;
         return animal.getWeight();
     }
 

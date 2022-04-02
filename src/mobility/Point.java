@@ -12,10 +12,8 @@ public class Point {
 
     //TODO: add exceptions and messages
     public Point(int x, int y) {
-        if (x <= MAX_X && x >= MIN_X
-                && y <= MAX_Y && y >= MIN_Y)
-            this.x = x;
-            this.y = y;
+        this.x = x;
+        this.y = y;
     }
 
     public static boolean checkBounderies(Point newLocation) {
@@ -39,5 +37,15 @@ public class Point {
     public void setX(int x) {
         if (x <= MAX_X && x >= MIN_X)
             this.x = x;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "(" + this.x + "," + this.y + ")";
     }
 }

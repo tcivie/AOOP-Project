@@ -109,4 +109,14 @@ public abstract class Animal extends Mobile implements IEdible {
                 break;
         }
     }
+
+    public double move(Point point) {
+        boolean isSuccess = Point.checkBounderies(point);
+        if (isSuccess) {
+            double weight = this.getWeight();
+            isSuccess = setWeight(Math.round((weight-(calcDistance(point)*weight*0.00025))* 100) / 100.);
+        }
+        fireLog("logBooleanFunction","move",point,isSuccess);
+        return (isSuccess) ? super.calcDistance(point) : 0 ;
+    }
 }

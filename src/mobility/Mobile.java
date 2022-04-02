@@ -3,6 +3,7 @@ import java.lang.Math;
 
 public abstract class Mobile implements ILocatable {
 
+
     private Point location; // Current location
     private double totalDistance; // Distance the object traveled, [>0]
 
@@ -16,12 +17,11 @@ public abstract class Mobile implements ILocatable {
     }
 
     public double calcDistance(Point point) {
-        return Math.sqrt((this.location.getX() - point.getX())^2 + (this.location.getY() - point.getY())^2);
+        double result = Math.sqrt(Math.pow(this.location.getX() - point.getX(),2) + Math.pow(this.location.getY() - point.getY(),2));
+        return Math.round(result * 100) / 100.;
     }
 
-    public double move(Point point) {
-        return this.totalDistance += calcDistance(point);
-    }
+    public abstract double move(Point point);
 
     @Override
     public Point getLocation() {

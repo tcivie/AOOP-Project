@@ -25,7 +25,7 @@ public class MessageUtility {
 		if (isSuccess) {
 			System.out.println(str);
 		} else {
-			System.err.println(str);
+			System.out.println(str);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class MessageUtility {
 		if (isSuccess) {
 			System.out.println(str);
 		} else {
-			System.err.println(str);
+			System.out.println(str);
 		}
 
 	}
