@@ -109,10 +109,13 @@ public class main {
                 String choice = sc.next();
                 if (isNumeric(choice)) {
                     unknownNumber = Double.parseDouble(choice);
-                    if (unknownNumber == (int) unknownNumber) // Check if the number is int or double
-                        arr[k] = (int)unknownNumber; //TODO: Fix castign so that there will be stored int and not Integer or find another approach to issue on line 127
-                    else
-                        arr[k] = unknownNumber;
+                    if (unknownNumber == (int) unknownNumber) {// Check if the number is int or double
+                        int tempNum = (int) unknownNumber;
+                        arr[k] = tempNum; //TODO: Fix castign so that there will be stored int and not Integer or find another approach to issue on line 127
+                    } else {
+                        double tempDouble = unknownNumber;
+                        arr[k] = tempDouble;
+                    }
                 } else
                     arr[k] = choice;
 
@@ -121,10 +124,11 @@ public class main {
             for (Constructor ctor : con) {
                 Class<?>[] pType = ctor.getParameterTypes();
                 boolean match = true;
-                for (int j = 0; j < pType.length; j++) {
+                int j = 0;
+                for (; j < pType.length; j++) {
                     System.out.println(pType[j]);
                     System.out.println(arr[j].getClass());
-                    if (!pType[j].isInstance(arr[j]) || pType.length != (choiceInt + 1)) { // Check if the parameters are of the same type
+                    if (!(((Object)pType[j]).getClass().isInstance(arr[j].getClass())) || pType.length != (choiceInt + 1)) { // Check if the parameters are of the same type
                         match = false;
                         break;
                     }
