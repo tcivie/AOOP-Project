@@ -2,8 +2,11 @@ package animals;
 
 import diet.Carnivore;
 import food.EFoodType;
+import food.IEdible;
 import mobility.Point;
 import utilities.MessageUtility;
+
+import java.util.Random;
 
 public class Lion extends Animal {
     private int scarCount;
@@ -86,5 +89,23 @@ public class Lion extends Animal {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    /**
+     * Eat method of the animal - checks and feeds the animal the relevant food
+     * @param food What the animal will eat
+     * @return True if the animal has been fed successfully / False otherwise
+     */
+    @Override
+    public boolean eat(IEdible food) {
+        boolean isSuccess = (this.getDiet().canEat(food.getFoodtype()));
+        Random random = new Random();
+        if (isSuccess) {
+            if (random.nextInt(100) < 50)
+                setScarCount(this.scarCount++);
+            super.eat(food);
+        }
+        fireLog("logBooleanFunction", "eat", food, isSuccess);
+        return true;
     }
 }

@@ -28,7 +28,7 @@ public abstract class ZooActions{
      * @param point To where we want to move the animal
      * @return True if the animal has moved / False otherwise
      */
-    public boolean move(Object animal, Point point) {
+    public static boolean move(Object animal, Point point) {
         return ((Animal) animal).move(point) > 0;
     }
 
