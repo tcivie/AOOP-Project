@@ -31,10 +31,10 @@ public class Omnivore extends Diet implements IDiet {
     public double eat(Animal animal, IEdible food) {
         if (animal.getDiet().canEat(food.getFoodtype())) {
             if (food.getFoodtype() == EFoodType.MEAT)
-                return Math.round(animal.getWeight() * 1.1 * 100) / 100.;
-            return Math.round(animal.getWeight() * 1.07 * 100) / 100.;
+                return Math.round(animal.getWeight() * 0.1 * 100) / 100.;
+            return Math.round(animal.getWeight() * 0.07 * 100) / 100.;
         }
-        return animal.getWeight();
+        return 0;
     }
 
 }
