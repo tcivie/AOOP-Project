@@ -1,8 +1,7 @@
 package zoo;
 
 
-import animals.Animal;
-import animals.Lion;
+import animals.*;
 import mobility.Point;
 
 import java.io.File;
@@ -15,19 +14,6 @@ public class main {
     private static final int MIN_ARR_LEN = 3;
 
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-        double unknownNumber;
-        // HELPER DICTIONARY (PRIMITIVE TO WRAPPER) TODO: FIND DIFFERENT APPROACH LATER
-        Dictionary dict = new Hashtable();
-        dict.put("char", "Character");
-        dict.put("byte", "Byte");
-        dict.put("short", "Short");
-        dict.put("int", "Integer");
-        dict.put("long", "Long");
-        dict.put("float", "Float");
-        dict.put("double", "Double");
-        dict.put("boolean", "Boolean");
-
-
 
         Scanner sc = new Scanner(System.in);
         // GET NUMBER OF ANIMALS IN THE ZOO
@@ -39,75 +25,187 @@ public class main {
         }
         Animal[] zoo = new Animal[num];
 
-        // GET THE CLASS NAME AND THE NAME OF THE ANIMAL
-        Class c;
-        ClassLoader cl = ClassLoader.getSystemClassLoader();
+
         for (int i=0; i<zoo.length; i++) {
-            System.out.println("What animal do you want?");
-            String type = sc.next();
-            System.out.println("how would you like to call it?");
-            String name = sc.next();
-            c = cl.loadClass("animals." + type);
-            Constructor[] con = c.getConstructors();
-
-            // TODO: Print the ctors and their arguments for the user to know what are the options
-
-            // GATHER THE ARGUMENTS FOR THE CLASS
-            System.out.println("How many arguments are you going to give? ");
-            int choiceInt = sc.nextInt();
-            Object[] arr = new Object[choiceInt + 1];
-            arr[0] = name;
-            for (int k = 1; k < choiceInt + 1; k++) {
-                System.out.println("Enter argument No " + k + ": ");
-                String choice = sc.next();
-
-                // CHANGE THE STRING TO THE RIGHT TYPE
-                if (isNumeric(choice)) {
-                    unknownNumber = Double.parseDouble(choice);
-                    if (unknownNumber == (int) unknownNumber) {// Check if the number is int or double
-                        int tempNum = (int) unknownNumber;
-                        arr[k] = tempNum; //TODO: Fix casting so that there will be stored int and not Integer or find another approach to issue on line 127
-                    } else {
-                        double tempDouble = unknownNumber;
-                        arr[k] = tempDouble;
-                    }
-                } else
-                    arr[k] = choice;
-            }
-
-            // SEARCH FOR THE RIGHT CTOR
-            boolean match = false;
-            for (Constructor ctor : con) {
-                Class<?>[] pType = ctor.getParameterTypes();
-                int j = 1;
-                Field[] fields = ctor.getClass().getDeclaredFields();
-                for (; j < pType.length; j++) {
-                    match = true;
-                    System.out.println(pType[j].getSimpleName());
-                    System.out.println(arr[j].getClass().getSimpleName());
-
-                    try { // USE THE DICTIONARY TO CHECK IF THE TYPE IS PRIMITIVE
-                        if (!(dict.get(pType[j].getSimpleName()).equals(arr[j].getClass().getSimpleName()))||
-                                pType.length != (choiceInt + 1)) { // Check if the parameters are of the same type
-                            match = false;
-                            break;
+            System.out.println("""
+                    Select animal number from the list you would like to create:
+                    1 - [Bear]
+                    2 - [Elephant]
+                    3 - [Giraffe]
+                    4 - [Lion]
+                    5 - [Turtle]
+                    """);
+            num = sc.nextInt();
+            String name,color;
+            int x, y, age;
+            double length;
+            switch (num) {
+                case 1: // +++++ +++++ +++++ +++++ Bear +++++ +++++ +++++ +++++ +++++
+                    System.out.println("""
+                            +++++\s+++++\s+++++\s+++++\s[Bear] +++++\s+++++\s+++++\s+++++\s
+                            Chose ctor you would like to use [1-3]:
+                            1 - Name
+                            2 - Name, Fur Color
+                            3 - Name, X point, Y point
+                            """);
+                    num = sc.nextInt();
+                    switch (num) {
+                        case 1 -> { // Name
+                            System.out.println("Please enter the name of the bear:");
+                            name = sc.next();
+                            zoo[i] = new Bear(name);
                         }
-                    } catch (NullPointerException e) {
-                        if (!(pType[j].getSimpleName().equals(arr[j].getClass().getSimpleName()))||
-                                pType.length != (choiceInt + 1)) { // Check if the parameters are of the same type
-                            match = false;
-                            break;
+                        case 2 -> { // Name, Fur Color
+                            System.out.println("Please enter the name of the bear:");
+                            name = sc.next();
+                            System.out.println("Enter the fur color [BLACK,WHITE,GRAY]:");
+                            color = sc.next();
+                            zoo[i] = new Bear(name, color);
                         }
+                        case 3 -> { // Name, X point, Y point
+                            System.out.println("Please enter the name of the bear:");
+                            name = sc.next();
+                            System.out.println("X coordinates:");
+                            x = sc.nextInt();
+                            System.out.println("Y coordinates:");
+                            y = sc.nextInt();
+                            zoo[i] = new Bear(name, x, y);
+                        }
+                        default -> System.out.println("Error: no option found");
                     }
-                }
-                if (match) { // Found the right ctor
-                    zoo[i] = (Animal) ctor.newInstance(arr);
                     break;
-                }
-            }
-            if (!match) {
-                System.out.println("No Ctor found for the given parameters. Please try again.");
-                i--;
+                case 2: // +++++ +++++ +++++ +++++ Elephant +++++ +++++ +++++ +++++
+                    System.out.println("""
+                            +++++\s+++++\s+++++\s+++++\s[Elephant] +++++\s+++++\s+++++\s+++++\s
+                            Chose ctor you would like to use [1-3]:
+                            1 - Name
+                            2 - Name, Trunk Length
+                            3 - Name, X point, Y point
+                            """);
+                    num = sc.nextInt();
+                    switch (num) {
+                        case 1 -> { // Name
+                            System.out.println("Please enter the name of the elephant:");
+                            name = sc.next();
+                            zoo[i] = new Elephant(name);
+                        }
+                        case 2 -> { // Name, Fur Color
+                            System.out.println("Please enter the name of the elephant:");
+                            name = sc.next();
+                            System.out.println("Enter the trunk length (Double):");
+                            length = sc.nextDouble();
+                            zoo[i] = new Elephant(name, length);
+                        }
+                        case 3 -> { // Name, X point, Y point
+                            System.out.println("Please enter the name of the elephant:");
+                            name = sc.next();
+                            System.out.println("X coordinates:");
+                            x = sc.nextInt();
+                            System.out.println("Y coordinates:");
+                            y = sc.nextInt();
+                            zoo[i] = new Elephant(name, x, y);
+                        }
+                        default -> System.out.println("Error: no option found");
+                    }
+                    break;
+                case 3: // +++++ +++++ +++++ +++++ Giraffe +++++ +++++ +++++ +++++
+                    System.out.println("""
+                            +++++\s+++++\s+++++\s+++++\s[Giraffe] +++++\s+++++\s+++++\s+++++\s
+                            Chose ctor you would like to use [1-3]:
+                            1 - Name
+                            2 - Name, Neck length
+                            3 - Name, X point, Y point
+                            """);
+                    num = sc.nextInt();
+                    switch (num) {
+                        case 1 -> { // Name
+                            System.out.println("Please enter the name of the giraffe:");
+                            name = sc.next();
+                            zoo[i] = new Giraffe(name);
+                        }
+                        case 2 -> { // Name, Fur Color
+                            System.out.println("Please enter the name of the giraffe:");
+                            name = sc.next();
+                            System.out.println("Enter the neck length (Double):");
+                            length = sc.nextDouble();
+                            zoo[i] = new Giraffe(name, length);
+                        }
+                        case 3 -> { // Name, X point, Y point
+                            System.out.println("Please enter the name of the giraffe:");
+                            name = sc.next();
+                            System.out.println("X coordinates:");
+                            x = sc.nextInt();
+                            System.out.println("Y coordinates:");
+                            y = sc.nextInt();
+                            zoo[i] = new Giraffe(name, x, y);
+                        }
+                        default -> System.out.println("Error: no option found");
+                    }
+                    break;
+                case 4: // +++++ +++++ +++++ +++++ Lion +++++ +++++ +++++ +++++
+                    System.out.println("""
+                            +++++\s+++++\s+++++\s+++++\s[Lion] +++++\s+++++\s+++++\s+++++\s
+                            Chose ctor you would like to use [1-3]:
+                            1 - Name
+                            2 - Name, X point, Y point
+                            """);
+                    num = sc.nextInt();
+                    switch (num) {
+                        case 1 -> { // Name
+                            System.out.println("Please enter the name of the lion:");
+                            name = sc.next();
+                            zoo[i] = new Lion(name);
+                        }
+                        case 2 -> { // Name, Fur Color
+                            System.out.println("Please enter the name of the lion:");
+                            name = sc.next();
+                            System.out.println("X coordinates:");
+                            x = sc.nextInt();
+                            System.out.println("Y coordinates:");
+                            y = sc.nextInt();
+                            zoo[i] = new Lion(name, x, y);
+                        }
+                        default -> System.out.println("Error: no option found");
+                    }
+                    break;
+                case 5: // +++++ +++++ +++++ +++++ Turtle +++++ +++++ +++++ +++++
+                    System.out.println("""
+                            +++++\s+++++\s+++++\s+++++\s[Turtle] +++++\s+++++\s+++++\s+++++\s
+                            Chose ctor you would like to use [1-3]:
+                            1 - Name
+                            2 - Name, Age
+                            3 - Name, X point, Y point
+                            """);
+                    num = sc.nextInt();
+                    switch (num) {
+                        case 1 -> { // Name
+                            System.out.println("Please enter the name of the turtle:");
+                            name = sc.next();
+                            zoo[i] = new Turtle(name);
+                        }
+                        case 2 -> { // Name, Fur Color
+                            System.out.println("Please enter the name of the turtle:");
+                            name = sc.next();
+                            System.out.println("Enter the trunk length (Double):");
+                            age = sc.nextInt();
+                            zoo[i] = new Turtle(name, age);
+                        }
+                        case 3 -> { // Name, X point, Y point
+                            System.out.println("Please enter the name of the turtle:");
+                            name = sc.next();
+                            System.out.println("X coordinates:");
+                            x = sc.nextInt();
+                            System.out.println("Y coordinates:");
+                            y = sc.nextInt();
+                            zoo[i] = new Turtle(name, x, y);
+                        }
+                        default -> System.out.println("Error: no option found");
+                    }
+                    break;
+                default: // ERR
+                    System.out.println("Error: The chosen value is incorrect please chose number between 1-5");
+                    i--;
+                    break;
             }
         }
         System.out.println("Animals created successfully\nPrinting all the animals with their indexes:");
@@ -131,28 +229,13 @@ public class main {
         System.out.println("Choosing two random animals from the list");
         for (int i = 0; i < Math.floor(zoo.length/2.); i++) {
             Random random = new Random();
-            int a = random.ints(zoo.length).findFirst().getAsInt();
+            int a = random.nextInt(0, zoo.length);
             int b;
             do {
-                b = random.ints(zoo.length).findFirst().getAsInt();
+                b = random.nextInt(0, zoo.length);
             } while (b == a);
             ZooActions.eat(zoo[a],zoo[b]);
         }
 
-    }
-
-    public static boolean isNumeric(String string) {
-        double intValue;
-        if(string == null || string.equals("")) {
-            return false;
-        }
-
-        try {
-            intValue = Double.parseDouble(string);
-            return true;
-        } catch (NumberFormatException e) {
-            System.out.println("Input String cannot be parsed to Integer.");
-        }
-        return false;
     }
 }

@@ -113,9 +113,9 @@ public abstract class Animal extends Mobile implements IEdible {
     public boolean eat(IEdible food) {
         boolean isSuccess = (this.diet.canEat(food.getFoodtype()));
         if (isSuccess)
-            this.weight = this.diet.eat(this,food);
+            this.weight += this.diet.eat(this,food);
         fireLog("logBooleanFunction", "eat", food, isSuccess);
-        return true;
+        return isSuccess;
     }
 
     /*
@@ -181,15 +181,16 @@ public abstract class Animal extends Mobile implements IEdible {
      */
     public double move(Point point) {
         boolean isSuccess = Point.checkBounderies(point);
+        double distance = 0;
         if (isSuccess) {
             double weight = this.getWeight();
-            double distance = calcDistance(point);
+            distance = calcDistance(point);
             isSuccess = setWeight(Math.round((weight - ( distance * weight * 0.00025 )) * 100) / 100.);
             setLocation(point);
             this.addTotalDistance(distance);
         }
         fireLog("logBooleanFunction","move",point,isSuccess);
-        return (isSuccess) ? super.calcDistance(point) : 0 ;
+        return distance;
     }
 
 

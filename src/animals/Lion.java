@@ -101,11 +101,11 @@ public class Lion extends Animal {
         boolean isSuccess = (this.getDiet().canEat(food.getFoodtype()));
         Random random = new Random();
         if (isSuccess) {
-            if (random.nextInt(100) < 50)
+            if (random.nextInt(0,100) < 50)
                 setScarCount(this.scarCount++);
             super.eat(food);
         }
         fireLog("logBooleanFunction", "eat", food, isSuccess);
-        return true;
+        return isSuccess;
     }
 }
