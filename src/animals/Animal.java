@@ -113,7 +113,7 @@ public abstract class Animal extends Mobile implements IEdible {
     public boolean eat(IEdible food) {
         boolean isSuccess = (this.diet.canEat(food.getFoodtype()));
         if (isSuccess)
-            this.weight += this.diet.eat(this,food);
+            setWeight(this.diet.eat(this,food) + this.weight);
         fireLog("logBooleanFunction", "eat", food, isSuccess);
         return isSuccess;
     }

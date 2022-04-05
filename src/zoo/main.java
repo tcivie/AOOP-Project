@@ -186,7 +186,7 @@ public class main {
                         case 2 -> { // Name, Fur Color
                             System.out.println("Please enter the name of the turtle:");
                             name = sc.next();
-                            System.out.println("Enter the trunk length (Double):");
+                            System.out.println("Enter the age:");
                             age = sc.nextInt();
                             zoo[i] = new Turtle(name, age);
                         }
