@@ -5,6 +5,10 @@ import food.EFoodType;
 import mobility.Point;
 import utilities.MessageUtility;
 
+/**
+ * @author Gleb Tcivie
+ * @Date 5/4/22
+ */
 public class Giraffe extends Animal {
 
     private double neckLength;

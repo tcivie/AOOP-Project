@@ -1,11 +1,13 @@
 package animals;
 
-import diet.Carnivore;
 import diet.Herbivore;
-import food.EFoodType;
 import mobility.Point;
 import utilities.MessageUtility;
 
+/**
+ * @author Gleb Tcivie
+ * @Date 5/4/22
+ */
 public class Turtle extends Animal {
 
     private int Age;

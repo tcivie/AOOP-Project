@@ -1,6 +1,5 @@
 package animals;
 
-import diet.Diet;
 import diet.IDiet;
 import food.EFoodType;
 import food.IEdible;
@@ -8,8 +7,10 @@ import mobility.Mobile;
 import mobility.Point;
 import utilities.MessageUtility;
 
-import java.util.function.Function;
-
+/**
+ * @author Gleb Tcivie
+ * @Date 5/4/22
+ */
 public abstract class Animal extends Mobile implements IEdible {
 
     private String name;

@@ -4,6 +4,10 @@ import animals.Animal;
 import food.EFoodType;
 import food.IEdible;
 
+/**
+ * @author Gleb Tcivie
+ * @Date 5/4/22
+ */
 public interface IDiet {
     /**
      * Checks if the other food type can be eaten

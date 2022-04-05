@@ -1,14 +1,15 @@
 package animals;
 
-import diet.Carnivore;
-import diet.Herbivore;
 import diet.Omnivore;
-import food.EFoodType;
 import mobility.Point;
 import utilities.MessageUtility;
 
 import java.util.Arrays;
 
+/**
+ * @author Gleb Tcivie
+ * @Date 5/4/22
+ */
 public class Bear extends Animal{
 
     private String furColor;

@@ -8,6 +8,10 @@ import utilities.MessageUtility;
 
 import java.util.Random;
 
+/**
+ * @author Gleb Tcivie
+ * @Date 5/4/22
+ */
 public class Lion extends Animal {
     private int scarCount;
 

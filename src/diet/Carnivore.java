@@ -4,8 +4,11 @@ import animals.Animal;
 import food.EFoodType;
 import food.IEdible;
 
-import java.util.InputMismatchException;
 
+/**
+ * @author Gleb Tcivie
+ * @Date 5/4/22
+ */
 public class Carnivore extends Diet implements IDiet {
     /**
      * Checks if the other food type can be eaten

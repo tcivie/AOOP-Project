@@ -1,5 +1,9 @@
 package mobility;
 
+/**
+ * @author Gleb Tcivie
+ * @Date 5/4/22
+ */
 public class Point {
     private int x;
     private int y;
