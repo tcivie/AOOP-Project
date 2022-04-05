@@ -6,7 +6,7 @@ import food.IEdible;
 
 
 /**
- * @author Gleb Tcivie
+ * @author Gleb Tcivie & Orel Dandeker
  * @Date 5/4/22
  */
 public class Carnivore extends Diet implements IDiet {

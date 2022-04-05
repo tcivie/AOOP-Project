@@ -2,7 +2,7 @@ package mobility;
 import java.lang.Math;
 
 /**
- * @author Gleb Tcivie
+ * @author Gleb Tcivie & Orel Dandeker
  * @Date 5/4/22
  */
 public abstract class Mobile implements ILocatable {

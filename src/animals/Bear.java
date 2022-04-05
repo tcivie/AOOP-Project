@@ -7,7 +7,7 @@ import utilities.MessageUtility;
 import java.util.Arrays;
 
 /**
- * @author Gleb Tcivie
+ * @author Gleb Tcivie & Orel Dandeker
  * @Date 5/4/22
  */
 public class Bear extends Animal{
