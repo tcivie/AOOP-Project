@@ -53,6 +53,6 @@ public abstract class Mobile implements ILocatable {
     @Override
     public boolean setLocation(Point point) {
         this.location = point;
-        return true; //TODO: Check if there is some thing to check here
+        return true;
     }
 }

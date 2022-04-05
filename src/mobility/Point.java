@@ -10,7 +10,6 @@ public class Point {
     private static final int MAX_Y = 600;
     private static final int MIN_Y = 0;
 
-    //TODO: add exceptions and messages
     public Point(int x, int y) {
         this.x = x;
         this.y = y;

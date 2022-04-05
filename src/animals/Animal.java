@@ -82,7 +82,7 @@ public abstract class Animal extends Mobile implements IEdible {
     public boolean setDiet(IDiet diet) {
         this.diet = diet;
         fireLog("logSetter", "setDiet", diet, true);
-        return true; //TODO: Check if there is some thing to check here
+        return true;
     }
 
     /**
@@ -93,7 +93,7 @@ public abstract class Animal extends Mobile implements IEdible {
     public boolean setName(String name) {
         this.name = name;
         fireLog("logSetter", "setName", name, true);
-        return true; //TODO: Check if there is some thing to check here
+        return true;
     }
 
     /**
