@@ -3,19 +3,36 @@ package animals;
 import diet.IDiet;
 import food.EFoodType;
 import food.IEdible;
+import graphics.IAnimalBehavior;
+import graphics.IDrawable;
+import graphics.ZooPanel;
 import mobility.Mobile;
 import mobility.Point;
 import utilities.MessageUtility;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker
  * @Date 5/4/22
  */
-public abstract class Animal extends Mobile implements IEdible {
+public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior, IDrawable {
 
     private String name;
     private double weight;
     private IDiet diet;
+
+    private final int EAT_DISTANCE = 5; private int size;
+    private Color col;
+    private int horSpeed;
+    private int verSpeed;
+    private boolean coordChanged; private Thread thread;
+    private int x_dir;
+    private int y_dir;
+    private int eatCount;
+    private ZooPanel pan;
+    private BufferedImage img1, img2;
 
     /**
      * Ctor
