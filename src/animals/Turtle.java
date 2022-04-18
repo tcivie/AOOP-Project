@@ -11,6 +11,7 @@ import utilities.MessageUtility;
 public class Turtle extends Animal {
 
     private int Age;
+    private static final String PICTURE_PATH = "..."; //TODO: Add path
 
     /**
      * Ctor

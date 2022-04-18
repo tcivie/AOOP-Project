@@ -13,7 +13,9 @@ import java.util.Random;
  * @Date 5/4/22
  */
 public class Lion extends Animal {
+
     private int scarCount;
+    private static final String PICTURE_PATH = "..."; //TODO: Add path
 
     /**
      * Ctor

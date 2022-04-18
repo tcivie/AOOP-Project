@@ -12,6 +12,7 @@ import utilities.MessageUtility;
 public class Elephant extends Animal{
 
     private double trunkLength;
+    private static final String PICTURE_PATH = "..."; //TODO: Add path
 
     /**
      * Ctor

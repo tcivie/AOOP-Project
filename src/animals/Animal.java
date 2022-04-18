@@ -211,5 +211,40 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         return distance;
     }
 
+    public String getAnimalName() { //TODO: Add implementation
+        return null;
+    }
+
+    public int getSize() { //TODO: Add implementation
+        return 0;
+    }
+
+    public void eatInc() { //TODO: Add implementation
+
+    }
+
+    public int getEatCount() { //TODO: Add implementation
+        return 0;
+    }
+
+    public boolean getChanges() { //TODO: Add implementation
+        return false;
+    }
+
+    public void setChanges(boolean state) { //TODO: Add implementation
+
+    }
+
+    public void loadImages(String nm) { //TODO: Add implementation
+
+    }
+
+    public void drawObject(Graphics g) { //TODO: Add implementation
+
+    }
+
+    public String getColor() { //TODO: Add implementation
+        return null;
+    }
 
 }

@@ -1,5 +1,6 @@
 package plants;
 
+import java.awt.*;
 import java.util.Random;
 
 import food.EFoodType;
@@ -133,6 +134,18 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable {
 	@Override
 	public String toString() {
 		return "[" + this.getClass().getSimpleName() + "] ";
+	}
+
+	public void loadImages(String nm) { //TODO: Add implementation
+
+	}
+
+	public void drawObject(Graphics g) { //TODO: Add implementation
+
+	}
+
+	public String getColor() { //TODO: Add implementation
+		return null;
 	}
 
 }
