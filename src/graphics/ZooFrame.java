@@ -25,6 +25,7 @@ public class ZooFrame extends JFrame {
 
     private static JMenuBar setMenuBar() {
         JMenuBar menuBar = new JMenuBar(); // Create menu bar
+
         JMenu menuFile = new JMenu("File"); // Create section File
         JMenuItem menuItemExit = new JMenuItem("Exit"); // Add exit item
 
@@ -38,9 +39,49 @@ public class ZooFrame extends JFrame {
                 getFrames()[0].dispose(); // Close all windows
             }
         });
-
         menuFile.add(menuItemExit);
+
+        JMenu menuBackground = new JMenu("Background"); // Create section Background
+        JMenuItem menuItemImage = new JMenuItem("Image"); // Add image item
+        JMenuItem menuItemGreen = new JMenuItem("Green"); // Add green item
+        JMenuItem menuItemNone = new JMenuItem("None"); // Add none item
+
+        menuItemImage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: Add implementation of the menuItemImage
+            }
+        });
+        menuItemGreen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: Add implementation of the menuItemGreen
+            }
+        });
+        menuItemNone.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: Add implementation of the menuItemNone
+            }
+        });
+        menuBackground.add(menuItemImage);
+        menuBackground.add(menuItemGreen);
+        menuBackground.add(menuItemNone);
+
+        JMenu menuHelp = new JMenu("Help"); // Create section Background
+        JMenuItem menuItemHelp = new JMenuItem("Help"); // Add image item
+
+        menuItemHelp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: Add help popup
+            }
+        });
+        menuHelp.add(menuItemHelp);
+
         menuBar.add(menuFile);
+        menuBar.add(menuBackground);
+        menuBar.add(menuHelp);
         return menuBar;
     }
 }
