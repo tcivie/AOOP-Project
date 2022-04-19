@@ -23,12 +23,16 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private double weight;
     private IDiet diet;
 
-    private final int EAT_DISTANCE = 5; private int size;
-    private Color col;
+    private final int EAT_DISTANCE = 5;
+    private int size;
+    private String col;
     private int horSpeed;
     private int verSpeed;
-    private boolean coordChanged; private Thread thread;
+    private boolean coordChanged;
+    private Thread thread;
+
     private int x_dir;
+
     private int y_dir;
     private int eatCount;
     private ZooPanel pan;
@@ -136,15 +140,18 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         return isSuccess;
     }
 
+
     /*
      * (non-Javadoc)
      *
      * @see java.lang.Object#toString()
      */
+
     @Override
     public String toString() {
         return "[" +this.getClass().getSimpleName() + "]" +this.name;
     }
+
 
     /**
      * Helper method for firing logs with the library MessageUtility
@@ -177,7 +184,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
                 break;
         }
     }
-
     /**
      * Helper method for firing logs with the library MessageUtility
      * @param methodName What method to fire [logSound]
@@ -215,8 +221,13 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         return null;
     }
 
-    public int getSize() { //TODO: Add implementation
-        return 0;
+    /**
+     * Gets the animal size
+     * @return Animal size
+     */
+    public int getSize() {
+        fireLog("logGetter", "getSize", this.size);
+        return this.size;
     }
 
     public void eatInc() { //TODO: Add implementation
@@ -239,12 +250,65 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
     }
 
-    public void drawObject(Graphics g) { //TODO: Add implementation
-
+    public void drawObject(Graphics g) {
+        Point location = getLocation();
+        if(x_dir==1) // giraffe goes to the right side
+            g.drawImage(getImg1(), location.getX()-getSize()/2, location.getY()-getSize()/10, getSize()/2, getSize(), getPan()); // animal goes to the left side
+        else
+            g.drawImage(getImg2(), location.getX(), location.getY()-getSize()/10, getSize()/2, getSize(), getPan()); // animal goes to the right
     }
 
-    public String getColor() { //TODO: Add implementation
-        return null;
+    /**
+     * Get animal color
+     * @return String color
+     */
+    public String getColor() {
+        fireLog("logGetter", "getColor", this.col);
+        return this.col;
     }
 
+    /**
+     * Get the panel
+     * @return Zoo panel
+     */
+    public ZooPanel getPan() {
+        fireLog("logGetter", "getPan", this.pan);
+        return pan;
+    }
+
+    /**
+     * Gets the first animal image
+     * @return first image
+     */
+    public BufferedImage getImg1() {
+        fireLog("logGetter", "getImg1", this.img1);
+        return img1;
+    }
+
+    /**
+     * Gets the second animal image
+     * @return second image
+     */
+    public BufferedImage getImg2() {
+        fireLog("logGetter", "getImg2", this.img1);
+        return img2;
+    }
+
+    /**
+     * Gets the x direction of the animal movement
+     * @return if the animal is moving in the direction
+     */
+    public int getX_dir() {
+        fireLog("logGetter", "getX_dir", this.x_dir);
+        return x_dir;
+    }
+
+    /**
+     * Gets the y direction of the animal movement
+     * @return if the animal is moving in the direction
+     */
+    public int getY_dir() {
+        fireLog("logGetter", "getY_dir", this.y_dir);
+        return y_dir;
+    }
 }
