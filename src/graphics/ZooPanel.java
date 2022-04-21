@@ -53,14 +53,6 @@ public class ZooPanel extends JPanel implements Runnable {
 
     }
 
-    public void updateFrame() {
-
-    }
-
-    public ZooPanel(int width, int height) {
-        super();
-        this.setMaximumSize(this.getPreferredSize());
-    }
 
     @Override
     protected void paintComponent(Graphics g) {

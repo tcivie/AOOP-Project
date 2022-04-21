@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
@@ -18,12 +19,14 @@ public class ZooFrame extends JFrame {
         JFrame frame = new JFrame("AOOP Assignment 2 - Zoo"); // Create the frame
         frame.setLayout(new BorderLayout()); // Set border layout
 
-        ZooPanel zooPanel = new ZooPanel(300, 200);
-        frame.setJMenuBar(setMenuBar(zooPanel)); // add the menu to the frame
+        ZooPanel zooPanel = new ZooPanel();
+        JPanel actionButtons = actionButtons();
+
+        frame.setJMenuBar(setMenuBar(zooPanel,actionButtons)); // add the menu to the frame
 
         frame.add(zooPanel,BorderLayout.CENTER); // Add zoo panel to the frame
 
-        frame.add(actionButtons(),BorderLayout.SOUTH); // Create new buttons panel and add it to the bottom
+        frame.add(actionButtons,BorderLayout.SOUTH); // Create new buttons panel and add it to the bottom
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Sets default close operation
         frame.setSize(300, 200); // Set the frame size
@@ -49,7 +52,7 @@ public class ZooFrame extends JFrame {
      * @return new JMenu bar with the fields and the actions
      * @param zooPanel
      */
-    private static JMenuBar setMenuBar(ZooPanel zooPanel) {
+    private static JMenuBar setMenuBar(ZooPanel zooPanel, JPanel actionButtons) {
         JMenuBar menuBar = new JMenuBar(); // Create menu bar
 
         JMenu menuFile = new JMenu("File"); // Create section File
@@ -81,7 +84,10 @@ public class ZooFrame extends JFrame {
 
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     try {
-                        zooPanel.setBackgroundImage(ImageIO.read(fc.getSelectedFile()));
+                        BufferedImage bgImage = ImageIO.read(fc.getSelectedFile());
+                        zooPanel.setBackgroundImage(bgImage);
+                        zooPanel.setSize(bgImage.getWidth(), bgImage.getHeight()); // resize the panel to match the zoo size
+                        getFrames()[0].setSize(bgImage.getWidth(), bgImage.getHeight() + actionButtons.getHeight()*2); // resize the frame to include the image
                     } catch (IOException ex) {
                         JOptionPane.showMessageDialog(getFrames()[0], "There's an issue with the file you chose", "Error: File choosing", JOptionPane.ERROR_MESSAGE);
                     }
