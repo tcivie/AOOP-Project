@@ -1,9 +1,11 @@
 package graphics;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /**
  * @author glebtcivie
@@ -11,12 +13,15 @@ import java.awt.event.ActionListener;
  */
 public class ZooFrame extends JFrame {
 
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("AOOP Assignment 2 - Zoo"); // Create the frame
         frame.setLayout(new BorderLayout()); // Set border layout
 
-        frame.setJMenuBar(setMenuBar()); // add the menu to the frame
-        frame.add(new ZooPanel()); // Add zoo panel to the frame
+        ZooPanel zooPanel = new ZooPanel(300, 200);
+        frame.setJMenuBar(setMenuBar(zooPanel)); // add the menu to the frame
+
+        frame.add(zooPanel,BorderLayout.CENTER); // Add zoo panel to the frame
 
         frame.add(actionButtons(),BorderLayout.SOUTH); // Create new buttons panel and add it to the bottom
 
@@ -25,6 +30,7 @@ public class ZooFrame extends JFrame {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null); // Centers the frame
         frame.pack();
+        frame.setVisible(true);
     }
 
     /**
@@ -41,8 +47,9 @@ public class ZooFrame extends JFrame {
      * │  ├─ Help
      *
      * @return new JMenu bar with the fields and the actions
+     * @param zooPanel
      */
-    private static JMenuBar setMenuBar() {
+    private static JMenuBar setMenuBar(ZooPanel zooPanel) {
         JMenuBar menuBar = new JMenuBar(); // Create menu bar
 
         JMenu menuFile = new JMenu("File"); // Create section File
@@ -69,19 +76,29 @@ public class ZooFrame extends JFrame {
         menuItemImage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add implementation of the menuItemImage
+                final JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showOpenDialog(getFrames()[0]);
+
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        zooPanel.setBackgroundImage(ImageIO.read(fc.getSelectedFile()));
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(getFrames()[0], "There's an issue with the file you chose", "Error: File choosing", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         });
         menuItemGreen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add implementation of the menuItemGreen
+                zooPanel.setBackgroundColor(Color.GREEN);
             }
         });
         menuItemNone.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Add implementation of the menuItemNone
+                zooPanel.setBackgroundColor(null);
+                zooPanel.setBackgroundImage(null);
             }
         });
         menuBackground.add(menuItemImage);
@@ -95,6 +112,7 @@ public class ZooFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(getFrames()[0],"Home Work 2\nGUI"); // Show popup with the message
+//                JOptionPane.showInputDialog(getFrames()[0],new JComboBox<String>(),"COMBOBOX");
             }
         });
         menuHelp.add(menuItemHelp);
