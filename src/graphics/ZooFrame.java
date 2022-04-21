@@ -78,7 +78,7 @@ public class ZooFrame extends JFrame {
 
         menuItemImage.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { // Add Background image
                 final JFileChooser fc = new JFileChooser();
                 int returnVal = fc.showOpenDialog(getFrames()[0]);
 
@@ -94,13 +94,13 @@ public class ZooFrame extends JFrame {
                 }
             }
         });
-        menuItemGreen.addActionListener(new ActionListener() {
+        menuItemGreen.addActionListener(new ActionListener() { // Set background color to green
             @Override
             public void actionPerformed(ActionEvent e) {
                 zooPanel.setBackgroundColor(Color.GREEN);
             }
         });
-        menuItemNone.addActionListener(new ActionListener() {
+        menuItemNone.addActionListener(new ActionListener() { // Remove all backgrounds
             @Override
             public void actionPerformed(ActionEvent e) {
                 zooPanel.setBackgroundColor(null);
@@ -114,7 +114,7 @@ public class ZooFrame extends JFrame {
         JMenu menuHelp = new JMenu("Help"); // Create section Background
         JMenuItem menuItemHelp = new JMenuItem("Help"); // Add image item
 
-        menuItemHelp.addActionListener(new ActionListener() {
+        menuItemHelp.addActionListener(new ActionListener() { // Display help popup
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(getFrames()[0],"Home Work 2\nGUI"); // Show popup with the message
@@ -133,12 +133,47 @@ public class ZooFrame extends JFrame {
         JPanel buttons = new JPanel();
 
         JButton addAnimalButton = new JButton("Add Animal");
+        addAnimalButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: add implementation
+            }
+        });
         JButton moveAnimalButton = new JButton("Move Animal");
+        moveAnimalButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: add implementation
+            }
+        });
         JButton clearButton = new JButton("Clear");
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: add implementation
+            }
+        });
         JButton foodButton = new JButton("Food");
+        foodButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: add implementation
+            }
+        });
         JButton infoButton = new JButton("Info");
+        infoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: add implementation
+            }
+        });
         JButton exitButton = new JButton("Exit");
-        //TODO: Add actions to the buttons
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: add implementation
+            }
+        });
 
         buttons.add(addAnimalButton);
         buttons.add(moveAnimalButton);
