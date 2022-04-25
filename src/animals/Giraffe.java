@@ -12,7 +12,7 @@ import utilities.MessageUtility;
 public class Giraffe extends Animal {
 
     private double neckLength;
-    private static final String PICTURE_PATH = "..."; //TODO: Add path
+    private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/grf_n_1.png";
 
     /**
      * Ctor

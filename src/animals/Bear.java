@@ -14,7 +14,7 @@ public class Bear extends Animal{
 
     private String furColor;
     public static String[] COLORS = {"BLACK","WHITE","GRAY"};
-    private static final String PICTURE_PATH = "..."; //TODO: Add path
+    private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/bea_n_1.png";
 
     /**
      * Ctor
