@@ -5,8 +5,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author glebtcivie
@@ -131,12 +134,44 @@ public class ZooFrame extends JFrame {
 
     private static JPanel actionButtons() {
         JPanel buttons = new JPanel();
+        JPanel cards = new JPanel(new CardLayout());
 
         JButton addAnimalButton = new JButton("Add Animal");
         addAnimalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
+                JFrame frame = new JFrame("Add Animal");
+                frame.setSize(500,500);
+
+                JPanel comboBoxPane = new JPanel();
+                String[] comboBoxItems = {"Bear","Elephant","Giraffe","Lion","Turtle"};
+                JComboBox cb = new JComboBox(comboBoxItems);
+                cb.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent e) {
+                        CardLayout cl = (CardLayout)(cards.getLayout());
+                        cl.show(cards, (String)e.getItem());
+                    }
+                });
+                cb.setEditable(false);
+                comboBoxPane.add(cb);
+
+                //Create the "cards".
+                JPanel card1 = new JPanel();
+                card1.add(new JButton("Button 1"));
+                card1.add(new JButton("Button 2"));
+                card1.add(new JButton("Button 3"));
+
+                JPanel card2 = new JPanel();
+                card2.add(new JTextField("TextField", 20));
+
+                //Create the panel that contains the "cards".
+                cards.add(card1, "Bear");
+                cards.add(card2, "Elephant");
+
+                frame.add(comboBoxPane, BorderLayout.PAGE_START);
+                frame.add(cards, BorderLayout.CENTER);
+                frame.setVisible(true);
             }
         });
         JButton moveAnimalButton = new JButton("Move Animal");

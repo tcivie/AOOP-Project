@@ -10,6 +10,7 @@ import mobility.Mobile;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
