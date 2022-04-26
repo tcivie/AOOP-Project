@@ -4,7 +4,12 @@ import diet.Omnivore;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Arrays;
+
+import static javax.swing.GroupLayout.Alignment.BASELINE;
+import static javax.swing.GroupLayout.Alignment.LEADING;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker
@@ -100,5 +105,24 @@ public class Bear extends Animal{
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    public static JPanel createCard() {
+        JPanel card = new JPanel();
+        card.setLayout(new BorderLayout());
+
+        JPanel innerLeft = new JPanel();
+        JPanel innerRight = Animal.ctorParams(); // get basic information needed from the animal
+        JPanel bottom = new JPanel();
+
+        JLabel imageLabel = new JLabel();
+        imageLabel.setIcon(new ImageIcon(PICTURE_PATH));
+        innerLeft.add(imageLabel);
+
+        card.add(innerLeft,BorderLayout.LINE_START);
+        card.add(innerRight,BorderLayout.LINE_END);
+        card.add(bottom,BorderLayout.PAGE_END);
+
+        return card;
     }
 }

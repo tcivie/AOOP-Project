@@ -312,4 +312,21 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         fireLog("logGetter", "getY_dir", this.y_dir);
         return y_dir;
     }
+
+    /**
+     * Creates the simple animal parameters for panel
+     * @return New Jpanel with the basic parameters
+     */
+    public static JPanel ctorParams() {
+        JPanel innerRight = new JPanel();
+        innerRight.setBorder(BorderFactory.createTitledBorder("Parameters"));
+        innerRight.setLayout(new GridLayout(5,2));
+        innerRight.add(new JLabel("Name:"));
+        innerRight.add(new JTextField());
+        innerRight.add(new JLabel("X Coordinate:"));
+        innerRight.add(new JTextField());
+        innerRight.add(new JLabel("Y Coordinate:"));
+        innerRight.add(new JTextField());
+        return innerRight;
+    }
 }

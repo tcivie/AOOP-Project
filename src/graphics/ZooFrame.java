@@ -1,5 +1,7 @@
 package graphics;
 
+import animals.Bear;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -134,80 +136,30 @@ public class ZooFrame extends JFrame {
 
     private static JPanel actionButtons() {
         JPanel buttons = new JPanel();
-        JPanel cards = new JPanel(new CardLayout());
 
         JButton addAnimalButton = new JButton("Add Animal");
-        addAnimalButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame frame = new JFrame("Add Animal");
-                frame.setSize(500,500);
-
-                JPanel comboBoxPane = new JPanel();
-                String[] comboBoxItems = {"Bear","Elephant","Giraffe","Lion","Turtle"};
-                JComboBox cb = new JComboBox(comboBoxItems);
-                cb.addItemListener(new ItemListener() {
-                    @Override
-                    public void itemStateChanged(ItemEvent e) {
-                        CardLayout cl = (CardLayout)(cards.getLayout());
-                        cl.show(cards, (String)e.getItem());
-                    }
-                });
-                cb.setEditable(false);
-                comboBoxPane.add(cb);
-
-                //Create the "cards".
-                JPanel card1 = new JPanel();
-                card1.add(new JButton("Button 1"));
-                card1.add(new JButton("Button 2"));
-                card1.add(new JButton("Button 3"));
-
-                JPanel card2 = new JPanel();
-                card2.add(new JTextField("TextField", 20));
-
-                //Create the panel that contains the "cards".
-                cards.add(card1, "Bear");
-                cards.add(card2, "Elephant");
-
-                frame.add(comboBoxPane, BorderLayout.PAGE_START);
-                frame.add(cards, BorderLayout.CENTER);
-                frame.setVisible(true);
-            }
+        addAnimalButton.addActionListener(e -> {
+            AddAnimalDialog dialog = new AddAnimalDialog(new JFrame(), true);
         });
         JButton moveAnimalButton = new JButton("Move Animal");
-        moveAnimalButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
-            }
+        moveAnimalButton.addActionListener(e -> {
+            //TODO: add implementation
         });
         JButton clearButton = new JButton("Clear");
-        clearButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
-            }
+        clearButton.addActionListener(e -> {
+            //TODO: add implementation
         });
         JButton foodButton = new JButton("Food");
-        foodButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
-            }
+        foodButton.addActionListener(e -> {
+            //TODO: add implementation
         });
         JButton infoButton = new JButton("Info");
-        infoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
-            }
+        infoButton.addActionListener(e -> {
+            //TODO: add implementation
         });
         JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
-            }
+        exitButton.addActionListener(e -> {
+            //TODO: add implementation
         });
 
         buttons.add(addAnimalButton);
