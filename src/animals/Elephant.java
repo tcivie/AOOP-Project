@@ -5,6 +5,9 @@ import food.EFoodType;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * @author Gleb Tcivie & Orel Dandeker
  * @Date 5/4/22
@@ -51,6 +54,23 @@ public class Elephant extends Animal{
         setWeight(500);
         settrunkLength(length);
         setDiet(new Herbivore());
+    }
+
+    /**
+     * Creates the card for the ctor of the animal
+     * @return Card with the relevant data added
+     */
+    public static JPanel createCard() {
+        JPanel card = Animal.createPanel(PICTURE_PATH);
+
+        JPanel additionalParams = new JPanel();
+        additionalParams.setBorder(BorderFactory.createTitledBorder("Additional parameters"));
+        additionalParams.setLayout(new GridLayout(1,2));
+        additionalParams.add(new JLabel("Trunk length:"));
+        additionalParams.add(new JTextArea());
+
+        card.add(additionalParams,BorderLayout.EAST);
+        return card;
     }
 
     @Override

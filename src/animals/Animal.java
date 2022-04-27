@@ -10,9 +10,12 @@ import mobility.Mobile;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker
@@ -38,6 +41,8 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private int eatCount;
     private ZooPanel pan;
     private BufferedImage img1, img2;
+
+    private static JPanel paramPanel;
 
     /**
      * Ctor
@@ -317,16 +322,48 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * Creates the simple animal parameters for panel
      * @return New Jpanel with the basic parameters
      */
-    public static JPanel ctorParams() {
+    private static JPanel ctorParams() {
         JPanel innerRight = new JPanel();
         innerRight.setBorder(BorderFactory.createTitledBorder("Parameters"));
-        innerRight.setLayout(new GridLayout(5,2));
+        innerRight.setLayout(new GridLayout(7,2));
         innerRight.add(new JLabel("Name:"));
         innerRight.add(new JTextField());
         innerRight.add(new JLabel("X Coordinate:"));
         innerRight.add(new JTextField());
         innerRight.add(new JLabel("Y Coordinate:"));
         innerRight.add(new JTextField());
+        innerRight.add(new JLabel("Size:"));
+        innerRight.add(new JTextField());
+        innerRight.add(new JLabel("Vertical Speed:"));
+        innerRight.add(new JTextField());
+        innerRight.add(new JLabel("Horizontal Speed:"));
+        innerRight.add(new JTextField());
+        innerRight.add(new JLabel("Color:"));
+        innerRight.add(new JTextField());
         return innerRight;
+    }
+
+    public static JPanel createPanel(String icon) {
+        paramPanel = new JPanel();
+        paramPanel.setLayout(new BorderLayout());
+
+        JPanel innerLeft = new JPanel();
+        JPanel innerRight = Animal.ctorParams(); // get basic information needed from the animal
+
+        try { // resize the image
+            BufferedImage img = ImageIO.read(new File(icon));
+            Image dimg = img.getScaledInstance(250, 250,
+                    Image.SCALE_SMOOTH);
+            ImageIcon imageIcon = new ImageIcon(dimg);
+
+            innerLeft.add(new JLabel("",imageIcon,JLabel.CENTER)); // add the image
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        paramPanel.add(innerLeft,BorderLayout.WEST);
+        paramPanel.add(innerRight,BorderLayout.CENTER);
+
+        return paramPanel;
     }
 }

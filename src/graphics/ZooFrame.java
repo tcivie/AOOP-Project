@@ -24,7 +24,7 @@ public class ZooFrame extends JFrame {
         JFrame frame = new JFrame("AOOP Assignment 2 - Zoo"); // Create the frame
         frame.setLayout(new BorderLayout()); // Set border layout
 
-        ZooPanel zooPanel = new ZooPanel();
+        ZooPanel zooPanel = new ZooPanel(frame);
         JPanel actionButtons = actionButtons();
 
         frame.setJMenuBar(setMenuBar(zooPanel,actionButtons)); // add the menu to the frame

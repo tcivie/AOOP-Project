@@ -107,22 +107,20 @@ public class Bear extends Animal{
         return super.toString();
     }
 
+    /**
+     * Creates the card for the ctor of the animal
+     * @return Card with the relevant data added
+     */
     public static JPanel createCard() {
-        JPanel card = new JPanel();
-        card.setLayout(new BorderLayout());
+        JPanel card = Animal.createPanel(PICTURE_PATH);
 
-        JPanel innerLeft = new JPanel();
-        JPanel innerRight = Animal.ctorParams(); // get basic information needed from the animal
-        JPanel bottom = new JPanel();
+        JPanel additionalParams = new JPanel();
+        additionalParams.setBorder(BorderFactory.createTitledBorder("Additional parameters"));
+        additionalParams.setLayout(new GridLayout(1,2));
+        additionalParams.add(new JLabel("Fur Color:"));
+        additionalParams.add(new JComboBox<String>(COLORS));
 
-        JLabel imageLabel = new JLabel();
-        imageLabel.setIcon(new ImageIcon(PICTURE_PATH));
-        innerLeft.add(imageLabel);
-
-        card.add(innerLeft,BorderLayout.LINE_START);
-        card.add(innerRight,BorderLayout.LINE_END);
-        card.add(bottom,BorderLayout.PAGE_END);
-
+        card.add(additionalParams,BorderLayout.EAST);
         return card;
     }
 }

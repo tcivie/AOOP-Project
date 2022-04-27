@@ -6,6 +6,8 @@ import food.IEdible;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Random;
 
 /**
@@ -113,5 +115,13 @@ public class Lion extends Animal {
         }
         fireLog("logBooleanFunction", "eat", food, isSuccess);
         return isSuccess;
+    }
+
+    /**
+     * Creates the card for the ctor of the animal
+     * @return Card with the relevant data added
+     */
+    public static JPanel createCard() {
+        return Animal.createPanel(PICTURE_PATH);
     }
 }

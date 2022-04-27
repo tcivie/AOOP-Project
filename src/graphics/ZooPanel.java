@@ -37,6 +37,10 @@ public class ZooPanel extends JPanel implements Runnable {
     private BufferedImage backgroundImage;
     private Color backgroundColor;
 
+    public ZooPanel(JFrame frame) {
+
+    }
+
     /**
      * When an object implementing interface {@code Runnable} is used
      * to create a thread, starting the thread causes the object's
@@ -50,6 +54,7 @@ public class ZooPanel extends JPanel implements Runnable {
      */
     @Override
     public void run() {
+
 
     }
 

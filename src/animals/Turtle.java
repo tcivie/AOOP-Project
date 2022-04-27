@@ -4,6 +4,9 @@ import diet.Herbivore;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * @author Gleb Tcivie & Orel Dandeker
  * @Date 5/4/22
@@ -91,5 +94,22 @@ public class Turtle extends Animal {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    /**
+     * Creates the card for the ctor of the animal
+     * @return Card with the relevant data added
+     */
+    public static JPanel createCard() {
+        JPanel card = Animal.createPanel(PICTURE_PATH);
+
+        JPanel additionalParams = new JPanel();
+        additionalParams.setBorder(BorderFactory.createTitledBorder("Additional parameters"));
+        additionalParams.setLayout(new GridLayout(1,2));
+        additionalParams.add(new JLabel("Age:"));
+        additionalParams.add(new JTextArea());
+
+        card.add(additionalParams,BorderLayout.EAST);
+        return card;
     }
 }
