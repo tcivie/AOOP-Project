@@ -36,9 +36,14 @@ public class ZooPanel extends JPanel implements Runnable {
 
     private BufferedImage backgroundImage;
     private Color backgroundColor;
+    private static final int WIDTH = 988;
+    private static final int HEIGHT = 634;
 
     public ZooPanel(JFrame frame) {
-
+        super();
+        run();
+        setSize(WIDTH,HEIGHT);
+        setVisible(true);
     }
 
     /**
