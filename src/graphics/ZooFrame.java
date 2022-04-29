@@ -17,26 +17,44 @@ import java.util.Objects;
  */
 public class ZooFrame extends JFrame {
 
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("AOOP Assignment 2 - Zoo"); // Create the frame
-        frame.setLayout(new BorderLayout()); // Set border layout
+    /**
+     * Creates a new, initially invisible <code>Frame</code> with the
+     * specified title.
+     * <p>
+     * This constructor sets the component's locale property to the value
+     * returned by <code>JComponent.getDefaultLocale</code>.
+     *
+     * @param title the title for the frame
+     * @throws HeadlessException if GraphicsEnvironment.isHeadless()
+     *                           returns true.
+     * @see GraphicsEnvironment#isHeadless
+     * @see Component#setSize
+     * @see Component#setVisible
+     * @see JComponent#getDefaultLocale
+     */
+    public ZooFrame(String title) throws HeadlessException {
+        super(title);
+        setLayout(new BorderLayout()); // Set border layout
 
         ZooPanel zooPanel = new ZooPanel();
         JPanel actionButtons = actionButtons();
 
-        frame.setJMenuBar(setMenuBar(zooPanel,actionButtons)); // add the menu to the frame
+        setJMenuBar(setMenuBar(zooPanel,actionButtons)); // add the menu to the frame
 
-        frame.add(zooPanel,BorderLayout.CENTER); // Add zoo panel to the frame
+        add(zooPanel,BorderLayout.CENTER); // Add zoo panel to the frame
 
-        frame.add(actionButtons,BorderLayout.SOUTH); // Create new buttons panel and add it to the bottom
+        add(actionButtons,BorderLayout.SOUTH); // Create new buttons panel and add it to the bottom
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Sets default close operation
-        frame.setSize(300, 200); // Set the frame size
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null); // Centers the frame
-        frame.pack();
-        frame.setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Sets default close operation
+        setSize(300, 200); // Set the frame size
+        setVisible(true);
+        setLocationRelativeTo(null); // Centers the frame
+        pack();
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        ZooFrame frame = new ZooFrame("AOOP Assignment 2 - Zoo");
     }
 
     /**
@@ -55,7 +73,7 @@ public class ZooFrame extends JFrame {
      * @return new JMenu bar with the fields and the actions
      * @param zooPanel
      */
-    private static JMenuBar setMenuBar(ZooPanel zooPanel, JPanel actionButtons) {
+    private JMenuBar setMenuBar(ZooPanel zooPanel, JPanel actionButtons) {
         JMenuBar menuBar = new JMenuBar(); // Create menu bar
 
         JMenu menuFile = new JMenu("File"); // Create section File
@@ -132,7 +150,7 @@ public class ZooFrame extends JFrame {
         return menuBar;
     }
 
-    private static JPanel actionButtons() {
+    private JPanel actionButtons() {
         JPanel buttons = new JPanel();
         JPanel cards = new JPanel(new CardLayout());
 
@@ -140,38 +158,7 @@ public class ZooFrame extends JFrame {
         addAnimalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = new JFrame("Add Animal");
-                frame.setSize(500,500);
-
-                JPanel comboBoxPane = new JPanel();
-                String[] comboBoxItems = {"Bear","Elephant","Giraffe","Lion","Turtle"};
-                JComboBox cb = new JComboBox(comboBoxItems);
-                cb.addItemListener(new ItemListener() {
-                    @Override
-                    public void itemStateChanged(ItemEvent e) {
-                        CardLayout cl = (CardLayout)(cards.getLayout());
-                        cl.show(cards, (String)e.getItem());
-                    }
-                });
-                cb.setEditable(false);
-                comboBoxPane.add(cb);
-
-                //Create the "cards".
-                JPanel card1 = new JPanel();
-                card1.add(new JButton("Button 1"));
-                card1.add(new JButton("Button 2"));
-                card1.add(new JButton("Button 3"));
-
-                JPanel card2 = new JPanel();
-                card2.add(new JTextField("TextField", 20));
-
-                //Create the panel that contains the "cards".
-                cards.add(card1, "Bear");
-                cards.add(card2, "Elephant");
-
-                frame.add(comboBoxPane, BorderLayout.PAGE_START);
-                frame.add(cards, BorderLayout.CENTER);
-                frame.setVisible(true);
+                AddAnimalDialog dialog = new AddAnimalDialog(getFrames()[0], "New Animal", true);
             }
         });
         JButton moveAnimalButton = new JButton("Move Animal");
