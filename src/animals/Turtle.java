@@ -2,7 +2,6 @@ package animals;
 
 import diet.Herbivore;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +23,6 @@ public class Turtle extends Animal {
         super(name, new Point(80,0));
         this.Age = 1;
         setDiet(new Herbivore());
-        MessageUtility.logConstractor("Turtle", name);
     }
 
     /**
@@ -37,7 +35,6 @@ public class Turtle extends Animal {
         super(name, new Point(x,y));
         this.Age = 1;
         setDiet(new Herbivore());
-        MessageUtility.logConstractor("Turtle", name);
     }
 
     /**
@@ -49,7 +46,6 @@ public class Turtle extends Animal {
         super(name, new Point(80,0));
         this.Age = age;
         setDiet(new Herbivore());
-        MessageUtility.logConstractor("Turtle", name);
     }
 
     /**
@@ -57,7 +53,6 @@ public class Turtle extends Animal {
      * @return age
      */
     public int getAge() {
-        fireLog("logGetter", "getAge", this.Age);
         return Age;
     }
 
@@ -70,7 +65,6 @@ public class Turtle extends Animal {
         boolean isSuccess = (0 <= age && age <= 500);
         if (isSuccess)
             this.Age = age;
-        fireLog("logSetter", "setAge", age, isSuccess);
         return isSuccess;
     }
 
@@ -83,7 +77,6 @@ public class Turtle extends Animal {
      * Plays the chew sound with the help of the Firelog method in Animal
      */
     public void chew() {
-        fireLog("logSound","Retracts its head in then eats quietly");
     }
 
     /*

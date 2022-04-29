@@ -4,10 +4,8 @@ import diet.Carnivore;
 import food.EFoodType;
 import food.IEdible;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Random;
 
 /**
@@ -25,7 +23,6 @@ public class Lion extends Animal {
      */
     public Lion(String name) {
         super(name, new Point(20,0));
-        MessageUtility.logConstractor("Lion", name);
         setWeight(408.20);
         setDiet(new Carnivore());
     }
@@ -38,7 +35,6 @@ public class Lion extends Animal {
      */
     public Lion(String name, int x, int y) {
         super(name, new Point(x,y));
-        MessageUtility.logConstractor("Lion", name);
         setWeight(408.20);
         setDiet(new Carnivore());
     }
@@ -48,7 +44,6 @@ public class Lion extends Animal {
      * @return
      */
     public int getScarCount() {
-        fireLog("logGetter", "getScarCount", this.scarCount);
         return this.scarCount;
     }
 
@@ -63,7 +58,6 @@ public class Lion extends Animal {
             this.scarCount = scarCount;
         else
             this.scarCount = 0;
-        fireLog("logSetter", "setScarCount", scarCount, isSuccess);
         return isSuccess;
     }
 
@@ -76,7 +70,6 @@ public class Lion extends Animal {
      * Plays the roar sound with the help of the Firelog method in Animal
      */
     public void roar() {
-        fireLog("logSound","Roars, then stretches and shakes its mane");
     }
 
     /**
@@ -85,7 +78,6 @@ public class Lion extends Animal {
      */
     @Override
     public EFoodType getFoodtype() {
-        fireLog("logGetter", "getFoodType", EFoodType.NOTFOOD);
         return EFoodType.NOTFOOD;
     }
 
@@ -113,7 +105,6 @@ public class Lion extends Animal {
                 setScarCount(this.scarCount++);
             super.eat(food);
         }
-        fireLog("logBooleanFunction", "eat", food, isSuccess);
         return isSuccess;
     }
 

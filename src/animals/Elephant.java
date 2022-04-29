@@ -1,9 +1,7 @@
 package animals;
 
 import diet.Herbivore;
-import food.EFoodType;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +21,6 @@ public class Elephant extends Animal{
      */
     public Elephant(String name) {
         super(name, new Point(50,90));
-        MessageUtility.logConstractor("Elephant", name);
         setWeight(500);
         settrunkLength(1);
         setDiet(new Herbivore());
@@ -37,7 +34,6 @@ public class Elephant extends Animal{
      */
     public Elephant(String name, int x, int y) {
         super(name, new Point(x,y));
-        MessageUtility.logConstractor("Elephant", name);
         setWeight(500);
         settrunkLength(1);
         setDiet(new Herbivore());
@@ -50,7 +46,6 @@ public class Elephant extends Animal{
      */
     public Elephant(String name, double length) {
         super(name, new Point(50,90));
-        MessageUtility.logConstractor("Elephant", name);
         setWeight(500);
         settrunkLength(length);
         setDiet(new Herbivore());
@@ -82,7 +77,6 @@ public class Elephant extends Animal{
      * Plays the chew sound with the help of the Firelog method in Animal
      */
     public void chew() {
-        fireLog("logSound","Trumpets with joy while flapping its ears, then chews");
     }
 
     /**
@@ -90,7 +84,6 @@ public class Elephant extends Animal{
      * @return Trunk length
      */
     public double getTrunkLength() {
-        fireLog("logGetter", "getTrunkLength", this.trunkLength);
         return this.trunkLength;
     }
 
@@ -105,7 +98,6 @@ public class Elephant extends Animal{
             this.trunkLength = length;
         else
             this.trunkLength = 1;
-        fireLog("logSetter", "settrunkLength", length, isSuccess);
         return isSuccess;
     }
 

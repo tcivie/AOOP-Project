@@ -8,11 +8,12 @@ import graphics.IDrawable;
 import graphics.ZooPanel;
 import mobility.Mobile;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private int horSpeed;
     private int verSpeed;
     private boolean coordChanged;
-    private Thread thread;
+//    private Thread thread;
 
     private int x_dir;
 
@@ -51,7 +52,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      */
     public Animal(String name, Point point) {
         super(point);
-        MessageUtility.logConstractor("Animal", name);
         setName(name);
     }
 
@@ -65,7 +65,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return type of food from the Enum
      */
     public EFoodType getFoodtype() {
-        fireLog("logGetter", "getFoodType", EFoodType.MEAT);
         return EFoodType.MEAT;
     }
 
@@ -74,7 +73,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return animals weight
      */
     public double getWeight() {
-        fireLog("logGetter", "getWeight", this.weight);
         return this.weight;
     }
 
@@ -89,7 +87,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             this.weight = weight;
         else
             this.weight = 0;
-        fireLog("logSetter", "setWeight", weight, isSuccess);
         return isSuccess;
     }
 
@@ -98,7 +95,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return IDiet object of the animals diet
      */
     public IDiet getDiet() {
-        fireLog("logGetter", "getDiet", this.diet);
         return this.diet;
     }
 
@@ -109,7 +105,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      */
     public boolean setDiet(IDiet diet) {
         this.diet = diet;
-        fireLog("logSetter", "setDiet", diet, true);
         return true;
     }
 
@@ -120,7 +115,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      */
     public boolean setName(String name) {
         this.name = name;
-        fireLog("logSetter", "setName", name, true);
         return true;
     }
 
@@ -129,7 +123,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return Name of the animal
      */
     public String getName() {
-        fireLog("logGetter", "getName", this.name);
         return this.name;
     }
 
@@ -142,7 +135,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         boolean isSuccess = (this.diet.canEat(food.getFoodtype()));
         if (isSuccess)
             setWeight(this.diet.eat(this,food) + this.weight);
-        fireLog("logBooleanFunction", "eat", food, isSuccess);
         return isSuccess;
     }
 
@@ -160,50 +152,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
 
     /**
-     * Helper method for firing logs with the library MessageUtility
-     * @param methodName What method to fire [logBooleanFunction,logSetter]
-     * @param funcName Name of the function that executes the method
-     * @param value the value that the function received
-     * @param isSuccess True/False if the operation succeeded
-     */
-    public void fireLog(String methodName , String funcName, Object value, boolean isSuccess) {
-        switch (methodName) {
-            case "logBooleanFunction":
-                MessageUtility.logBooleanFunction(this.name, funcName, value, isSuccess);
-                break;
-            case "logSetter":
-                MessageUtility.logSetter(this.name, funcName, value, isSuccess);
-                break;
-        }
-    }
-
-    /**
-     * Helper method for firing logs with the library MessageUtility
-     * @param methodName What method to fire [logGetter]
-     * @param funcName Name of the function that executes the method
-     * @param value the value that the function returned
-     */
-    public void fireLog(String methodName , String funcName, Object value) {
-        switch (methodName) {
-            case "logGetter":
-                MessageUtility.logGetter(this.name, funcName, value);
-                break;
-        }
-    }
-    /**
-     * Helper method for firing logs with the library MessageUtility
-     * @param methodName What method to fire [logSound]
-     * @param message The message to pass to logSound
-     */
-    public void fireLog(String methodName , String message) {
-        switch (methodName) {
-            case "logSound":
-                MessageUtility.logSound(this.name,message);
-                break;
-        }
-    }
-
-    /**
      * Move method that gives the animal the signal to move and removes the animals weight according to a method:
      * weight - ( calcDistance(point) * weight * 0.00025 )
      * @param point Where the animal should go
@@ -219,7 +167,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             setLocation(point);
             this.addTotalDistance(distance);
         }
-        fireLog("logBooleanFunction","move",point,isSuccess);
         return distance;
     }
 
@@ -232,7 +179,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return Animal size
      */
     public int getSize() {
-        fireLog("logGetter", "getSize", this.size);
         return this.size;
     }
 
@@ -269,7 +215,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return String color
      */
     public String getColor() {
-        fireLog("logGetter", "getColor", this.col);
         return this.col;
     }
 
@@ -278,7 +223,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return Zoo panel
      */
     public ZooPanel getPan() {
-        fireLog("logGetter", "getPan", this.pan);
         return pan;
     }
 
@@ -287,7 +231,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return first image
      */
     public BufferedImage getImg1() {
-        fireLog("logGetter", "getImg1", this.img1);
         return img1;
     }
 
@@ -296,7 +239,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return second image
      */
     public BufferedImage getImg2() {
-        fireLog("logGetter", "getImg2", this.img1);
         return img2;
     }
 
@@ -305,7 +247,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return if the animal is moving in the direction
      */
     public int getX_dir() {
-        fireLog("logGetter", "getX_dir", this.x_dir);
         return x_dir;
     }
 
@@ -314,7 +255,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return if the animal is moving in the direction
      */
     public int getY_dir() {
-        fireLog("logGetter", "getY_dir", this.y_dir);
         return y_dir;
     }
 
@@ -333,7 +273,25 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         innerRight.add(new JLabel("Y Coordinate:"));
         innerRight.add(new JTextField());
         innerRight.add(new JLabel("Size:"));
-        innerRight.add(new JTextField());
+        JTextField size = new JTextField();
+        size.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+        innerRight.add(size);
+
         innerRight.add(new JLabel("Vertical Speed:"));
         innerRight.add(new JTextField());
         innerRight.add(new JLabel("Horizontal Speed:"));

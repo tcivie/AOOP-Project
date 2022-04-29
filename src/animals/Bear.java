@@ -2,14 +2,10 @@ package animals;
 
 import diet.Omnivore;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
-
-import static javax.swing.GroupLayout.Alignment.BASELINE;
-import static javax.swing.GroupLayout.Alignment.LEADING;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker
@@ -27,7 +23,6 @@ public class Bear extends Animal{
      */
     public Bear(String name) {
         super(name, new Point(100,5));
-        MessageUtility.logConstractor("Bear", name);
         setWeight(308.2);
         setFurColor("GRAY");
         setDiet(new Omnivore());
@@ -41,7 +36,6 @@ public class Bear extends Animal{
      */
     public Bear(String name, int x, int y) {
         super(name, new Point(x,y));
-        MessageUtility.logConstractor("Bear", name);
         setWeight(308.2);
         setFurColor("GRAY");
         setDiet(new Omnivore());
@@ -54,7 +48,6 @@ public class Bear extends Animal{
      */
     public Bear(String name, String color) {
         super(name, new Point(100,5));
-        MessageUtility.logConstractor("Bear", name);
         setWeight(308.2);
         setFurColor(color);
         setDiet(new Omnivore());
@@ -71,7 +64,6 @@ public class Bear extends Animal{
             this.furColor = color;
         else
             this.furColor = "GRAY";
-        fireLog("logSetter","setFurColor",color,isSuccess);
         return isSuccess;
     }
 
@@ -80,7 +72,6 @@ public class Bear extends Animal{
      * @return Fur color of the bear
      */
     public String getFurColor() {
-        fireLog("logGetter", "getFurColor", this.furColor);
         return this.furColor;
     }
 
@@ -94,7 +85,6 @@ public class Bear extends Animal{
      * Plays the roar sound with the help of the Firelog method in Animal
      */
     public void roar() {
-        fireLog("logSound","Stands on its hind legs, roars and scratches its belly");
     }
 
     /*

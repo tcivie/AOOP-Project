@@ -1,9 +1,7 @@
 package animals;
 
 import diet.Herbivore;
-import food.EFoodType;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +23,6 @@ public class Giraffe extends Animal {
         super(name, new Point(50,0));
         setNeckLength(1.5);
         setDiet(new Herbivore());
-        MessageUtility.logConstractor("Giraffe", name);
     }
 
     /**
@@ -38,7 +35,6 @@ public class Giraffe extends Animal {
         super(name, new Point(x,y));
         setNeckLength(1.5);
         setDiet(new Herbivore());
-        MessageUtility.logConstractor("Giraffe", name);
     }
 
     /**
@@ -50,7 +46,6 @@ public class Giraffe extends Animal {
         super(name, new Point(50,0));
         setNeckLength(length);
         setDiet(new Herbivore());
-        MessageUtility.logConstractor("Giraffe", name);
     }
 
     /**
@@ -64,7 +59,6 @@ public class Giraffe extends Animal {
             this.neckLength = length;
         else
             this.neckLength = 1.5;
-        fireLog("logSetter", "setNeckLength", length, isSuccess);
         return isSuccess;
     }
 
@@ -73,7 +67,6 @@ public class Giraffe extends Animal {
      * @return Giraffes neck length
      */
     public double getNeckLength() {
-        fireLog("logGetter", "getNeckLength", this.neckLength);
         return this.neckLength;
     }
 
@@ -86,7 +79,6 @@ public class Giraffe extends Animal {
      * Plays the chew sound with the help of the Firelog method in Animal
      */
     public void chew() {
-        fireLog("logSound","Bleats and Stomps its legs, then chews");
     }
 
     /*

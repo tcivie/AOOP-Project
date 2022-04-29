@@ -10,7 +10,7 @@ import java.io.File;
  * @author glebtcivie
  * @Date 18/04/2022
  */
-public class ZooPanel extends JPanel implements Runnable {
+public class ZooPanel extends JPanel {
 
     public BufferedImage getBackgroundImage() {
         return backgroundImage;
@@ -41,26 +41,9 @@ public class ZooPanel extends JPanel implements Runnable {
 
     public ZooPanel(JFrame frame) {
         super();
-        run();
+//        run();
         setSize(WIDTH,HEIGHT);
         setVisible(true);
-    }
-
-    /**
-     * When an object implementing interface {@code Runnable} is used
-     * to create a thread, starting the thread causes the object's
-     * {@code run} method to be called in that separately executing
-     * thread.
-     * <p>
-     * The general contract of the method {@code run} is that it may
-     * take any action whatsoever.
-     *
-     * @see Thread#run()
-     */
-    @Override
-    public void run() {
-
-
     }
 
 
