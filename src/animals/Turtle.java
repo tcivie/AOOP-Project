@@ -92,4 +92,9 @@ public class Turtle extends Animal {
     public String toString() {
         return super.toString();
     }
+
+
+    public static String getPATH() {
+        return PICTURE_PATH;
+    }
 }

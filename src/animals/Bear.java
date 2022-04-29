@@ -4,6 +4,7 @@ import diet.Omnivore;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import javax.swing.*;
 import java.util.Arrays;
 
 /**
@@ -100,5 +101,9 @@ public class Bear extends Animal{
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    public static String getPATH() {
+        return PICTURE_PATH;
     }
 }

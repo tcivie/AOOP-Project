@@ -17,6 +17,8 @@ import java.util.Objects;
  */
 public class ZooFrame extends JFrame {
 
+    private AddAnimalDialog dialog;
+
     /**
      * Creates a new, initially invisible <code>Frame</code> with the
      * specified title.
@@ -139,7 +141,6 @@ public class ZooFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(getFrames()[0],"Home Work 2\nGUI"); // Show popup with the message
-//                JOptionPane.showInputDialog(getFrames()[0],new JComboBox<String>(),"COMBOBOX");
             }
         });
         menuHelp.add(menuItemHelp);
@@ -158,7 +159,8 @@ public class ZooFrame extends JFrame {
         addAnimalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AddAnimalDialog dialog = new AddAnimalDialog(getFrames()[0], "New Animal", true);
+                dialog = new AddAnimalDialog(getFrames()[0], "New Animal", true);
+//                dialog.setVisible(true);
             }
         });
         JButton moveAnimalButton = new JButton("Move Animal");

@@ -114,4 +114,8 @@ public class Lion extends Animal {
         fireLog("logBooleanFunction", "eat", food, isSuccess);
         return isSuccess;
     }
+
+    public static String getPATH() {
+        return PICTURE_PATH;
+    }
 }
