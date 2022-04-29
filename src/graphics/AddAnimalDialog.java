@@ -96,19 +96,24 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
         setVisible(true);
     }
 
+    /**
+     * Creates the basic view of the animal creation
+     */
     private void initParams() {
         name = new JTextField();
         x_cord = new JTextField();
         y_cord = new JTextField();
         size = new JTextField();
+        size.addKeyListener(this);
         v_speed = new JTextField();
         h_speed = new JTextField();
         color = new JTextField();
         weight = new JTextField();
         weight.setEditable(false);
 
-        JPanel bigOne = new JPanel(new BorderLayout());
+        JPanel bigOne = new JPanel(new BorderLayout()); // create a big pannel
 
+        // add the animal creation parameters to the top
         JPanel params = new JPanel(new GridLayout(9,2));
         params.setBorder(BorderFactory.createTitledBorder("Parameters"));
         params.add(new JLabel("Name:"));
@@ -127,14 +132,17 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
         params.add(color);
         bigOne.add(params,BorderLayout.PAGE_START);
 
+        // Add the middle optional animal parameters
         JPanel additional = new JPanel(new GridLayout(1,2));
         additional.setBorder(BorderFactory.createTitledBorder("Additional Parameters"));
+        currentCard = "Bear";
         additionalParam = new JLabel("Fur Color");
         additionalParamField = new JTextField();
         additional.add(additionalParam);
         additional.add(additionalParamField);
         bigOne.add(additional,BorderLayout.CENTER);
 
+        // Add the calculated values
         JPanel uneditable = new JPanel(new GridLayout(1,2));
         uneditable.setBorder(BorderFactory.createTitledBorder("Uneditable"));
         uneditable.add(new JLabel("Weight:"));
@@ -162,16 +170,22 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
         char c = e.getKeyChar();
         if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE))
             e.consume();
-
-        // display the weight
-        sb.append(e.getKeyChar());
-        getWeight = Integer.parseInt(sb.toString());
-        switch (currentCard) {
-            case "Bear" -> weight.setText(Double.toString(1.5 * getWeight));
-            case "Elephant" -> weight.setText(Double.toString(10 * getWeight));
-            case "Giraffe" -> weight.setText(Double.toString(2.2 * getWeight));
-            case "Lion" -> weight.setText(Double.toString(0.8 * getWeight));
-            case "Turtle" -> weight.setText(Double.toString(0.5 * getWeight));
+        else {
+            if (c == KeyEvent.VK_BACK_SPACE && sb.length() > 0)
+                sb.deleteCharAt(sb.length()-1);
+            else if (c == KeyEvent.VK_BACK_SPACE)
+                e.consume();
+            else
+                sb.append(e.getKeyChar());
+            // display the weight
+            getWeight = Integer.parseInt(sb.toString());
+            switch (currentCard) {
+                case "Bear" -> weight.setText(Double.toString(1.5 * getWeight));
+                case "Elephant" -> weight.setText(Double.toString(10 * getWeight));
+                case "Giraffe" -> weight.setText(Double.toString(2.2 * getWeight));
+                case "Lion" -> weight.setText(Double.toString(0.8 * getWeight));
+                case "Turtle" -> weight.setText(Double.toString(0.5 * getWeight));
+            }
         }
     }
 
@@ -208,24 +222,30 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
-
-        switch ((String)e.getItem()) {
-            case "Bear":
+        currentCard = (String) e.getItem();
+        additionalParamField.setVisible(true);
+        switch ((String) e.getItem()) {
+            case "Bear" -> {
                 image.setIcon(createImage(Elephant.getPATH()));
-
-                break;
-            case "Elephant":
+                additionalParam.setText("Fur Color");
+            }
+            case "Elephant" -> {
                 image.setIcon(createImage(Elephant.getPATH()));
-                break;
-            case "Giraffe":
+                additionalParam.setText("Trunk Length");
+            }
+            case "Giraffe" -> {
                 image.setIcon(createImage(Giraffe.getPATH()));
-                break;
-            case "Lion":
+                additionalParam.setText("Neck Length");
+            }
+            case "Lion" -> {
                 image.setIcon(createImage(Lion.getPATH()));
-                break;
-            case "Turtle":
+                additionalParam.setText("");
+                additionalParamField.setVisible(false);
+            }
+            case "Turtle" -> {
                 image.setIcon(createImage(Turtle.getPATH()));
-                break;
+                additionalParam.setText("Set Age");
+            }
         }
     }
 
