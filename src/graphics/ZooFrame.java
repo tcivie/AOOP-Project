@@ -185,7 +185,7 @@ public class ZooFrame extends JFrame {
         JButton addAnimalButton = new JButton("Add Animal");
         addAnimalButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { // Creates new animals
                 addAnimalDialog = new AddAnimalDialog(getFrames()[0], "New Animal", true);
                 zooPanel.repaint();
             }
@@ -193,7 +193,7 @@ public class ZooFrame extends JFrame {
         JButton moveAnimalButton = new JButton("Move Animal");
         moveAnimalButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { // Moves the animal
                 moveAnimalDialog = new MoveAnimalDialog(getFrames()[0], "Move Animal", true );
                 zooPanel.repaint();
             }
@@ -201,8 +201,10 @@ public class ZooFrame extends JFrame {
         JButton clearButton = new JButton("Clear");
         clearButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
+            public void actionPerformed(ActionEvent e) { // Kills all the animals :(
+                AnimalsInZoo = new Animal[MAX_ANIMALS];
+                AnimalsInZooNow = 0;
+                zooPanel.repaint();
             }
         });
         JButton foodButton = new JButton("Food");
