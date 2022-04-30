@@ -19,11 +19,16 @@ import java.util.Objects;
  */
 public class ZooFrame extends JFrame {
 
-    private AddAnimalDialog dialog;
+    private AddAnimalDialog addAnimalDialog;
+    private MoveAnimalDialog moveAnimalDialog;
     public static Animal[] AnimalsInZoo;
     public static int AnimalsInZooNow = 0;
     private static final int MAX_ANIMALS = 10;
+    private ZooPanel zooPanel;
 
+    public ZooPanel getZooPanel() {
+        return zooPanel;
+    }
 
     /**
      * Creates a new, initially invisible <code>Frame</code> with the
@@ -44,7 +49,7 @@ public class ZooFrame extends JFrame {
         super(title);
         setLayout(new BorderLayout()); // Set border layout
 
-        ZooPanel zooPanel = new ZooPanel();
+        zooPanel = new ZooPanel(1080,500);
         JPanel actionButtons = actionButtons();
 
         setJMenuBar(setMenuBar(zooPanel,actionButtons)); // add the menu to the frame
@@ -54,8 +59,9 @@ public class ZooFrame extends JFrame {
         add(actionButtons,BorderLayout.SOUTH); // Create new buttons panel and add it to the bottom
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Sets default close operation
+
+        AnimalsInZoo = new Animal[MAX_ANIMALS];
         setSize(300, 200); // Set the frame size
-        setVisible(true);
         setLocationRelativeTo(null); // Centers the frame
         pack();
         setVisible(true);
@@ -63,7 +69,7 @@ public class ZooFrame extends JFrame {
 
     public static void main(String[] args) {
         ZooFrame frame = new ZooFrame("AOOP Assignment 2 - Zoo");
-        AnimalsInZoo = new Animal[MAX_ANIMALS];
+        frame.zooPanel.manageZoo();
     }
 
 
@@ -75,7 +81,8 @@ public class ZooFrame extends JFrame {
     public static boolean addAnimalToZoo(Animal animal) {
         if (AnimalsInZooNow >= MAX_ANIMALS)
             return false;
-        AnimalsInZoo[++AnimalsInZooNow] = animal;
+        AnimalsInZoo[AnimalsInZooNow] = animal;
+        AnimalsInZooNow++;
         return true;
     }
 
@@ -179,15 +186,15 @@ public class ZooFrame extends JFrame {
         addAnimalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dialog = new AddAnimalDialog(getFrames()[0], "New Animal", true);
-//                dialog.setVisible(true);
+                addAnimalDialog = new AddAnimalDialog(getFrames()[0], "New Animal", true);
+                zooPanel.repaint();
             }
         });
         JButton moveAnimalButton = new JButton("Move Animal");
         moveAnimalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
+                moveAnimalDialog = new MoveAnimalDialog(getFrames()[0], "Move Animal", true );
             }
         });
         JButton clearButton = new JButton("Clear");

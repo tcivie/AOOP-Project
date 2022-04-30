@@ -1,5 +1,7 @@
 package graphics;
 
+import animals.Animal;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -53,15 +55,53 @@ public class ZooPanel extends JPanel {
 //
 //    }
 
+    public ZooPanel(int width, int height) {
+        super();
+        setMinimumSize(new Dimension(width, height));
+        setPreferredSize(new Dimension(width, height));
+        setMaximumSize(new Dimension(width, height));
+        setBackgroundColor(Color.WHITE);
+
+        setVisible(true);
+    }
+
+    public void manageZoo() {
+        while (true) {
+            if (isChange())
+                repaint();
+        }
+    }
+
+    /**
+     * Checks if the frame needs repaint
+     * @return
+     */
+    private boolean isChange() {
+        boolean flag = false;
+        for (int i = 0; i < ZooFrame.AnimalsInZooNow; i++) {
+            if (ZooFrame.AnimalsInZoo[i].isNeedsRepaint()) {
+                flag = true;
+                ZooFrame.AnimalsInZoo[i].setNeedsRepaint(false);
+            }
+        }
+        return flag;
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // Paint background on panel
         if (getBackgroundImage() != null)
-            g.drawImage(getBackgroundImage(), 0, 0, this);
+            g.drawImage(getBackgroundImage(),0,0,getWidth(),getHeight(), this);
         else if (getBackgroundColor() != null) {
             g.setColor(getBackgroundColor());
             g.fillRect(0,0,getWidth(),getHeight());
+        }
+        if (ZooFrame.AnimalsInZooNow > 0) {
+            for (int i = 0; i < ZooFrame.AnimalsInZooNow; i++) {
+                ZooFrame.AnimalsInZoo[i].drawObject(g);
+            }
         }
     }
 }

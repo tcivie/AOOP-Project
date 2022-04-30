@@ -73,7 +73,7 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
     }
 
     public String getColor() {
-        return color.getText();
+        return (String) color.getSelectedItem();
     }
 
     public double getWeight() {
@@ -98,7 +98,7 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
     private JTextField size;
     private JTextField v_speed;
     private JTextField h_speed;
-    private JTextField color;
+    private JComboBox<String> color;
     private JTextField weight;
 
     // ADDITIONAL params
@@ -149,7 +149,7 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
      */
     public AddAnimalDialog(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
-        setSize(500,500);
+        setSize(500,460);
 
         sb = new StringBuilder();
 
@@ -176,7 +176,8 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
         size.addKeyListener(this);
         v_speed = new JTextField();
         h_speed = new JTextField();
-        color = new JTextField();
+        String[] animalColors = {"Normal","Red","Blue"};
+        color = new JComboBox<String>(animalColors);
         weight = new JTextField();
         weight.setEditable(false);
 

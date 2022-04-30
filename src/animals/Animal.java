@@ -41,6 +41,8 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private ZooPanel pan;
     private BufferedImage img1, img2;
 
+    private boolean needsRepaint;
+
     /**
      * Ctor
      * @param name Animals name
@@ -64,6 +66,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         this.img1 = img1;
         this.img2 = img2;
         this.weight = weight;
+        setNeedsRepaint(true);
         MessageUtility.logConstractor("Animal", name);
         setName(name);
     }
@@ -231,6 +234,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             isSuccess = setWeight(Math.round((weight - ( distance * weight * 0.00025 )) * 100) / 100.);
             setLocation(point);
             this.addTotalDistance(distance);
+            setNeedsRepaint(true);
         }
         fireLog("logBooleanFunction","move",point,isSuccess);
         return distance;
@@ -338,5 +342,13 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      */
     protected static BufferedImage convertFromFilename(String path) throws IOException {
         return ImageIO.read(new File(path));
+    }
+
+    public boolean isNeedsRepaint() {
+        return needsRepaint;
+    }
+
+    public void setNeedsRepaint(boolean needsRepaint) {
+        this.needsRepaint = needsRepaint;
     }
 }
