@@ -25,6 +25,7 @@ public class ZooFrame extends JFrame {
     public static int AnimalsInZooNow = 0;
     public static final int MAX_ANIMALS = 10;
     private ZooPanel zooPanel;
+    FoodDialog foodDialog;
 
     public ZooPanel getZooPanel() {
         return zooPanel;
@@ -211,7 +212,8 @@ public class ZooFrame extends JFrame {
         foodButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FoodDialog foodDialog = new FoodDialog(getFrames()[0],"Please choose food", "Food for animals");
+                foodDialog = new FoodDialog(getFrames()[0],"Please choose food", "Food for animals");
+                zooPanel.repaint();
             }
         });
         JButton infoButton = new JButton("Info");
@@ -225,7 +227,11 @@ public class ZooFrame extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
+                for (Frame frame:
+                        getFrames()) {
+                    frame.dispose();
+                }
+                getFrames()[0].dispose(); // Close all windows
             }
         });
 
