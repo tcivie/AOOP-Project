@@ -211,7 +211,7 @@ public class ZooFrame extends JFrame {
         foodButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
+                FoodDialog foodDialog = new FoodDialog(getFrames()[0],"Please choose food", "Food for animals");
             }
         });
         JButton infoButton = new JButton("Info");
