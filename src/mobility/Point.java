@@ -9,10 +9,10 @@ public class Point {
     private int y;
 
     /** CONST DIMENSIONS **/
-    private static final int MAX_X = 800;
-    private static final int MIN_X = 0;
-    private static final int MAX_Y = 600;
-    private static final int MIN_Y = 0;
+    public static final int MAX_X = 800;
+    public static final int MIN_X = 0;
+    public static final int MAX_Y = 600;
+    public static final int MIN_Y = 0;
 
     public Point(int x, int y) {
         this.x = x;

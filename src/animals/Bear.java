@@ -4,7 +4,10 @@ import diet.Omnivore;
 import mobility.Point;
 import utilities.MessageUtility;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -16,18 +19,19 @@ public class Bear extends Animal{
     private String furColor;
     public static String[] COLORS = {"BLACK","WHITE","GRAY"};
     private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/bea_n_1.png";
+    private static final String PICTURE_PATH2 = "src/graphics/assignment2_pictures/bea_n_2.png";
 
-    /**
-     * Ctor
-     * @param name Name of the bear
-     */
-    public Bear(String name) {
-        super(name, new Point(100,5));
-        MessageUtility.logConstractor("Bear", name);
-        setWeight(308.2);
-        setFurColor("GRAY");
-        setDiet(new Omnivore());
-    }
+//    /**
+//     * Ctor
+//     * @param name Name of the bear
+//     */
+//    public Bear(String name, int size, String col, int horSpeed, int verSpeed, double weight) throws IOException {
+//        super(name, new Point(100,5), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
+//        MessageUtility.logConstractor("Bear", name);
+//        setWeight(308.2);
+//        setFurColor("GRAY");
+//        setDiet(new Omnivore());
+//    }
 
     /**
      * Ctor
@@ -35,26 +39,26 @@ public class Bear extends Animal{
      * @param x x point
      * @param y y point
      */
-    public Bear(String name, int x, int y) {
-        super(name, new Point(x,y));
+    public Bear(String name, int x, int y, int size, String col, int horSpeed, int verSpeed, double weight, String furColor) throws IOException {
+        super(name, new Point(x,y), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
         MessageUtility.logConstractor("Bear", name);
-        setWeight(308.2);
-        setFurColor("GRAY");
+        setWeight(weight);
+        setFurColor(furColor);
         setDiet(new Omnivore());
     }
-
-    /**
-     * Ctor
-     * @param name Name of the bear
-     * @param color Color of the bear from the list of available colors : {"BLACK","WHITE","GRAY"}
-     */
-    public Bear(String name, String color) {
-        super(name, new Point(100,5));
-        MessageUtility.logConstractor("Bear", name);
-        setWeight(308.2);
-        setFurColor(color);
-        setDiet(new Omnivore());
-    }
+//
+//    /**
+//     * Ctor
+//     * @param name Name of the bear
+//     * @param color Color of the bear from the list of available colors : {"BLACK","WHITE","GRAY"}
+//     */
+//    public Bear(String name,  int size, String col, int horSpeed, int verSpeed, double weight) throws IOException {
+//        super(name, new Point(100,5), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
+//        MessageUtility.logConstractor("Bear", name);
+//        setWeight(308.2);
+//        setFurColor(color);
+//        setDiet(new Omnivore());
+//    }
 
     /**
      * Changes the fur color of the bear
@@ -105,5 +109,8 @@ public class Bear extends Animal{
 
     public static String getPATH() {
         return PICTURE_PATH;
+    }
+    public static String getPATH2() {
+        return PICTURE_PATH2;
     }
 }

@@ -10,8 +10,11 @@ import mobility.Mobile;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker
@@ -32,8 +35,8 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private Thread thread;
 
     private int x_dir;
-
     private int y_dir;
+
     private int eatCount;
     private ZooPanel pan;
     private BufferedImage img1, img2;
@@ -42,9 +45,25 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * Ctor
      * @param name Animals name
      * @param point Animals Position
+     * @param size Animals size
+     * @param col Color from the list
+     * @param horSpeed Horizontal movement speed
+     * @param verSpeed vertical movement speed
+     * @param img1 One side image
+     * @param img2 Second side image
+     * @param weight Weight of the animal
      */
-    public Animal(String name, Point point) {
+    public Animal(String name, Point point, int size, String col, int horSpeed, int verSpeed, BufferedImage img1, BufferedImage img2, double weight) {
         super(point);
+        this.size = size;
+        this.col = col;
+        this.horSpeed = horSpeed;
+        this.verSpeed = verSpeed;
+        this.x_dir = 1;
+        this.y_dir = 1;
+        this.img1 = img1;
+        this.img2 = img2;
+        this.weight = weight;
         MessageUtility.logConstractor("Animal", name);
         setName(name);
     }
@@ -310,5 +329,14 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     public int getY_dir() {
         fireLog("logGetter", "getY_dir", this.y_dir);
         return y_dir;
+    }
+
+    /**
+     * Creates buffered image from given path
+     * @param path
+     * @return Buffered image
+     */
+    protected static BufferedImage convertFromFilename(String path) throws IOException {
+        return ImageIO.read(new File(path));
     }
 }

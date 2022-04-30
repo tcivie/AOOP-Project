@@ -6,6 +6,7 @@ import food.IEdible;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -16,17 +17,18 @@ public class Lion extends Animal {
 
     private int scarCount;
     private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/lio_n_1.png";
+    private static final String PICTURE_PATH2 = "src/graphics/assignment2_pictures/lio_n_2.png";
 
-    /**
-     * Ctor
-     * @param name Lions name
-     */
-    public Lion(String name) {
-        super(name, new Point(20,0));
-        MessageUtility.logConstractor("Lion", name);
-        setWeight(408.20);
-        setDiet(new Carnivore());
-    }
+//    /**
+//     * Ctor
+//     * @param name Lions name
+//     */
+//    public Lion(String name) {
+//        super(name, new Point(20,0), size, col, horSpeed, verSpeed, x_dir, y_dir, img1, img2);
+//        MessageUtility.logConstractor("Lion", name);
+//        setWeight(408.20);
+//        setDiet(new Carnivore());
+//    }
 
     /**
      * Ctor
@@ -34,10 +36,10 @@ public class Lion extends Animal {
      * @param x x point
      * @param y y point
      */
-    public Lion(String name, int x, int y) {
-        super(name, new Point(x,y));
+    public Lion(String name, int x, int y, int size, String col, int horSpeed, int verSpeed, double weight) throws IOException {
+        super(name, new Point(x,y), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
         MessageUtility.logConstractor("Lion", name);
-        setWeight(408.20);
+        setWeight(weight);
         setDiet(new Carnivore());
     }
 
@@ -118,4 +120,6 @@ public class Lion extends Animal {
     public static String getPATH() {
         return PICTURE_PATH;
     }
+
+
 }

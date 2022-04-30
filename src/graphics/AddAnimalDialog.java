@@ -1,17 +1,17 @@
 package graphics;
 
 import animals.*;
+import mobility.Point;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * @author glebtcivie
@@ -23,6 +23,75 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
 
     // BASIC Animal params
     private JLabel image;
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public String getAnimalName() {
+        return name.getText();
+    }
+
+    public int getX_cord() {
+        try {
+            return Integer.parseInt(x_cord.getText());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public int getY_cord() {
+        try {
+            return Integer.parseInt(y_cord.getText());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public int getAnimalSize() {
+        try {
+            return Integer.parseInt(size.getText());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public int getV_speed() {
+        try {
+            return Integer.parseInt(v_speed.getText());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public int getH_speed() {
+        try {
+            return Integer.parseInt(h_speed.getText());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public String getColor() {
+        return color.getText();
+    }
+
+    public double getWeight() {
+        try {
+            return Double.parseDouble(weight.getText());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public String getAdditionalParamField() {
+        return additionalParamField.getText();
+    }
+
+    public String getCurrentCard() {
+        return currentCard;
+    }
+
     private JTextField name;
     private JTextField x_cord;
     private JTextField y_cord;
@@ -37,11 +106,11 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
     private JTextField additionalParamField;
 
     private String currentCard;
-    private int getWeight;
 
-    private StringBuilder sb;
+    private final StringBuilder sb;
 
     private static final int PARAMS = 8;
+    private static final String[] COLORS= {"RED","BLUE","NORMAL"};
 
 
     /**
@@ -111,7 +180,7 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
         weight = new JTextField();
         weight.setEditable(false);
 
-        JPanel bigOne = new JPanel(new BorderLayout()); // create a big pannel
+        JPanel bigOne = new JPanel(new BorderLayout()); // create a big panel
 
         // add the animal creation parameters to the top
         JPanel params = new JPanel(new GridLayout(9,2));
@@ -149,8 +218,66 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
         uneditable.add(weight);
         bigOne.add(uneditable,BorderLayout.PAGE_END);
 
+        add(bigOne,BorderLayout.CENTER); // Adds the parameters to the window
 
-        add(bigOne,BorderLayout.CENTER);
+        JPanel buttons = new JPanel(new BorderLayout());
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // close window
+            }
+        });
+        buttons.add(cancelButton,BorderLayout.LINE_START);
+        JButton acceptButton = new JButton("Accept");
+        acceptButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                // Get all elements
+                String name = getAnimalName();
+                int x_cord = getX_cord();
+                int y_cord = getY_cord();
+                int size = getAnimalSize();
+                int v_speed = getV_speed();
+                int h_speed = getH_speed();
+                String color = getColor();
+                double weight = getWeight();
+                String addParam = getAdditionalParamField();
+
+                // Test the data
+                if (checkName(name) && checkXCoordinates(x_cord) && checkYCoordinates(y_cord) && checkSize(size) && checkVerSpeed(v_speed) && checkHorSpeed(h_speed) && checkColor(color)) {
+                    try {
+                        switch(getCurrentCard()) {
+                            case "Bear" -> {
+                                ZooFrame.addAnimalToZoo(new Bear(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,addParam));
+                            }
+                            case "Elephant" -> {
+                                ZooFrame.addAnimalToZoo(new Elephant(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));
+                            }
+                            case "Giraffe" -> {
+                                ZooFrame.addAnimalToZoo(new Giraffe(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));
+                            }
+                            case "Lion" -> {
+                                ZooFrame.addAnimalToZoo(new Lion(name,x_cord,y_cord,size,color,h_speed,v_speed,weight));
+                            }
+                            case "Turtle" -> {
+                                ZooFrame.addAnimalToZoo(new Turtle(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Integer.parseInt(addParam)));
+                            }
+                        }
+                        //Successfully created animal
+                        JOptionPane.showMessageDialog(AddAnimalDialog.super.getFocusOwner(),name + " Has been added to the zoo, his ID is: " + ZooFrame.AnimalsInZooNow,"Animal creation", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    } catch (IOException ex) { // If image path is not right throw exception
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+        buttons.add(acceptButton,BorderLayout.LINE_END);
+        add(buttons,BorderLayout.PAGE_END);
+
+
 
         // Init image for bear
         image = new JLabel("",createImage(Bear.getPATH()),JLabel.CENTER);
@@ -171,14 +298,14 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
         if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE))
             e.consume();
         else {
-            if (c == KeyEvent.VK_BACK_SPACE && sb.length() > 0)
+            if (c == KeyEvent.VK_BACK_SPACE && sb.length() > 0) // check if the character is backspace or no
                 sb.deleteCharAt(sb.length()-1);
             else if (c == KeyEvent.VK_BACK_SPACE)
                 e.consume();
             else
                 sb.append(e.getKeyChar());
             // display the weight
-            getWeight = Integer.parseInt(sb.toString());
+            int getWeight = Integer.parseInt(sb.toString());
             switch (currentCard) {
                 case "Bear" -> weight.setText(Double.toString(1.5 * getWeight));
                 case "Elephant" -> weight.setText(Double.toString(10 * getWeight));
@@ -259,5 +386,97 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Checks if the name has numbers
+     * @param name
+     * @return True if passes the test / False otherwise
+     */
+    private boolean checkName(String name) {
+        if (name.matches(".*[0-9].*")) {
+            JOptionPane.showMessageDialog(this,"Please name should include only letters", "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the x coordinates matches
+     * @param x
+     * @return True if passes the test / False otherwise
+     */
+    private boolean checkXCoordinates(int x) {
+        if (x < Point.MIN_X || x > Point.MAX_X) {
+            JOptionPane.showMessageDialog(this,"The x coordinates should be between " + Point.MIN_X + " and " + Point.MAX_X, "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the y coordinates matches
+     * @param y
+     * @return True if passes the test / False otherwise
+     */
+    private boolean checkYCoordinates(int y) {
+        if (y < Point.MIN_Y || y > Point.MAX_Y) {
+            JOptionPane.showMessageDialog(this,"The y coordinates should be between " + Point.MIN_Y + " and " + Point.MAX_Y, "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the size matches
+     * @param size
+     * @return True if passes the test / False otherwise
+     */
+    private boolean checkSize(double size) {
+        if (size < 50 || size > 300) {
+            JOptionPane.showMessageDialog(this,"Please input size between 50 and 300!", "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the speed matches
+     * @param speed
+     * @return True if passes the test / False otherwise
+     */
+    private boolean checkHorSpeed(double speed) {
+        if (speed < 1 || speed > 10) {
+            JOptionPane.showMessageDialog(this,"Please input Horizontal Speed between 1 and 10!", "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the speed matches
+     * @param speed
+     * @return True if passes the test / False otherwise
+     */
+    private boolean checkVerSpeed(double speed) {
+        if (speed < 1 || speed > 10) {
+            JOptionPane.showMessageDialog(this,"Please input Vertical Speed between 1 and 10!", "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the color matches
+     * @param color
+     * @return True if passes the test / False otherwise
+     */
+    private boolean checkColor(String color) {
+        color = color.toUpperCase(Locale.ROOT);
+        if (!(Arrays.stream(COLORS).anyMatch(color::contains))) {
+            JOptionPane.showMessageDialog(this,"Please enter one of the following colors: " + COLORS, "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 }

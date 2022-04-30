@@ -1,9 +1,10 @@
 package animals;
 
 import diet.Herbivore;
-import food.EFoodType;
 import mobility.Point;
 import utilities.MessageUtility;
+
+import java.io.IOException;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker
@@ -13,18 +14,19 @@ public class Elephant extends Animal{
 
     private double trunkLength;
     private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/elf_n_1.png";
+    private static final String PICTURE_PATH2 = "src/graphics/assignment2_pictures/elf_n_2.png";
 
-    /**
-     * Ctor
-     * @param name Elephants name
-     */
-    public Elephant(String name) {
-        super(name, new Point(50,90));
-        MessageUtility.logConstractor("Elephant", name);
-        setWeight(500);
-        settrunkLength(1);
-        setDiet(new Herbivore());
-    }
+//    /**
+//     * Ctor
+//     * @param name Elephants name
+//     */
+//    public Elephant(String name) {
+//        super(name, new Point(50,90), size, col, horSpeed, verSpeed, x_dir, y_dir, img1, img2);
+//        MessageUtility.logConstractor("Elephant", name);
+//        setWeight(500);
+//        settrunkLength(1);
+//        setDiet(new Herbivore());
+//    }
 
     /**
      * Ctor
@@ -32,26 +34,26 @@ public class Elephant extends Animal{
      * @param x x value
      * @param y y value
      */
-    public Elephant(String name, int x, int y) {
-        super(name, new Point(x,y));
+    public Elephant(String name, int x, int y, int size, String col, int horSpeed, int verSpeed, double weight, double trunkLength) throws IOException {
+        super(name, new Point(x,y), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
         MessageUtility.logConstractor("Elephant", name);
-        setWeight(500);
-        settrunkLength(1);
+        setWeight(weight);
+        settrunkLength(trunkLength);
         setDiet(new Herbivore());
     }
-
-    /**
-     * Ctor
-     * @param name Elephants name
-     * @param length Trunk length
-     */
-    public Elephant(String name, double length) {
-        super(name, new Point(50,90));
-        MessageUtility.logConstractor("Elephant", name);
-        setWeight(500);
-        settrunkLength(length);
-        setDiet(new Herbivore());
-    }
+//
+//    /**
+//     * Ctor
+//     * @param name Elephants name
+//     * @param length Trunk length
+//     */
+//    public Elephant(String name, double length) {
+//        super(name, new Point(50,90), size, col, horSpeed, verSpeed, x_dir, y_dir, img1, img2);
+//        MessageUtility.logConstractor("Elephant", name);
+//        setWeight(500);
+//        settrunkLength(length);
+//        setDiet(new Herbivore());
+//    }
 
     @Override
     public void makeSound() {

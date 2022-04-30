@@ -1,5 +1,7 @@
 package graphics;
 
+import animals.Animal;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +20,10 @@ import java.util.Objects;
 public class ZooFrame extends JFrame {
 
     private AddAnimalDialog dialog;
+    public static Animal[] AnimalsInZoo;
+    public static int AnimalsInZooNow = 0;
+    private static final int MAX_ANIMALS = 10;
+
 
     /**
      * Creates a new, initially invisible <code>Frame</code> with the
@@ -57,6 +63,20 @@ public class ZooFrame extends JFrame {
 
     public static void main(String[] args) {
         ZooFrame frame = new ZooFrame("AOOP Assignment 2 - Zoo");
+        AnimalsInZoo = new Animal[MAX_ANIMALS];
+    }
+
+
+    /**
+     * Adds animal to the zoo
+     * @param animal
+     * @return True if operation succeeded / False otherwise
+     */
+    public static boolean addAnimalToZoo(Animal animal) {
+        if (AnimalsInZooNow >= MAX_ANIMALS)
+            return false;
+        AnimalsInZoo[++AnimalsInZooNow] = animal;
+        return true;
     }
 
     /**

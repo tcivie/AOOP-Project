@@ -4,6 +4,8 @@ import diet.Herbivore;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import java.io.IOException;
+
 /**
  * @author Gleb Tcivie & Orel Dandeker
  * @Date 5/4/22
@@ -12,17 +14,18 @@ public class Turtle extends Animal {
 
     private int Age;
     private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/trt_n_1.png";
+    private static final String PICTURE_PATH2 = "src/graphics/assignment2_pictures/trt_n_2.png";
 
-    /**
-     * Ctor
-     * @param name Turtles name
-     */
-    public Turtle(String name) {
-        super(name, new Point(80,0));
-        this.Age = 1;
-        setDiet(new Herbivore());
-        MessageUtility.logConstractor("Turtle", name);
-    }
+//    /**
+//     * Ctor
+//     * @param name Turtles name
+//     */
+//    public Turtle(String name) {
+//        super(name, new Point(80,0), size, col, horSpeed, verSpeed, x_dir, y_dir, img1, img2);
+//        this.Age = 1;
+//        setDiet(new Herbivore());
+//        MessageUtility.logConstractor("Turtle", name);
+//    }
 
     /**
      * Ctor
@@ -30,24 +33,25 @@ public class Turtle extends Animal {
      * @param x x point
      * @param y y point
      */
-    public Turtle(String name, int x, int y) {
-        super(name, new Point(x,y));
-        this.Age = 1;
+    public Turtle(String name, int x, int y, int size, String col, int horSpeed, int verSpeed, double weight, int age) throws IOException {
+        super(name, new Point(x,y), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
+        setAge(age);
+        setWeight(weight);
         setDiet(new Herbivore());
         MessageUtility.logConstractor("Turtle", name);
     }
 
-    /**
-     * Ctor
-     * @param name Turtles name
-     * @param age Turtles age
-     */
-    public Turtle(String name, int age) {
-        super(name, new Point(80,0));
-        this.Age = age;
-        setDiet(new Herbivore());
-        MessageUtility.logConstractor("Turtle", name);
-    }
+//    /**
+//     * Ctor
+//     * @param name Turtles name
+//     * @param age Turtles age
+//     */
+//    public Turtle(String name, int age) {
+//        super(name, new Point(80,0), size, col, horSpeed, verSpeed, x_dir, y_dir, img1, img2);
+//        this.Age = age;
+//        setDiet(new Herbivore());
+//        MessageUtility.logConstractor("Turtle", name);
+//    }
 
     /**
      * Gets the turtles age
