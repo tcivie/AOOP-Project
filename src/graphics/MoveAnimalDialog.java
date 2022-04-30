@@ -19,6 +19,27 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
     private JTextField oldX;
     private JTextField oldY;
     private JTextField newX;
+
+    public int getNewX() {
+        try {
+            return Integer.parseInt(newX.getText());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public int getNewY() {
+        try {
+            return Integer.parseInt(newY.getText());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public Animal getCurrentCard() {
+        return currentCard;
+    }
+
     private JTextField newY;
 
     private JComboBox<Animal> animals;
@@ -62,37 +83,36 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
         super(owner, title, modal);
         getAllAnimals();
 
+        setPreferredSize(new Dimension(500,150));
+
         JLabel animal = new JLabel("Animal in the zoo: ");
         JLabel oldCord = new JLabel("Old Coordination's: ");
         JLabel newCord = new JLabel("New Coordination: ");
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        JPanel topPanel = new JPanel(new BorderLayout());
+        JPanel topPanel = new JPanel(new GridLayout(1,2));
 
-        topPanel.add(animal,BorderLayout.LINE_START);
-        topPanel.add(animals,BorderLayout.LINE_END);
+        topPanel.add(animal);
+        topPanel.add(animals);
         mainPanel.add(topPanel,BorderLayout.PAGE_START);
 
-        JPanel oldData = new JPanel(new FlowLayout());
-        oldData.add(oldCord);
         oldX = new JTextField();
         oldX.setEditable(false);
-        oldData.add(oldX);
         oldY = new JTextField();
         oldY.setEditable(false);
-        oldData.add(oldY);
-
-        JPanel centerBlock = new JPanel(new GridLayout(2,1));
-        centerBlock.add(oldData);
-
-        JPanel newData = new JPanel(new FlowLayout());
-        newData.add(newCord);
-        newX = new JTextField();
-        newData.add(newX);
         newY = new JTextField();
-        newData.add(newY);
+        newX = new JTextField();
 
-        centerBlock.add(newData);
+        JPanel centerBlock = new JPanel(new GridLayout(3,3));
+        centerBlock.add(new Label(""));
+        centerBlock.add(new Label("X",Label.CENTER));
+        centerBlock.add(new Label("Y",Label.CENTER));
+        centerBlock.add(oldCord);
+        centerBlock.add(oldX);
+        centerBlock.add(oldY);
+        centerBlock.add(newCord);
+        centerBlock.add(newX);
+        centerBlock.add(newY);
 
         mainPanel.add(centerBlock,BorderLayout.CENTER);
         add(mainPanel,BorderLayout.CENTER);
@@ -111,13 +131,20 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
         accept.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                getCurrentCard().move(new Point(getNewX(),getNewY())); // moves animal to new location
+                dispose();
             }
         });
         buttons.add(accept,BorderLayout.LINE_END);
 
         add(buttons,BorderLayout.PAGE_END);
 
+        // Sets the current animal to the relevant points
+        Point location = currentCard.getLocation();
+        oldX.setText(String.valueOf(location.getX()));
+        oldY.setText(String.valueOf(location.getY()));
+
+        pack();
         setVisible(true);
     }
 

@@ -247,7 +247,7 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
                 String addParam = getAdditionalParamField();
 
                 // Test the data
-                if (checkName(name) && checkXCoordinates(x_cord) && checkYCoordinates(y_cord) && checkSize(size) && checkVerSpeed(v_speed) && checkHorSpeed(h_speed) && checkColor(color)) {
+                if (checkName(name) && checkXCoordinates(x_cord) && checkYCoordinates(y_cord) && checkSize(size) && checkVerSpeed(v_speed) && checkHorSpeed(h_speed) && checkColor(color) && checkNumOfAnimalsInZoo()) {
                     try {
                         switch(getCurrentCard()) {
                             case "Bear" -> {
@@ -479,5 +479,12 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
             return false;
         }
         return true;
+    }
+
+    private boolean checkNumOfAnimalsInZoo() {
+        if (ZooFrame.AnimalsInZooNow < ZooFrame.MAX_ANIMALS)
+            return true;
+        JOptionPane.showMessageDialog(this,"You cannot add more than " + ZooFrame.MAX_ANIMALS + " animals to the zoo", "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+        return false;
     }
 }

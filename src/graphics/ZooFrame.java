@@ -23,7 +23,7 @@ public class ZooFrame extends JFrame {
     private MoveAnimalDialog moveAnimalDialog;
     public static Animal[] AnimalsInZoo;
     public static int AnimalsInZooNow = 0;
-    private static final int MAX_ANIMALS = 10;
+    public static final int MAX_ANIMALS = 10;
     private ZooPanel zooPanel;
 
     public ZooPanel getZooPanel() {
@@ -195,6 +195,7 @@ public class ZooFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 moveAnimalDialog = new MoveAnimalDialog(getFrames()[0], "Move Animal", true );
+                zooPanel.repaint();
             }
         });
         JButton clearButton = new JButton("Clear");
