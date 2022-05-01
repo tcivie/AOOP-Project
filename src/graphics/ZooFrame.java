@@ -1,17 +1,16 @@
 package graphics;
 
 import animals.Animal;
+import food.Food;
+import food.IEdible;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * @author glebtcivie
@@ -24,8 +23,9 @@ public class ZooFrame extends JFrame {
     public static Animal[] AnimalsInZoo;
     public static int AnimalsInZooNow = 0;
     public static final int MAX_ANIMALS = 10;
+    public static Food foodInZoo;
     private ZooPanel zooPanel;
-    FoodDialog foodDialog;
+    AddFoodDialog addFoodDialog;
 
     public ZooPanel getZooPanel() {
         return zooPanel;
@@ -85,6 +85,19 @@ public class ZooFrame extends JFrame {
         AnimalsInZoo[AnimalsInZooNow] = animal;
         AnimalsInZooNow++;
         return true;
+    }
+
+    /**
+     * Adds animal to the zoo
+     * @param food
+     * @return True if operation succeeded / False otherwise
+     */
+    public static boolean addFoodToZoo(Food food) {
+        if (foodInZoo == null) {
+            foodInZoo = food; //TODO: Might cause issues, check if there is design pattern that can solve this
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -205,6 +218,7 @@ public class ZooFrame extends JFrame {
             public void actionPerformed(ActionEvent e) { // Kills all the animals :(
                 AnimalsInZoo = new Animal[MAX_ANIMALS];
                 AnimalsInZooNow = 0;
+                foodInZoo = null;
                 zooPanel.repaint();
             }
         });
@@ -212,7 +226,7 @@ public class ZooFrame extends JFrame {
         foodButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                foodDialog = new FoodDialog(getFrames()[0],"Please choose food", "Food for animals");
+                addFoodDialog = new AddFoodDialog(getZooPanel(),"Please choose food", "Food for animals");
                 zooPanel.repaint();
             }
         });

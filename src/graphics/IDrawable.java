@@ -2,6 +2,7 @@ package graphics;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * @author glebtcivie
@@ -9,7 +10,7 @@ import java.awt.*;
  */
 public interface IDrawable {
     String PICTURE_PATH = "...";
-    void loadImages(String nm);
+    void loadImages(String nm) throws IOException;
     void drawObject (Graphics g);
     String getColor();
 }

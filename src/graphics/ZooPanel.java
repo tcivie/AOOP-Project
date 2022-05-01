@@ -103,5 +103,8 @@ public class ZooPanel extends JPanel {
                 ZooFrame.AnimalsInZoo[i].drawObject(g);
             }
         }
+        if (ZooFrame.foodInZoo != null) {
+            ZooFrame.foodInZoo.drawObject(g);
+        }
     }
 }

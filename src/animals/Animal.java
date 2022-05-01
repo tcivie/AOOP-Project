@@ -275,7 +275,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
     public void drawObject(Graphics g) {
         Point location = getLocation();
-        if(x_dir==1) // giraffe goes to the right side
+        if(x_dir==1)
             g.drawImage(getImg1(), location.getX()-getSize()/2, location.getY()-getSize()/10, getSize()/2, getSize(), getPan()); // animal goes to the left side
         else
             g.drawImage(getImg2(), location.getX(), location.getY()-getSize()/10, getSize()/2, getSize(), getPan()); // animal goes to the right

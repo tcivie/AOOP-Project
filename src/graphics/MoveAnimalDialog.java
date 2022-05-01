@@ -140,9 +140,11 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
         add(buttons,BorderLayout.PAGE_END);
 
         // Sets the current animal to the relevant points
-        Point location = currentCard.getLocation();
-        oldX.setText(String.valueOf(location.getX()));
-        oldY.setText(String.valueOf(location.getY()));
+        if (ZooFrame.AnimalsInZooNow > 0) {
+            Point location = ZooFrame.AnimalsInZoo[0].getLocation();
+            oldX.setText(String.valueOf(location.getX()));
+            oldY.setText(String.valueOf(location.getY()));
+        }
 
         pack();
         setVisible(true);

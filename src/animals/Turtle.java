@@ -16,17 +16,6 @@ public class Turtle extends Animal {
     private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/trt_n_1.png";
     private static final String PICTURE_PATH2 = "src/graphics/assignment2_pictures/trt_n_2.png";
 
-//    /**
-//     * Ctor
-//     * @param name Turtles name
-//     */
-//    public Turtle(String name) {
-//        super(name, new Point(80,0), size, col, horSpeed, verSpeed, x_dir, y_dir, img1, img2);
-//        this.Age = 1;
-//        setDiet(new Herbivore());
-//        MessageUtility.logConstractor("Turtle", name);
-//    }
-
     /**
      * Ctor
      * @param name Turtles name
@@ -41,17 +30,6 @@ public class Turtle extends Animal {
         MessageUtility.logConstractor("Turtle", name);
     }
 
-//    /**
-//     * Ctor
-//     * @param name Turtles name
-//     * @param age Turtles age
-//     */
-//    public Turtle(String name, int age) {
-//        super(name, new Point(80,0), size, col, horSpeed, verSpeed, x_dir, y_dir, img1, img2);
-//        this.Age = age;
-//        setDiet(new Herbivore());
-//        MessageUtility.logConstractor("Turtle", name);
-//    }
 
     /**
      * Gets the turtles age
