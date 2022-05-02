@@ -14,6 +14,9 @@ import java.io.File;
  */
 public class ZooPanel extends JPanel {
 
+    private BufferedImage backgroundImage;
+    private Color backgroundColor;
+
     public BufferedImage getBackgroundImage() {
         return backgroundImage;
     }
@@ -36,24 +39,7 @@ public class ZooPanel extends JPanel {
         this.repaint();
     }
 
-    private BufferedImage backgroundImage;
-    private Color backgroundColor;
 
-//    /**
-//     * When an object implementing interface {@code Runnable} is used
-//     * to create a thread, starting the thread causes the object's
-//     * {@code run} method to be called in that separately executing
-//     * thread.
-//     * <p>
-//     * The general contract of the method {@code run} is that it may
-//     * take any action whatsoever.
-//     *
-//     * @see Thread#run()
-//     */
-//    @Override
-//    public void run() {
-//
-//    }
 
     public ZooPanel(int width, int height) {
         super();
@@ -72,6 +58,7 @@ public class ZooPanel extends JPanel {
         }
     }
 
+
     /**
      * Checks if the frame needs repaint
      * @return
@@ -79,12 +66,32 @@ public class ZooPanel extends JPanel {
     private boolean isChange() {
         boolean flag = false;
         for (int i = 0; i < ZooFrame.AnimalsInZooNow; i++) {
-            if (ZooFrame.AnimalsInZoo[i].isNeedsRepaint()) {
+            if (ZooFrame.AnimalsInZoo[i].getChanges()) { // check if something changed
                 flag = true;
-                ZooFrame.AnimalsInZoo[i].setNeedsRepaint(false);
+                ZooFrame.AnimalsInZoo[i].setChanges(false);;
             }
         }
+        checkIfEat(); // Check if the animals can eat
         return flag;
+    }
+
+    /**
+     * Method that check if the animal at any time can eat something of someone
+     */
+    private void checkIfEat() { // TODO: Test this out later tomorrow
+         // check if there are any other animals in the zoo
+        for (int i = 0; i < ZooFrame.AnimalsInZooNow; i++) {
+            if (ZooFrame.AnimalsInZooNow > 1) {
+                for (int j = i + 1; j < ZooFrame.AnimalsInZooNow; j++) {
+                    if (ZooFrame.AnimalsInZoo[i].calcDistance(ZooFrame.AnimalsInZoo[j].getLocation()) <= ZooFrame.AnimalsInZoo[i].getEAT_DISTANCE());
+                        ZooFrame.AnimalsInZoo[i].eat(ZooFrame.AnimalsInZoo[j]); // Try to eat the animal
+                }
+            }
+            if (ZooFrame.foodInZoo != null) {
+                if (ZooFrame.AnimalsInZoo[i].calcDistance(ZooFrame.foodInZoo.getLocation()) < ZooFrame.AnimalsInZoo[i].getEAT_DISTANCE())
+                    ZooFrame.AnimalsInZoo[i].eat(ZooFrame.foodInZoo); // Try to eat the food
+            }
+        }
     }
 
 

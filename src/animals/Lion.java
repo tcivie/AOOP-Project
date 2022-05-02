@@ -3,6 +3,7 @@ package animals;
 import diet.Carnivore;
 import food.EFoodType;
 import food.IEdible;
+import graphics.ZooFrame;
 import mobility.Point;
 import utilities.MessageUtility;
 
@@ -114,6 +115,21 @@ public class Lion extends Animal {
             super.eat(food);
         }
         fireLog("logBooleanFunction", "eat", food, isSuccess);
+        return isSuccess;
+    }
+
+    /**
+     * Eat method for the lion (Uses the help of the original eat method)
+     * @param animal
+     * @return True if the operation succeeds / False otherwise
+     */
+    public boolean eat(Animal animal) {
+        boolean isSuccess = ((this.getDiet().canEat(animal.getFoodtype())) &&
+                (getWeight() >= animal.getWeight() * 2) && (getSize() > calcDistance(animal.getLocation())));
+        if (isSuccess) {
+            eat((IEdible) animal);
+            ZooFrame.deleteAnimalFromTheZoo(animal);
+        }
         return isSuccess;
     }
 

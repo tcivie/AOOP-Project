@@ -5,6 +5,7 @@ import food.EFoodType;
 import food.IEdible;
 import graphics.IAnimalBehavior;
 import graphics.IDrawable;
+import graphics.ZooFrame;
 import graphics.ZooPanel;
 import mobility.Mobile;
 import mobility.Point;
@@ -26,22 +27,22 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private double weight;
     private IDiet diet;
 
-    private final int EAT_DISTANCE = 5;
-    private int size;
-    private String col;
-    private int horSpeed;
-    private int verSpeed;
-    private boolean coordChanged;
+    private final int EAT_DISTANCE = 100;
+
+
+    private final int size;
+    private final String col;
+    private final int horSpeed;
+    private final int verSpeed;
     private Thread thread;
+    private boolean coordChanged;
 
     private int x_dir;
     private int y_dir;
 
-    private int eatCount;
+    private int eatCount = 0;
     private ZooPanel pan;
-    private BufferedImage img1, img2;
-
-    private boolean needsRepaint;
+    private final BufferedImage img1, img2;
 
     /**
      * Ctor
@@ -66,7 +67,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         this.img1 = img1;
         this.img2 = img2;
         this.weight = weight;
-        setNeedsRepaint(true);
+        setChanges(true);
         MessageUtility.logConstractor("Animal", name);
         setName(name);
     }
@@ -156,8 +157,11 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      */
     public boolean eat(IEdible food) {
         boolean isSuccess = (this.diet.canEat(food.getFoodtype()));
-        if (isSuccess)
-            setWeight(this.diet.eat(this,food) + this.weight);
+        if (isSuccess) {
+            setWeight(this.diet.eat(this, food) + this.weight);
+            eatInc();
+            ZooFrame.foodInZoo = null;
+        }
         fireLog("logBooleanFunction", "eat", food, isSuccess);
         return isSuccess;
     }
@@ -168,7 +172,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      *
      * @see java.lang.Object#toString()
      */
-
     @Override
     public String toString() {
         return "[" +this.getClass().getSimpleName() + "]" +this.name;
@@ -206,6 +209,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
                 break;
         }
     }
+
     /**
      * Helper method for firing logs with the library MessageUtility
      * @param methodName What method to fire [logSound]
@@ -218,7 +222,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
                 break;
         }
     }
-
     /**
      * Move method that gives the animal the signal to move and removes the animals weight according to a method:
      * weight - ( calcDistance(point) * weight * 0.00025 )
@@ -234,7 +237,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             isSuccess = setWeight(Math.round((weight - ( distance * weight * 0.00025 )) * 100) / 100.);
             setLocation(point);
             this.addTotalDistance(distance);
-            setNeedsRepaint(true);
+            setChanges(true);
         }
         fireLog("logBooleanFunction","move",point,isSuccess);
         return distance;
@@ -253,24 +256,28 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         return this.size;
     }
 
-    public void eatInc() { //TODO: Add implementation
-
+    public void eatInc() {
+        eatCount++;
     }
 
-    public int getEatCount() { //TODO: Add implementation
-        return 0;
+    public int getEatCount() {
+        return eatCount;
     }
 
-    public boolean getChanges() { //TODO: Add implementation
-        return false;
+    public boolean getChanges() {
+        return coordChanged;
     }
 
-    public void setChanges(boolean state) { //TODO: Add implementation
-
+    public void setChanges(boolean state) {
+        this.coordChanged = state;
     }
 
     public void loadImages(String nm) { //TODO: Add implementation
-
+//        try {
+//            ImageIO.read(new File(nm));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void drawObject(Graphics g) {
@@ -344,11 +351,15 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         return ImageIO.read(new File(path));
     }
 
-    public boolean isNeedsRepaint() {
-        return needsRepaint;
+    public int getHorSpeed() {
+        return horSpeed;
     }
 
-    public void setNeedsRepaint(boolean needsRepaint) {
-        this.needsRepaint = needsRepaint;
+    public int getVerSpeed() {
+        return verSpeed;
+    }
+
+    public int getEAT_DISTANCE() {
+        return EAT_DISTANCE;
     }
 }

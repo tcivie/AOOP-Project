@@ -45,6 +45,10 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
     private JComboBox<Animal> animals;
     private Animal currentCard;
 
+    public void setCurrentCard(Animal currentCard) {
+        this.currentCard = currentCard;
+    }
+
     /**
      * Creates a dialog with the specified title, owner {@code Frame}
      * and modality. If {@code owner} is {@code null},
@@ -144,6 +148,7 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
             Point location = ZooFrame.AnimalsInZoo[0].getLocation();
             oldX.setText(String.valueOf(location.getX()));
             oldY.setText(String.valueOf(location.getY()));
+            setCurrentCard(ZooFrame.AnimalsInZoo[0]);
         }
 
         pack();

@@ -1,6 +1,8 @@
 package animals;
 
 import diet.Omnivore;
+import food.IEdible;
+import graphics.ZooFrame;
 import mobility.Point;
 import utilities.MessageUtility;
 
@@ -21,17 +23,6 @@ public class Bear extends Animal{
     private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/bea_n_1.png";
     private static final String PICTURE_PATH2 = "src/graphics/assignment2_pictures/bea_n_2.png";
 
-//    /**
-//     * Ctor
-//     * @param name Name of the bear
-//     */
-//    public Bear(String name, int size, String col, int horSpeed, int verSpeed, double weight) throws IOException {
-//        super(name, new Point(100,5), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
-//        MessageUtility.logConstractor("Bear", name);
-//        setWeight(308.2);
-//        setFurColor("GRAY");
-//        setDiet(new Omnivore());
-//    }
 
     /**
      * Ctor
@@ -46,19 +37,6 @@ public class Bear extends Animal{
         setFurColor(furColor);
         setDiet(new Omnivore());
     }
-//
-//    /**
-//     * Ctor
-//     * @param name Name of the bear
-//     * @param color Color of the bear from the list of available colors : {"BLACK","WHITE","GRAY"}
-//     */
-//    public Bear(String name,  int size, String col, int horSpeed, int verSpeed, double weight) throws IOException {
-//        super(name, new Point(100,5), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
-//        MessageUtility.logConstractor("Bear", name);
-//        setWeight(308.2);
-//        setFurColor(color);
-//        setDiet(new Omnivore());
-//    }
 
     /**
      * Changes the fur color of the bear
@@ -84,6 +62,20 @@ public class Bear extends Animal{
         return this.furColor;
     }
 
+    /**
+     * Eat method for the lion (Uses the help of the original eat method)
+     * @param animal
+     * @return True if the operation succeeds / False otherwise
+     */
+    public boolean eat(Animal animal) {
+        boolean isSuccess = ((this.getDiet().canEat(animal.getFoodtype())) &&
+                (getWeight() >= animal.getWeight() * 2) && (getSize() > calcDistance(animal.getLocation())));
+        if (isSuccess) {
+            eat((IEdible) animal);
+            ZooFrame.deleteAnimalFromTheZoo(animal);
+        }
+        return isSuccess;
+    }
 
     @Override
     public void makeSound() {

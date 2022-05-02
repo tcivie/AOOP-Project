@@ -26,6 +26,7 @@ public class ZooFrame extends JFrame {
     public static Food foodInZoo;
     private ZooPanel zooPanel;
     AddFoodDialog addFoodDialog;
+    AnimalData animalData;
 
     public ZooPanel getZooPanel() {
         return zooPanel;
@@ -234,7 +235,7 @@ public class ZooFrame extends JFrame {
         infoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: add implementation
+                animalData = new AnimalData(getFrames()[0],"Animal Data", true);
             }
         });
         JButton exitButton = new JButton("Exit");
@@ -257,5 +258,23 @@ public class ZooFrame extends JFrame {
         buttons.add(exitButton);
 
         return buttons;
+    }
+
+    /**
+     * Looks for the animal in the list and deletes it from teh list of all the animals
+     * @param animal
+     * @return True if tha operation succeeds/ False otherwise
+     */
+    public static boolean deleteAnimalFromTheZoo(Animal animal) {
+        for (int i = 0; i < AnimalsInZooNow; i++) {
+            if(AnimalsInZoo[i].equals(animal)) {
+                for (int j = i; j < AnimalsInZooNow - 1; j++) {
+                    AnimalsInZoo[j] = AnimalsInZoo[j + 1]; // shift the animals // TODO: Check for option to make it less problematic
+                }
+                AnimalsInZooNow--; // Animal deleted
+                return true;
+            }
+        }
+        return false;
     }
 }
