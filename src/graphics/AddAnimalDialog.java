@@ -5,11 +5,14 @@ import mobility.Point;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -17,9 +20,11 @@ import java.util.Locale;
  * @author glebtcivie
  * @Date 18/04/2022
  */
-public class AddAnimalDialog extends JDialog implements KeyListener, ItemListener {
+public class AddAnimalDialog extends JDialog implements ItemListener, DocumentListener {
 
     private JPanel panel;
+
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     // BASIC Animal params
     private JLabel image;
@@ -107,7 +112,7 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
 
     private String currentCard;
 
-    private final StringBuilder sb;
+    private StringBuilder sb;
 
     private static final int PARAMS = 8;
     private static final String[] COLORS= {"RED","BLUE","NORMAL"};
@@ -173,7 +178,7 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
         x_cord = new JTextField();
         y_cord = new JTextField();
         size = new JTextField();
-        size.addKeyListener(this);
+        size.getDocument().addDocumentListener(this);
         v_speed = new JTextField();
         h_speed = new JTextField();
         String[] animalColors = {"Normal","Red","Blue"};
@@ -285,61 +290,61 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
         add(image,BorderLayout.LINE_START);
     }
 
-    /**
-     * Invoked when a key has been typed.
-     * See the class description for {@link KeyEvent} for a definition of
-     * a key typed event.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // Delete non numbers
-        char c = e.getKeyChar();
-        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE))
-            e.consume();
-        else {
-            if (c == KeyEvent.VK_BACK_SPACE && sb.length() > 0) // check if the character is backspace or no
-                sb.deleteCharAt(sb.length()-1);
-            else if (c == KeyEvent.VK_BACK_SPACE)
-                e.consume();
-            else
-                sb.append(e.getKeyChar());
-            // display the weight
-            int getWeight = Integer.parseInt(sb.toString());
-            switch (currentCard) {
-                case "Bear" -> weight.setText(Double.toString(1.5 * getWeight));
-                case "Elephant" -> weight.setText(Double.toString(10 * getWeight));
-                case "Giraffe" -> weight.setText(Double.toString(2.2 * getWeight));
-                case "Lion" -> weight.setText(Double.toString(0.8 * getWeight));
-                case "Turtle" -> weight.setText(Double.toString(0.5 * getWeight));
-            }
-        }
-    }
-
-    /**
-     * Invoked when a key has been pressed.
-     * See the class description for {@link KeyEvent} for a definition of
-     * a key pressed event.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    /**
-     * Invoked when a key has been released.
-     * See the class description for {@link KeyEvent} for a definition of
-     * a key released event.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+//    /**
+//     * Invoked when a key has been typed.
+//     * See the class description for {@link KeyEvent} for a definition of
+//     * a key typed event.
+//     *
+//     * @param e the event to be processed
+//     */
+//    @Override
+//    public void keyTyped(KeyEvent e) {
+//        // Delete non numbers
+//        char c = e.getKeyChar();
+//        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE))
+//            e.consume();
+//        else {
+//            if (c == KeyEvent.VK_BACK_SPACE && sb.length() > 0) // check if the character is backspace or no
+//                sb.deleteCharAt(sb.length()-1);
+//            else if (c == KeyEvent.VK_BACK_SPACE)
+//                e.consume();
+//            else
+//                sb.append(e.getKeyChar());
+//            // display the weight
+//            int getSize = Integer.parseInt(sb.toString());
+//            switch (currentCard) {
+//                case "Bear" -> weight.setText(Double.toString(1.5 * getSize));
+//                case "Elephant" -> weight.setText(Double.toString(10 * getSize));
+//                case "Giraffe" -> weight.setText(Double.toString(2.2 * getSize));
+//                case "Lion" -> weight.setText(Double.toString(0.8 * getSize));
+//                case "Turtle" -> weight.setText(Double.toString(0.5 * getSize));
+//            }
+//        }
+//    }
+//
+//    /**
+//     * Invoked when a key has been pressed.
+//     * See the class description for {@link KeyEvent} for a definition of
+//     * a key pressed event.
+//     *
+//     * @param e the event to be processed
+//     */
+//    @Override
+//    public void keyPressed(KeyEvent e) {
+//
+//    }
+//
+//    /**
+//     * Invoked when a key has been released.
+//     * See the class description for {@link KeyEvent} for a definition of
+//     * a key released event.
+//     *
+//     * @param e the event to be processed
+//     */
+//    @Override
+//    public void keyReleased(KeyEvent e) {
+//
+//    }
 
     /**
      * Invoked when an item has been selected or deselected by the user.
@@ -486,5 +491,52 @@ public class AddAnimalDialog extends JDialog implements KeyListener, ItemListene
             return true;
         JOptionPane.showMessageDialog(this,"You cannot add more than " + ZooFrame.MAX_ANIMALS + " animals to the zoo", "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
         return false;
+    }
+
+    /**
+     * Gives notification that there was an insert into the document.  The
+     * range given by the DocumentEvent bounds the freshly inserted region.
+     *
+     * @param e the document event
+     */
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        int getSize = getAnimalSize();
+        switch (currentCard) {
+            case "Bear" -> weight.setText(df.format(1.5 * getSize));
+            case "Elephant" -> weight.setText(df.format(10 * getSize));
+            case "Giraffe" -> weight.setText(df.format(2.2 * getSize));
+            case "Lion" -> weight.setText(df.format(0.8 * getSize));
+            case "Turtle" -> weight.setText(df.format(0.5 * getSize));
+        }
+    }
+
+    /**
+     * Gives notification that a portion of the document has been
+     * removed.  The range is given in terms of what the view last
+     * saw (that is, before updating sticky positions).
+     *
+     * @param e the document event
+     */
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        int getSize = getAnimalSize();
+        switch (currentCard) {
+            case "Bear" -> weight.setText(df.format(1.5 * getSize));
+            case "Elephant" -> weight.setText(df.format(10 * getSize));
+            case "Giraffe" -> weight.setText(df.format(2.2 * getSize));
+            case "Lion" -> weight.setText(df.format(0.8 * getSize));
+            case "Turtle" -> weight.setText(df.format(0.5 * getSize));
+        }
+    }
+
+    /**
+     * Gives notification that an attribute or set of attributes changed.
+     *
+     * @param e the document event
+     */
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+
     }
 }
