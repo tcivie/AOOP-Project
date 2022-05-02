@@ -3,6 +3,7 @@ package graphics;
 import animals.Animal;
 import food.Food;
 import food.IEdible;
+import mobility.Point;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,8 +23,8 @@ public class ZooFrame extends JFrame {
     private AddAnimalDialog addAnimalDialog;
     private MoveAnimalDialog moveAnimalDialog;
     private final ZooPanel zooPanel;
-    AddFoodDialog addFoodDialog;
-    AnimalData animalData;
+    private AddFoodDialog addFoodDialog;
+    private AnimalData animalData;
 
     public ZooPanel getZooPanel() {
         return zooPanel;
@@ -48,7 +49,7 @@ public class ZooFrame extends JFrame {
         super(title);
         setLayout(new BorderLayout()); // Set border layout
 
-        zooPanel = new ZooPanel(1080,500);
+        zooPanel = new ZooPanel(Point.MAX_X,Point.MAX_Y);
         JPanel actionButtons = actionButtons();
 
         setJMenuBar(setMenuBar(zooPanel,actionButtons)); // add the menu to the frame
@@ -58,7 +59,7 @@ public class ZooFrame extends JFrame {
         add(actionButtons,BorderLayout.SOUTH); // Create new buttons panel and add it to the bottom
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Sets default close operation
-        setSize(300, 200); // Set the frame size
+        setSize(Point.MAX_X + 400, Point.MAX_Y + 400); // Set the frame size
         setLocationRelativeTo(null); // Centers the frame
         pack();
         setVisible(true);
@@ -89,7 +90,7 @@ public class ZooFrame extends JFrame {
      */
     public static boolean addFoodToZoo(Food food) {
         if (ZooPanel.foodInZoo == null) {
-            ZooPanel.foodInZoo = food; //TODO: Might cause issues, check if there is design pattern that can solve this
+            ZooPanel.foodInZoo = food;
             return true;
         }
         return false;

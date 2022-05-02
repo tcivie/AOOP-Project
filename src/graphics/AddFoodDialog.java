@@ -67,6 +67,7 @@ public class AddFoodDialog extends JOptionPane implements ActionListener {
                 case "Cabbage" -> {ZooFrame.addFoodToZoo(new Cabbage(new Point(panel.getWidth()/2,panel.getHeight()/2)));}
                 case "Lettuce" -> {ZooFrame.addFoodToZoo(new Lettuce(new Point(panel.getWidth()/2,panel.getHeight()/2)));}
             }
+
             getRootFrame().dispose();
         } catch (IOException ex) {
             ex.printStackTrace();

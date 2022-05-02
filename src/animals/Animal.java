@@ -27,7 +27,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private double weight;
     private IDiet diet;
 
-    private final int EAT_DISTANCE = 10;
+    private final int EAT_DISTANCE = 100;
 
 
     private final int size;

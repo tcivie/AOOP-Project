@@ -23,6 +23,16 @@ public class ZooPanel extends JPanel {
     public static ArrayList<Animal> AnimalsInZoo;
     public static Food foodInZoo;
 
+    private String counter;
+
+    public String getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = String.valueOf(counter);
+    }
+
     public static final int MAX_ANIMALS = 10;
 
 
@@ -60,7 +70,7 @@ public class ZooPanel extends JPanel {
         setMaximumSize(new Dimension(width, height));
         setBackgroundColor(Color.WHITE);
         AnimalsInZoo = new ArrayList<Animal>();
-
+        setCounter(0);
         setVisible(true);
     }
 
@@ -81,7 +91,7 @@ public class ZooPanel extends JPanel {
         for (int i = 0; i < AnimalsInZoo.size(); i++) {
             if (AnimalsInZoo.get(i).getChanges()) { // check if something changed
                 flag = true;
-                AnimalsInZoo.get(i).setChanges(false);;
+                AnimalsInZoo.get(i).setChanges(false);
                 checkIfEat(); // Check if the animals can eat
             }
         }
@@ -99,6 +109,8 @@ public class ZooPanel extends JPanel {
                     if ((AnimalsInZoo.get(i).calcDistance(AnimalsInZoo.get(j).getLocation())) <= AnimalsInZoo.get(i).getEAT_DISTANCE()) {
                         if (AnimalsInZoo.get(i).eat(AnimalsInZoo.get(j))) {
                             AnimalsInZoo.remove(j); // delete the animal from the zoo
+                            setCounter(Integer.parseInt(getCounter()) + 1);
+                            repaint();
                         }
                     }
                 }
@@ -107,6 +119,8 @@ public class ZooPanel extends JPanel {
                 if (AnimalsInZoo.get(i).calcDistance(ZooPanel.foodInZoo.getLocation()) < AnimalsInZoo.get(i).getEAT_DISTANCE()) {
                     if (AnimalsInZoo.get(i).eat(ZooPanel.foodInZoo)) {
                         ZooPanel.foodInZoo = null;
+                        setCounter(Integer.parseInt(getCounter()) + 1);
+                        repaint();
                     }
                 }
             }
@@ -122,19 +136,22 @@ public class ZooPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Paint background on panel
-        if (getBackgroundImage() != null)
+        if (getBackgroundImage() != null) // Check if there is background image
             g.drawImage(getBackgroundImage(),0,0,getWidth(),getHeight(), this);
-        else if (getBackgroundColor() != null) {
+        else if (getBackgroundColor() != null) { // Check if there is background color
             g.setColor(getBackgroundColor());
             g.fillRect(0,0,getWidth(),getHeight());
         }
-        if (AnimalsInZoo.size() > 0) {
+        if (AnimalsInZoo.size() > 0) { // Check if there are animals in the zoo
             for (int i = 0; i < AnimalsInZoo.size(); i++) {
                 AnimalsInZoo.get(i).drawObject(g);
             }
         }
-        if (ZooPanel.foodInZoo != null) {
+        if (ZooPanel.foodInZoo != null) { // Check if there is animal
             ZooPanel.foodInZoo.drawObject(g);
         }
+        g.setColor(Color.BLACK);
+        g.drawString("Eat Counter: " + getCounter(),getWidth()/2-50,50);
+        g.setColor(Color.WHITE);
     }
 }

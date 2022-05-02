@@ -135,8 +135,12 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
         accept.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getCurrentCard().move(new Point(getNewX(),getNewY())); // moves animal to new location
-                dispose();
+                Point newPoint = new Point(getNewX(),getNewY());
+                if (Point.checkBounderies(newPoint)) {
+                    getCurrentCard().move(new Point(getNewX(), getNewY())); // moves animal to new location
+                    dispose();
+                } else
+                    JOptionPane.showMessageDialog(getRootPane(),"Please chose valid location", "Animal movement Error" ,JOptionPane.ERROR_MESSAGE);
             }
         });
         buttons.add(accept,BorderLayout.LINE_END);
