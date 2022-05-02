@@ -160,6 +160,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
                 (getWeight() >= food.getWeight() * 2) && (getSize() > calcDistance(food.getLocation())));
         if (isSuccess) {
             setWeight(this.diet.eat(this, food) + this.weight);
+            eatInc();
         }
         fireLog("logBooleanFunction", "eat", food, isSuccess);
         return isSuccess;
@@ -243,7 +244,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     }
 
     public String getAnimalName() { //TODO: Add implementation
-        return null;
+        return getName();
     }
 
     /**

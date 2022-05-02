@@ -79,7 +79,7 @@ public abstract class Food implements IEdible, ILocatable, IDrawable {
 
     @Override
     public void drawObject(Graphics g) {
-        g.drawImage(getImg(), location.getX(), location.getY(), 50, 50, getPan());
+        g.drawImage(getImg(), location.getX(), location.getY(), 25, 25, getPan());
     }
 
     private Image getImg() {

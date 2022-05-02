@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * @author glebtcivie
@@ -20,11 +21,7 @@ public class ZooFrame extends JFrame {
 
     private AddAnimalDialog addAnimalDialog;
     private MoveAnimalDialog moveAnimalDialog;
-    public static Animal[] AnimalsInZoo;
-    public static int AnimalsInZooNow = 0;
-    public static final int MAX_ANIMALS = 10;
-    public static Food foodInZoo;
-    private ZooPanel zooPanel;
+    private final ZooPanel zooPanel;
     AddFoodDialog addFoodDialog;
     AnimalData animalData;
 
@@ -61,8 +58,6 @@ public class ZooFrame extends JFrame {
         add(actionButtons,BorderLayout.SOUTH); // Create new buttons panel and add it to the bottom
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Sets default close operation
-
-        AnimalsInZoo = new Animal[MAX_ANIMALS];
         setSize(300, 200); // Set the frame size
         setLocationRelativeTo(null); // Centers the frame
         pack();
@@ -81,10 +76,9 @@ public class ZooFrame extends JFrame {
      * @return True if operation succeeded / False otherwise
      */
     public static boolean addAnimalToZoo(Animal animal) {
-        if (AnimalsInZooNow >= MAX_ANIMALS)
+        if (ZooPanel.AnimalsInZoo.size() >= ZooPanel.MAX_ANIMALS)
             return false;
-        AnimalsInZoo[AnimalsInZooNow] = animal;
-        AnimalsInZooNow++;
+        ZooPanel.AnimalsInZoo.add(animal);
         return true;
     }
 
@@ -94,8 +88,8 @@ public class ZooFrame extends JFrame {
      * @return True if operation succeeded / False otherwise
      */
     public static boolean addFoodToZoo(Food food) {
-        if (foodInZoo == null) {
-            foodInZoo = food; //TODO: Might cause issues, check if there is design pattern that can solve this
+        if (ZooPanel.foodInZoo == null) {
+            ZooPanel.foodInZoo = food; //TODO: Might cause issues, check if there is design pattern that can solve this
             return true;
         }
         return false;
@@ -217,9 +211,8 @@ public class ZooFrame extends JFrame {
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { // Kills all the animals :(
-                AnimalsInZoo = new Animal[MAX_ANIMALS];
-                AnimalsInZooNow = 0;
-                foodInZoo = null;
+                ZooPanel.AnimalsInZoo = new ArrayList<Animal>();
+                ZooPanel.foodInZoo = null;
                 zooPanel.repaint();
             }
         });
@@ -258,23 +251,5 @@ public class ZooFrame extends JFrame {
         buttons.add(exitButton);
 
         return buttons;
-    }
-
-    /**
-     * Looks for the animal in the list and deletes it from teh list of all the animals
-     * @param animal
-     * @return True if tha operation succeeds/ False otherwise
-     */
-    public static boolean deleteAnimalFromTheZoo(Animal animal) {
-        for (int i = 0; i < AnimalsInZooNow; i++) {
-            if(AnimalsInZoo[i].equals(animal)) {
-                for (int j = i; j < AnimalsInZooNow - 1; j++) {
-                    AnimalsInZoo[j] = AnimalsInZoo[j + 1]; // shift the animals // TODO: Check for option to make it less problematic
-                }
-                AnimalsInZooNow--; // Animal deleted
-                return true;
-            }
-        }
-        return false;
     }
 }

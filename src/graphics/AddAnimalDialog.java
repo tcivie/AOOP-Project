@@ -272,7 +272,7 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
                             }
                         }
                         //Successfully created animal
-                        JOptionPane.showMessageDialog(AddAnimalDialog.super.getFocusOwner(),name + " Has been added to the zoo, his ID is: " + ZooFrame.AnimalsInZooNow,"Animal creation", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(AddAnimalDialog.super.getFocusOwner(),name + " Has been added to the zoo, his ID is: " + ZooPanel.AnimalsInZoo.size(),"Animal creation", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                     } catch (IOException ex) { // If image path is not right throw exception
                         ex.printStackTrace();
@@ -431,9 +431,9 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
     }
 
     private boolean checkNumOfAnimalsInZoo() {
-        if (ZooFrame.AnimalsInZooNow < ZooFrame.MAX_ANIMALS)
+        if (ZooPanel.AnimalsInZoo.size() < ZooPanel.MAX_ANIMALS)
             return true;
-        JOptionPane.showMessageDialog(this,"You cannot add more than " + ZooFrame.MAX_ANIMALS + " animals to the zoo", "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this,"You cannot add more than " + ZooPanel.MAX_ANIMALS + " animals to the zoo", "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
         return false;
     }
 

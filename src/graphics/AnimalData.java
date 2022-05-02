@@ -48,11 +48,14 @@ public class AnimalData extends JDialog {
      */
     public AnimalData(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
-        data = new String[ZooFrame.AnimalsInZooNow][6];
-        for (int i = 0; i < data.length; i++) {
-            Animal animal = ZooFrame.AnimalsInZoo[i];
+        data = new String[ZooPanel.AnimalsInZoo.size() + 1][6];
+        int eatCounter = 0;
+        for (int i = 0; i < data.length - 1; i++) {
+            Animal animal = ZooPanel.AnimalsInZoo.get(i);
             data[i] = new String[]{animal.getName(),animal.getColor(), Double.toString(animal.getWeight()),Integer.toString(animal.getHorSpeed()),Integer.toString(animal.getVerSpeed()),Integer.toString(animal.getEatCount())};
+            eatCounter += animal.getEatCount();
         }
+        data[data.length - 1] = new String[]{"Total eats:",null,null,null,null,Integer.toString(eatCounter)};
         String column[] = {"Animal","Color","Weight","Hor.speed","Ver.speed","Eat counter"};
 
         JTable jt = new JTable(data,column);

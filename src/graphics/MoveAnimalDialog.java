@@ -144,11 +144,11 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
         add(buttons,BorderLayout.PAGE_END);
 
         // Sets the current animal to the relevant points
-        if (ZooFrame.AnimalsInZooNow > 0) {
-            Point location = ZooFrame.AnimalsInZoo[0].getLocation();
+        if (ZooPanel.AnimalsInZoo.size() > 0) {
+            Point location = ZooPanel.AnimalsInZoo.get(0).getLocation();
             oldX.setText(String.valueOf(location.getX()));
             oldY.setText(String.valueOf(location.getY()));
-            setCurrentCard(ZooFrame.AnimalsInZoo[0]);
+            setCurrentCard(ZooPanel.AnimalsInZoo.get(0));
         }
 
         pack();
@@ -160,8 +160,8 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
      */
     private void getAllAnimals() {
         animals = new JComboBox<Animal>();
-        for (int i = 0; i < ZooFrame.AnimalsInZooNow; i++) {
-            animals.addItem(ZooFrame.AnimalsInZoo[i]);
+        for (int i = 0; i < ZooPanel.AnimalsInZoo.size(); i++) {
+            animals.addItem(ZooPanel.AnimalsInZoo.get(i));
         }
         animals.addItemListener(this);
     }
