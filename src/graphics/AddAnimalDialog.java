@@ -255,21 +255,11 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
                 if (checkName(name) && checkXCoordinates(x_cord) && checkYCoordinates(y_cord) && checkSize(size) && checkVerSpeed(v_speed) && checkHorSpeed(h_speed) && checkColor(color) && checkNumOfAnimalsInZoo()) {
                     try {
                         switch(getCurrentCard()) {
-                            case "Bear" -> {
-                                ZooFrame.addAnimalToZoo(new Bear(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,addParam));
-                            }
-                            case "Elephant" -> {
-                                ZooFrame.addAnimalToZoo(new Elephant(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));
-                            }
-                            case "Giraffe" -> {
-                                ZooFrame.addAnimalToZoo(new Giraffe(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));
-                            }
-                            case "Lion" -> {
-                                ZooFrame.addAnimalToZoo(new Lion(name,x_cord,y_cord,size,color,h_speed,v_speed,weight));
-                            }
-                            case "Turtle" -> {
-                                ZooFrame.addAnimalToZoo(new Turtle(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Integer.parseInt(addParam)));
-                            }
+                            case "Bear" -> {ZooFrame.addAnimalToZoo(new Bear(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,addParam));}
+                            case "Elephant" -> {ZooFrame.addAnimalToZoo(new Elephant(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));}
+                            case "Giraffe" -> {ZooFrame.addAnimalToZoo(new Giraffe(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));}
+                            case "Lion" -> {ZooFrame.addAnimalToZoo(new Lion(name,x_cord,y_cord,size,color,h_speed,v_speed,weight));}
+                            case "Turtle" -> {ZooFrame.addAnimalToZoo(new Turtle(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Integer.parseInt(addParam)));}
                         }
                         //Successfully created animal
                         JOptionPane.showMessageDialog(AddAnimalDialog.super.getFocusOwner(),name + " Has been added to the zoo, his ID is: " + ZooPanel.AnimalsInZoo.size(),"Animal creation", JOptionPane.INFORMATION_MESSAGE);

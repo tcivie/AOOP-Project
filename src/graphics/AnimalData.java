@@ -18,8 +18,8 @@ public class AnimalData extends JDialog {
         return eatCounter;
     }
 
-    public void setEatCounter(int eatCounter) {
-        this.eatCounter = eatCounter;
+    public void setEatCounter(int count) {
+        this.eatCounter = count;
     }
 
     /**
@@ -63,7 +63,7 @@ public class AnimalData extends JDialog {
         for (int i = 0; i < data.length - 1; i++) {
             Animal animal = ZooPanel.AnimalsInZoo.get(i);
             data[i] = new String[]{animal.getName(),animal.getColor(), Double.toString(animal.getWeight()),Integer.toString(animal.getHorSpeed()),Integer.toString(animal.getVerSpeed()),Integer.toString(animal.getEatCount())};
-            setEatCounter(getEatCounter() + 1);
+            setEatCounter(getEatCounter() + animal.getEatCount());
         }
         data[data.length - 1] = new String[]{"Total eats:",null,null,null,null,Integer.toString(getEatCounter())};
         String column[] = {"Animal","Color","Weight","Hor.speed","Ver.speed","Eat counter"};

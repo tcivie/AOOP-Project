@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 /**
  * @author Gleb Tcivie & Orel Dandeker
  * @Date 18/04/2022
@@ -76,8 +78,15 @@ public class ZooPanel extends JPanel {
 
     public void manageZoo() {
         while (true) {
-            if (isChange())
+            if (isChange()) {
                 repaint();
+            }
+            try {
+                sleep(500); // Wait for half a second
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            checkIfEat(); // Check if the animals can eat
         }
     }
 
@@ -92,7 +101,6 @@ public class ZooPanel extends JPanel {
             if (AnimalsInZoo.get(i).getChanges()) { // check if something changed
                 flag = true;
                 AnimalsInZoo.get(i).setChanges(false);
-                checkIfEat(); // Check if the animals can eat
             }
         }
         return flag;
@@ -110,7 +118,6 @@ public class ZooPanel extends JPanel {
                         if (AnimalsInZoo.get(i).eat(AnimalsInZoo.get(j))) {
                             AnimalsInZoo.remove(j); // delete the animal from the zoo
                             setCounter(Integer.parseInt(getCounter()) + 1);
-                            repaint();
                         }
                     }
                 }
@@ -120,7 +127,6 @@ public class ZooPanel extends JPanel {
                     if (AnimalsInZoo.get(i).eat(ZooPanel.foodInZoo)) {
                         ZooPanel.foodInZoo = null;
                         setCounter(Integer.parseInt(getCounter()) + 1);
-                        repaint();
                     }
                 }
             }
