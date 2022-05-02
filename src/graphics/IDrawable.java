@@ -5,7 +5,7 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
- * @author glebtcivie
+ * @author Gleb Tcivie & Orel Dandeker
  * @Date 18/04/2022
  */
 public interface IDrawable {

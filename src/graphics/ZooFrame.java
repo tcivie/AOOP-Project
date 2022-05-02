@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * @author glebtcivie
+ * @author Gleb Tcivie & Orel Dandeker
  * @Date 18/04/2022
  */
 public class ZooFrame extends JFrame {

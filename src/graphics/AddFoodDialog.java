@@ -11,7 +11,7 @@ import java.awt.event.*;
 import java.io.IOException;
 
 /**
- * @author glebtcivie
+ * @author Gleb Tcivie & Orel Dandeker
  * @Date 30/04/2022
  */
 public class AddFoodDialog extends JOptionPane implements ActionListener {

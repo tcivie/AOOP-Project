@@ -11,7 +11,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 /**
- * @author glebtcivie
+ * @author Gleb Tcivie & Orel Dandeker
  * @Date 30/04/2022
  */
 public class MoveAnimalDialog extends JDialog implements ItemListener {

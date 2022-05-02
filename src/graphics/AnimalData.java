@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author glebtcivie
+ * @author Gleb Tcivie & Orel Dandeker
  * @Date 02/05/2022
  */
 public class AnimalData extends JDialog {

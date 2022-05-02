@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Random;
 
 /**
- * @author glebtcivie
+ * @author Gleb Tcivie & Orel Dandeker
  * @Date 01/05/2022
  */
 public class Meat extends Food {

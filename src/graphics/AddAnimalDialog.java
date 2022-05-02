@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 /**
- * @author glebtcivie
+ * @author Gleb Tcivie & Orel Dandeker
  * @Date 18/04/2022
  */
 public class AddAnimalDialog extends JDialog implements ItemListener, DocumentListener {
