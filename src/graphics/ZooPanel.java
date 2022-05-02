@@ -76,13 +76,13 @@ public class ZooPanel extends JPanel {
         setVisible(true);
     }
 
-    public void manageZoo() {
+    public void manageZoo() { // Change this method to be invoked on every change, instead of repaint()
         while (true) {
             if (isChange()) {
                 repaint();
             }
             try {
-                sleep(500); // Wait for half a second
+                sleep(500); // Wait for half a second because the quantum time for this method is causing overflow
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
