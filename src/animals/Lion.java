@@ -20,17 +20,6 @@ public class Lion extends Animal {
     private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/lio_n_1.png";
     private static final String PICTURE_PATH2 = "src/graphics/assignment2_pictures/lio_n_2.png";
 
-//    /**
-//     * Ctor
-//     * @param name Lions name
-//     */
-//    public Lion(String name) {
-//        super(name, new Point(20,0), size, col, horSpeed, verSpeed, x_dir, y_dir, img1, img2);
-//        MessageUtility.logConstractor("Lion", name);
-//        setWeight(408.20);
-//        setDiet(new Carnivore());
-//    }
-
     /**
      * Ctor
      * @param name Lions name
@@ -107,29 +96,15 @@ public class Lion extends Animal {
      */
     @Override
     public boolean eat(IEdible food) {
-        boolean isSuccess = (this.getDiet().canEat(food.getFoodtype()));
+        boolean isSuccess = ((this.getDiet().canEat(food.getFoodtype())) &&
+                (getWeight() >= food.getWeight() * 2) && (getSize() > calcDistance(food.getLocation())));
         Random random = new Random();
         if (isSuccess) {
             if (random.nextInt(0,100) < 50)
-                setScarCount(this.scarCount++);
+                setScarCount(++this.scarCount);
             super.eat(food);
         }
         fireLog("logBooleanFunction", "eat", food, isSuccess);
-        return isSuccess;
-    }
-
-    /**
-     * Eat method for the lion (Uses the help of the original eat method)
-     * @param animal
-     * @return True if the operation succeeds / False otherwise
-     */
-    public boolean eat(Animal animal) {
-        boolean isSuccess = ((this.getDiet().canEat(animal.getFoodtype())) &&
-                (getWeight() >= animal.getWeight() * 2) && (getSize() > calcDistance(animal.getLocation())));
-        if (isSuccess) {
-            eat((IEdible) animal);
-            ZooFrame.deleteAnimalFromTheZoo(animal);
-        }
         return isSuccess;
     }
 

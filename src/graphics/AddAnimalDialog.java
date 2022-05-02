@@ -290,62 +290,6 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
         add(image,BorderLayout.LINE_START);
     }
 
-//    /**
-//     * Invoked when a key has been typed.
-//     * See the class description for {@link KeyEvent} for a definition of
-//     * a key typed event.
-//     *
-//     * @param e the event to be processed
-//     */
-//    @Override
-//    public void keyTyped(KeyEvent e) {
-//        // Delete non numbers
-//        char c = e.getKeyChar();
-//        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE))
-//            e.consume();
-//        else {
-//            if (c == KeyEvent.VK_BACK_SPACE && sb.length() > 0) // check if the character is backspace or no
-//                sb.deleteCharAt(sb.length()-1);
-//            else if (c == KeyEvent.VK_BACK_SPACE)
-//                e.consume();
-//            else
-//                sb.append(e.getKeyChar());
-//            // display the weight
-//            int getSize = Integer.parseInt(sb.toString());
-//            switch (currentCard) {
-//                case "Bear" -> weight.setText(Double.toString(1.5 * getSize));
-//                case "Elephant" -> weight.setText(Double.toString(10 * getSize));
-//                case "Giraffe" -> weight.setText(Double.toString(2.2 * getSize));
-//                case "Lion" -> weight.setText(Double.toString(0.8 * getSize));
-//                case "Turtle" -> weight.setText(Double.toString(0.5 * getSize));
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Invoked when a key has been pressed.
-//     * See the class description for {@link KeyEvent} for a definition of
-//     * a key pressed event.
-//     *
-//     * @param e the event to be processed
-//     */
-//    @Override
-//    public void keyPressed(KeyEvent e) {
-//
-//    }
-//
-//    /**
-//     * Invoked when a key has been released.
-//     * See the class description for {@link KeyEvent} for a definition of
-//     * a key released event.
-//     *
-//     * @param e the event to be processed
-//     */
-//    @Override
-//    public void keyReleased(KeyEvent e) {
-//
-//    }
-
     /**
      * Invoked when an item has been selected or deselected by the user.
      * The code written for this method performs the operations

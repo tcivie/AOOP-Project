@@ -27,7 +27,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private double weight;
     private IDiet diet;
 
-    private final int EAT_DISTANCE = 100;
+    private final int EAT_DISTANCE = 10;
 
 
     private final int size;
@@ -156,11 +156,10 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return True if the animal has been fed successfully / False otherwise
      */
     public boolean eat(IEdible food) {
-        boolean isSuccess = (this.diet.canEat(food.getFoodtype()));
+        boolean isSuccess = ((this.getDiet().canEat(food.getFoodtype())) &&
+                (getWeight() >= food.getWeight() * 2) && (getSize() > calcDistance(food.getLocation())));
         if (isSuccess) {
             setWeight(this.diet.eat(this, food) + this.weight);
-            eatInc();
-            ZooFrame.foodInZoo = null;
         }
         fireLog("logBooleanFunction", "eat", food, isSuccess);
         return isSuccess;
@@ -283,9 +282,9 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     public void drawObject(Graphics g) {
         Point location = getLocation();
         if(x_dir==1)
-            g.drawImage(getImg1(), location.getX()-getSize()/2, location.getY()-getSize()/10, getSize()/2, getSize(), getPan()); // animal goes to the left side
+            g.drawImage(getImg1(), Math.abs(location.getX()-getSize()/2), Math.abs(location.getY()-getSize()/10), getSize()/2, getSize(), getPan()); // animal goes to the left side
         else
-            g.drawImage(getImg2(), location.getX(), location.getY()-getSize()/10, getSize()/2, getSize(), getPan()); // animal goes to the right
+            g.drawImage(getImg2(), location.getX(), Math.abs(location.getY()-getSize()/10), getSize()/2, getSize(), getPan()); // animal goes to the right
     }
 
     /**

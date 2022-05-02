@@ -1,12 +1,15 @@
 package graphics;
 
 import animals.Animal;
+import diet.Carnivore;
+import diet.IDiet;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * @author glebtcivie
@@ -16,6 +19,7 @@ public class ZooPanel extends JPanel {
 
     private BufferedImage backgroundImage;
     private Color backgroundColor;
+
 
     public BufferedImage getBackgroundImage() {
         return backgroundImage;
@@ -69,9 +73,9 @@ public class ZooPanel extends JPanel {
             if (ZooFrame.AnimalsInZoo[i].getChanges()) { // check if something changed
                 flag = true;
                 ZooFrame.AnimalsInZoo[i].setChanges(false);;
+                checkIfEat(); // Check if the animals can eat
             }
         }
-        checkIfEat(); // Check if the animals can eat
         return flag;
     }
 
@@ -83,13 +87,19 @@ public class ZooPanel extends JPanel {
         for (int i = 0; i < ZooFrame.AnimalsInZooNow; i++) {
             if (ZooFrame.AnimalsInZooNow > 1) {
                 for (int j = i + 1; j < ZooFrame.AnimalsInZooNow; j++) {
-                    if (ZooFrame.AnimalsInZoo[i].calcDistance(ZooFrame.AnimalsInZoo[j].getLocation()) <= ZooFrame.AnimalsInZoo[i].getEAT_DISTANCE());
-                        ZooFrame.AnimalsInZoo[i].eat(ZooFrame.AnimalsInZoo[j]); // Try to eat the animal
+                    if ((ZooFrame.AnimalsInZoo[i].calcDistance(ZooFrame.AnimalsInZoo[j].getLocation())) <= ZooFrame.AnimalsInZoo[i].getEAT_DISTANCE()) {
+                        if (ZooFrame.AnimalsInZoo[i].eat(ZooFrame.AnimalsInZoo[j])) {
+                            ZooFrame.deleteAnimalFromTheZoo(ZooFrame.AnimalsInZoo[j]); // Delete the animal from the zoo
+                        }
+                    }
                 }
             }
             if (ZooFrame.foodInZoo != null) {
-                if (ZooFrame.AnimalsInZoo[i].calcDistance(ZooFrame.foodInZoo.getLocation()) < ZooFrame.AnimalsInZoo[i].getEAT_DISTANCE())
-                    ZooFrame.AnimalsInZoo[i].eat(ZooFrame.foodInZoo); // Try to eat the food
+                if (ZooFrame.AnimalsInZoo[i].calcDistance(ZooFrame.foodInZoo.getLocation()) < ZooFrame.AnimalsInZoo[i].getEAT_DISTANCE()) {
+                    if (ZooFrame.AnimalsInZoo[i].eat(ZooFrame.foodInZoo)) {
+                        ZooFrame.foodInZoo = null;
+                    }
+                }
             }
         }
     }

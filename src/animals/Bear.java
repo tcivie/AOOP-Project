@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker
@@ -60,21 +61,6 @@ public class Bear extends Animal{
     public String getFurColor() {
         fireLog("logGetter", "getFurColor", this.furColor);
         return this.furColor;
-    }
-
-    /**
-     * Eat method for the lion (Uses the help of the original eat method)
-     * @param animal
-     * @return True if the operation succeeds / False otherwise
-     */
-    public boolean eat(Animal animal) {
-        boolean isSuccess = ((this.getDiet().canEat(animal.getFoodtype())) &&
-                (getWeight() >= animal.getWeight() * 2) && (getSize() > calcDistance(animal.getLocation())));
-        if (isSuccess) {
-            eat((IEdible) animal);
-            ZooFrame.deleteAnimalFromTheZoo(animal);
-        }
-        return isSuccess;
     }
 
     @Override
