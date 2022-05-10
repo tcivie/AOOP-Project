@@ -21,7 +21,7 @@ import java.io.IOException;
  * @author Gleb Tcivie & Orel Dandeker
  * @Date 5/4/22
  */
-public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior, IDrawable {
+public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior, IDrawable, Runnable {
 
     private String name;
     private double weight;
@@ -34,7 +34,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private final String col;
     private final int horSpeed;
     private final int verSpeed;
-    private Thread thread;
     private boolean coordChanged;
 
     private int x_dir;
@@ -43,6 +42,9 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private int eatCount = 0;
     private ZooPanel pan;
     private final BufferedImage img1, img2;
+
+    protected Thread thread;
+    protected boolean threadSuspended;
 
     /**
      * Ctor
@@ -70,6 +72,32 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         setChanges(true);
         MessageUtility.logConstractor("Animal", name);
         setName(name);
+    }
+
+    @Override
+    public void setSuspended() {
+
+    }
+
+    @Override
+    public void setResumed() {
+
+    }
+
+    /**
+     * When an object implementing interface {@code Runnable} is used
+     * to create a thread, starting the thread causes the object's
+     * {@code run} method to be called in that separately executing
+     * thread.
+     * <p>
+     * The general contract of the method {@code run} is that it may
+     * take any action whatsoever.
+     *
+     * @see Thread#run()
+     */
+    @Override
+    public void run() {
+
     }
 
     /**

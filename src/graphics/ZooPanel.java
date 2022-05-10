@@ -18,7 +18,7 @@ import static java.lang.Thread.sleep;
  * @author Gleb Tcivie & Orel Dandeker
  * @Date 18/04/2022
  */
-public class ZooPanel extends JPanel {
+public class ZooPanel extends JPanel implements Runnable{
 
     private BufferedImage backgroundImage;
     private Color backgroundColor;
@@ -27,6 +27,10 @@ public class ZooPanel extends JPanel {
 
     private String counter;
 
+    public static final int MAX_ANIMALS = 10;
+
+    private Thread controller;
+
     public String getCounter() {
         return counter;
     }
@@ -34,9 +38,6 @@ public class ZooPanel extends JPanel {
     public void setCounter(int counter) {
         this.counter = String.valueOf(counter);
     }
-
-    public static final int MAX_ANIMALS = 10;
-
 
     public BufferedImage getBackgroundImage() {
         return backgroundImage;
@@ -159,5 +160,21 @@ public class ZooPanel extends JPanel {
         g.setColor(Color.BLACK);
         g.drawString("Eat Counter: " + getCounter(),getWidth()/2-50,50);
         g.setColor(Color.WHITE);
+    }
+
+    /**
+     * When an object implementing interface {@code Runnable} is used
+     * to create a thread, starting the thread causes the object's
+     * {@code run} method to be called in that separately executing
+     * thread.
+     * <p>
+     * The general contract of the method {@code run} is that it may
+     * take any action whatsoever.
+     *
+     * @see Thread#run()
+     */
+    @Override
+    public void run() {
+
     }
 }
