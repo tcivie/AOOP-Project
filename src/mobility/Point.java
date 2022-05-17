@@ -29,6 +29,11 @@ public class Point {
                 && newLocation.y <= MAX_Y && newLocation.y >= MIN_Y);
     }
 
+    public static boolean checkBounderies(int x, int y) {
+        return (x <= MAX_X && x >= MIN_X
+                && y <= MAX_Y && y >= MIN_Y);
+    }
+
     public int getY() {
         return y;
     }

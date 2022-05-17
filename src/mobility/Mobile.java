@@ -38,6 +38,17 @@ public abstract class Mobile implements ILocatable {
         return Math.round(result * 100) / 100.;
     }
 
+    /**
+     * Calculate distance between two points
+     * @param x The x coord to check
+     * @param y The Y coord to check
+     * @return The distance that calculated
+     */
+    public double calcDistance(int x, int y) {
+        double result = Math.sqrt(Math.pow(this.location.getX() - x,2) + Math.pow(this.location.getY() - y,2));
+        return Math.round(result * 100) / 100.;
+    }
+
     public abstract double move(Point point);
 
     /**
@@ -57,6 +68,18 @@ public abstract class Mobile implements ILocatable {
     @Override
     public boolean setLocation(Point point) {
         this.location = point;
+        return true;
+    }
+
+    /**
+     * Sets a new location for the animal with the given point
+     * @param x New x coord for the animal
+     * @param y New y coord for the animal
+     * @return True if the operation was successful / False otherwise
+     */
+    public boolean setLocation(int x, int y) {
+        this.location.setX(x);
+        this.location.setY(y);
         return true;
     }
 }

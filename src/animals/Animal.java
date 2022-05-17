@@ -37,15 +37,16 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private boolean coordChanged;
 
     private int x_dir;
+
     private int y_dir;
 
     private int eatCount = 0;
+
     private ZooPanel pan;
     private final BufferedImage img1, img2;
-
     protected Thread thread;
-    protected boolean threadSuspended;
 
+    protected boolean threadSuspended;
     /**
      * Ctor
      * @param name Animals name
@@ -63,7 +64,9 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         this.size = size;
         this.col = col;
         this.horSpeed = horSpeed;
+        this.x_dir = horSpeed > 0 ? 1 : -1;
         this.verSpeed = verSpeed;
+        this.y_dir = verSpeed > 0 ? 1 : -1;
         this.x_dir = 1;
         this.y_dir = 1;
         this.img1 = img1;
@@ -200,11 +203,11 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      *
      * @see java.lang.Object#toString()
      */
+
     @Override
     public String toString() {
         return "[" +this.getClass().getSimpleName() + "]" +this.name;
     }
-
 
     /**
      * Helper method for firing logs with the library MessageUtility
@@ -250,6 +253,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
                 break;
         }
     }
+
     /**
      * Move method that gives the animal the signal to move and removes the animals weight according to a method:
      * weight - ( calcDistance(point) * weight * 0.00025 )
@@ -268,6 +272,28 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             setChanges(true);
         }
         fireLog("logBooleanFunction","move",point,isSuccess);
+        return distance;
+    }
+
+    /**
+     * Move method that gives the animal the signal to move and removes the animals weight according to a method:
+     * weight - ( calcDistance(point) * weight * 0.00025 )
+     * @param x X coordinate to where to go
+     * @param y Y coordinate to where to go
+     * @return If the move is possible then the moved distance / Otherwise 0
+     */
+    public double move(int x, int y) {
+        boolean isSuccess = Point.checkBounderies(x,y);
+        double distance = 0;
+        if (isSuccess) {
+            double weight = this.getWeight();
+            distance = calcDistance(x,y);
+            isSuccess = setWeight(Math.round((weight - ( distance * weight * 0.00025 )) * 100) / 100.);
+            setLocation(x,y);
+            this.addTotalDistance(distance);
+            setChanges(true);
+        }
+        fireLog("logBooleanFunction","move","(" + x + "," + y + ")",isSuccess);
         return distance;
     }
 
@@ -389,5 +415,13 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
     public int getEAT_DISTANCE() {
         return EAT_DISTANCE;
+    }
+
+    public void setX_dir(int x_dir) {
+        this.x_dir = x_dir;
+    }
+
+    public void setY_dir(int y_dir) {
+        this.y_dir = y_dir;
     }
 }
