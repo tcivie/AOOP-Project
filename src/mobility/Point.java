@@ -24,14 +24,40 @@ public class Point {
         this.y = point.getY();
     }
 
+    @Deprecated
     public static boolean checkBounderies(Point newLocation) {
         return (newLocation.x <= MAX_X && newLocation.x >= MIN_X
                 && newLocation.y <= MAX_Y && newLocation.y >= MIN_Y);
     }
 
-    public static boolean checkBounderies(int x, int y) {
-        return (x <= MAX_X && x >= MIN_X
-                && y <= MAX_Y && y >= MIN_Y);
+    /**
+     * Checks if the object is out of bounds and returns the location at which the error occurs
+     * [ 1 2 3 ]
+     * [ 4 5 6 ]
+     * [ 7 8 9 ]
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @return int location from the matrix above
+     */
+    public static int checkBounderies(int x, int y) {
+        if (x <= MIN_X && y <= MIN_Y)
+            return 1;
+        if (x >= MIN_X && x <= MAX_X && y <= MIN_Y)
+            return 2;
+        if (x >= MAX_X && y <= MIN_Y)
+            return 3;
+        if (x <= MIN_X && y<= MAX_Y)
+            return 4;
+        if (x >= MIN_X && x <= MAX_X && y <= MAX_Y)
+            return 5;
+        if (x >= MAX_X && y <= MAX_Y)
+            return 6;
+        if (x <= MIN_X)
+            return 7;
+        if (x <= MAX_X)
+            return 8;
+        else
+            return 9;
     }
 
     public int getY() {
