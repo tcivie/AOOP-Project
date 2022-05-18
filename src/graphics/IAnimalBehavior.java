@@ -9,8 +9,6 @@ public interface IAnimalBehavior {
     int getSize();
     void eatInc();
     int getEatCount();
-    boolean getChanges();
-    void setChanges(boolean state);
     void setSuspended();
     void setResumed();
 }

@@ -67,7 +67,8 @@ public class ZooFrame extends JFrame {
 
     public static void main(String[] args) {
         ZooFrame frame = new ZooFrame("AOOP Assignment 2 - Zoo");
-        frame.zooPanel.manageZoo();
+        Thread zooPanel = new Thread(frame.zooPanel);
+        zooPanel.start();
     }
 
 
@@ -121,7 +122,7 @@ public class ZooFrame extends JFrame {
 
         menuItemExit.addActionListener(new ActionListener() { // Add action to exit item
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { //TODO: Kill all the animals and their threads
                 for (Frame frame:
                      getFrames()) {
                     frame.dispose();
@@ -235,7 +236,7 @@ public class ZooFrame extends JFrame {
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {//TODO: Kill all the animals and their threads
                 for (Frame frame:
                         getFrames()) {
                     frame.dispose();

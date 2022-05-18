@@ -75,20 +75,11 @@ public class ZooPanel extends JPanel implements Runnable{
         AnimalsInZoo = new ArrayList<Animal>();
         setCounter(0);
         setVisible(true);
+
     }
 
     public void manageZoo() { // Change this method to be invoked on every change, instead of repaint()
-        while (true) {
-            if (isChange()) {
-                repaint();
-            }
-            try {
-                sleep(500); // Wait for half a second because the quantum time for this method is causing overflow
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            checkIfEat(); // Check if the animals can eat
-        }
+
     }
 
 
@@ -96,15 +87,17 @@ public class ZooPanel extends JPanel implements Runnable{
      * Checks if the frame needs repaint
      * @return
      */
+    @Deprecated
     private boolean isChange() {
-        boolean flag = false;
-        for (int i = 0; i < AnimalsInZoo.size(); i++) {
-            if (AnimalsInZoo.get(i).getChanges()) { // check if something changed
-                flag = true;
-                AnimalsInZoo.get(i).setChanges(false);
-            }
-        }
-        return flag;
+//        boolean flag = false;
+//        for (int i = 0; i < AnimalsInZoo.size(); i++) {
+//            if (AnimalsInZoo.get(i).getChanges()) { // check if something changed
+//                flag = true;
+//                AnimalsInZoo.get(i).setChanges(false);
+//            }
+//        }
+//        return flag;
+        return false;
     }
 
     /**
@@ -175,6 +168,14 @@ public class ZooPanel extends JPanel implements Runnable{
      */
     @Override
     public void run() {
-
+        while (true) {
+            repaint();
+            try {
+                sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            checkIfEat(); // Check if the animals can eat
+        }
     }
 }

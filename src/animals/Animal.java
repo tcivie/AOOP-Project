@@ -35,7 +35,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private final String col;
     private final int horSpeed;
     private final int verSpeed;
-    private boolean coordChanged;
 
     private int x_dir;
 
@@ -73,9 +72,10 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         this.img1 = img1;
         this.img2 = img2;
         this.weight = weight;
-        setChanges(true);
         MessageUtility.logConstractor("Animal", name);
         setName(name);
+        this.thread = new Thread(this);
+        this.thread.start();
     }
 
     @Override
@@ -101,13 +101,10 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      */
     @Override
     public void run() {
-        Point pos = getLocation();
+        Point currentLocation;
         while (true) {
-            pos = getLocation();
-            if (!Point.checkBounderies(pos))
-
-            if (x_dir > 0)
-
+            currentLocation = getLocation();
+            move(currentLocation.getX() + getHorSpeed() * getX_dir(), currentLocation.getY() + getVerSpeed() * getY_dir());
         }
     }
 
@@ -277,7 +274,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             isSuccess = setWeight(Math.round((weight - ( distance * weight * 0.00025 )) * 100) / 100.);
             setLocation(point);
             this.addTotalDistance(distance);
-            setChanges(true);
         }
         fireLog("logBooleanFunction","move",point,isSuccess);
         return distance;
@@ -300,15 +296,20 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             isSuccess = setWeight(Math.round((weight - ( distance * weight * 0.00025 )) * 100) / 100.);
             setLocation(x,y);
             this.addTotalDistance(distance);
-            setChanges(true);
         } else {
              if ( x >= Point.MAX_X || x <= Point.MIN_X) {
-                 x = Math.abs(Point.MAX_X - (x - Point.MAX_X)); // New Point Right Border
+                 if (x >= Point.MAX_X)
+                     x = Point.MAX_X - (x - Point.MAX_X);
+                 else
+                     x = Point.MIN_X + Math.abs(x);
                  setX_dir(-getX_dir()); // Invert move direction
              } if ( y >= Point.MAX_Y || y <= Point.MIN_Y) {
-                y = Math.abs(Point.MAX_Y - (y - Point.MAX_Y)); // New Point Right Border
+                if (y >= Point.MAX_Y)
+                    y = Point.MAX_Y - (y - Point.MAX_Y);
+                else
+                    y = Point.MIN_Y + Math.abs(y);
                 setY_dir(-getY_dir()); // Invert move direction
-             }
+            }
              return move(x,y); // Calls the method again so that the changes will take effect
         }
         fireLog("logBooleanFunction","move","(" + x + "," + y + ")",isSuccess);
@@ -334,14 +335,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
     public int getEatCount() {
         return eatCount;
-    }
-
-    public boolean getChanges() {
-        return coordChanged;
-    }
-
-    public void setChanges(boolean state) {
-        this.coordChanged = state;
     }
 
     public void loadImages(String nm) { //TODO: Add implementation
