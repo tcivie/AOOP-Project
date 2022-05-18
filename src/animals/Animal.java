@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker
@@ -100,7 +101,14 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      */
     @Override
     public void run() {
+        Point pos = getLocation();
+        while (true) {
+            pos = getLocation();
+            if (!Point.checkBounderies(pos))
 
+            if (x_dir > 0)
+
+        }
     }
 
     /**
@@ -278,6 +286,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     /**
      * Move method that gives the animal the signal to move and removes the animals weight according to a method:
      * weight - ( calcDistance(point) * weight * 0.00025 )
+     * If the animal is at the corner of the screen then switch the direction in which it goes
      * @param x X coordinate to where to go
      * @param y Y coordinate to where to go
      * @return If the move is possible then the moved distance / Otherwise 0
@@ -292,6 +301,15 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             setLocation(x,y);
             this.addTotalDistance(distance);
             setChanges(true);
+        } else {
+             if ( x >= Point.MAX_X || x <= Point.MIN_X) {
+                 x = Math.abs(Point.MAX_X - (x - Point.MAX_X)); // New Point Right Border
+                 setX_dir(-getX_dir()); // Invert move direction
+             } if ( y >= Point.MAX_Y || y <= Point.MIN_Y) {
+                y = Math.abs(Point.MAX_Y - (y - Point.MAX_Y)); // New Point Right Border
+                setY_dir(-getY_dir()); // Invert move direction
+             }
+             return move(x,y); // Calls the method again so that the changes will take effect
         }
         fireLog("logBooleanFunction","move","(" + x + "," + y + ")",isSuccess);
         return distance;
