@@ -83,6 +83,7 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
      * @see GraphicsEnvironment#isHeadless
      * @see JComponent#getDefaultLocale
      */
+    @Deprecated
     public MoveAnimalDialog(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
         getAllAnimals();

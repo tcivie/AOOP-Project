@@ -31,6 +31,16 @@ public class ZooPanel extends JPanel implements Runnable{
 
     private final Thread controller;
 
+    private boolean animalsSuspended;
+
+    public boolean isAnimalsSuspended() {
+        return animalsSuspended;
+    }
+
+    public void setAnimalsSuspended(boolean animalsSuspended) {
+        this.animalsSuspended = animalsSuspended;
+    }
+
     public Thread getController() {
         return controller;
     }
@@ -79,7 +89,7 @@ public class ZooPanel extends JPanel implements Runnable{
         AnimalsInZoo = new ArrayList<Animal>();
         setCounter(0);
         setVisible(true);
-
+        setAnimalsSuspended(false);
         this.controller = new Thread(this);
     }
 
@@ -148,8 +158,8 @@ public class ZooPanel extends JPanel implements Runnable{
             g.fillRect(0,0,getWidth(),getHeight());
         }
         if (AnimalsInZoo.size() > 0) { // Check if there are animals in the zoo
-            for (int i = 0; i < AnimalsInZoo.size(); i++) {
-                AnimalsInZoo.get(i).drawObject(g);
+            for (Animal animal : AnimalsInZoo) {
+                animal.drawObject(g);
             }
         }
         if (ZooPanel.foodInZoo != null) { // Check if there is animal
@@ -179,7 +189,7 @@ public class ZooPanel extends JPanel implements Runnable{
                 checkIfEat(); // Check if the animals can eat
                 for (Animal value : AnimalsInZoo) {
                     animal = value;
-                    if (animal.isThreadSuspended()) {
+                    if (animal.isThreadSuspended() && !isAnimalsSuspended()) {
                         synchronized (animal) {
                             animal.setResumed();
                             animal.notify();

@@ -203,12 +203,20 @@ public class ZooFrame extends JFrame {
                 zooPanel.repaint();
             }
         });
-        JButton moveAnimalButton = new JButton("Move Animal");
-        moveAnimalButton.addActionListener(new ActionListener() {
+        JButton sleepAnimalButton = new JButton("Sleep");
+        sleepAnimalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { // Moves the animal
-                moveAnimalDialog = new MoveAnimalDialog(getFrames()[0], "Move Animal", true );
-                zooPanel.repaint();
+//                moveAnimalDialog = new MoveAnimalDialog(getFrames()[0], "Sleep", true );
+                zooPanel.setAnimalsSuspended(true);
+//                zooPanel.repaint();
+            }
+        });
+        JButton wakeUpAnimalsButton = new JButton("WakeUp");
+        wakeUpAnimalsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                zooPanel.setAnimalsSuspended(false);
             }
         });
         JButton clearButton = new JButton("Clear");
@@ -248,7 +256,8 @@ public class ZooFrame extends JFrame {
         });
 
         buttons.add(addAnimalButton);
-        buttons.add(moveAnimalButton);
+        buttons.add(sleepAnimalButton);
+        buttons.add(wakeUpAnimalsButton);
         buttons.add(clearButton);
         buttons.add(foodButton);
         buttons.add(infoButton);
