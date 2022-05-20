@@ -44,9 +44,14 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
     private ZooPanel pan;
     private final BufferedImage img1, img2;
-    protected Thread thread;
+    protected final Thread thread;
 
-    protected boolean threadSuspended;
+    protected volatile boolean threadSuspended;
+
+    public synchronized boolean isThreadSuspended() {
+        return threadSuspended;
+    }
+
     /**
      * Ctor
      * @param name Animals name
@@ -75,17 +80,20 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         MessageUtility.logConstractor("Animal", name);
         setName(name);
         this.thread = new Thread(this);
-        this.thread.start();
+    }
+
+    public Thread getThread() {
+        return thread;
     }
 
     @Override
-    public void setSuspended() {
-
+    public synchronized void setSuspended() {
+        this.threadSuspended = true;
     }
 
     @Override
-    public void setResumed() {
-
+    public synchronized void setResumed() {
+        this.threadSuspended = false;
     }
 
     /**
@@ -102,9 +110,20 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     @Override
     public void run() {
         Point currentLocation;
+        setResumed();
         while (true) {
             currentLocation = getLocation();
             move(currentLocation.getX() + getHorSpeed() * getX_dir(), currentLocation.getY() + getVerSpeed() * getY_dir());
+            try {
+                if (!isThreadSuspended()) {
+                    synchronized (this) {
+                        setSuspended();
+                        this.wait();
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

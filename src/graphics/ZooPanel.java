@@ -29,7 +29,11 @@ public class ZooPanel extends JPanel implements Runnable{
 
     public static final int MAX_ANIMALS = 10;
 
-    private Thread controller;
+    private final Thread controller;
+
+    public Thread getController() {
+        return controller;
+    }
 
     public String getCounter() {
         return counter;
@@ -76,6 +80,7 @@ public class ZooPanel extends JPanel implements Runnable{
         setCounter(0);
         setVisible(true);
 
+        this.controller = new Thread(this);
     }
 
     public void manageZoo() { // Change this method to be invoked on every change, instead of repaint()
@@ -168,14 +173,24 @@ public class ZooPanel extends JPanel implements Runnable{
      */
     @Override
     public void run() {
+        Animal animal;
         while (true) {
-            repaint();
+                repaint();
+                checkIfEat(); // Check if the animals can eat
+                for (Animal value : AnimalsInZoo) {
+                    animal = value;
+                    if (animal.isThreadSuspended()) {
+                        synchronized (animal) {
+                            animal.setResumed();
+                            animal.notify();
+                        }
+                    }
+                }
             try {
-                sleep(500);
+                sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            checkIfEat(); // Check if the animals can eat
         }
     }
 }

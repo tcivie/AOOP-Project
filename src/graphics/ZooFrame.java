@@ -62,6 +62,7 @@ public class ZooFrame extends JFrame {
         setSize(Point.MAX_X + 400, Point.MAX_Y + 400); // Set the frame size
         setLocationRelativeTo(null); // Centers the frame
         pack();
+        zooPanel.getController().start(); // Start the panel
         setVisible(true);
     }
 
@@ -81,6 +82,7 @@ public class ZooFrame extends JFrame {
         if (ZooPanel.AnimalsInZoo.size() >= ZooPanel.MAX_ANIMALS)
             return false;
         ZooPanel.AnimalsInZoo.add(animal);
+        animal.getThread().start(); // Start animal thread
         return true;
     }
 
