@@ -21,6 +21,8 @@ public class ZooPanel extends JPanel implements Runnable{
     public static ArrayList<Animal> AnimalsInZoo;
     public static Food foodInZoo;
 
+    private volatile boolean isTerminated = false;
+
     private String counter;
 
     public static final int MAX_ANIMALS = 10;
@@ -71,6 +73,14 @@ public class ZooPanel extends JPanel implements Runnable{
         this.repaint();
     }
 
+    public boolean isTerminated() {
+        return isTerminated;
+    }
+
+    public void setTerminated(boolean terminated) {
+        isTerminated = terminated;
+    }
+
 
     /**
      * Creates a new <code>JPanel</code> with a double buffer
@@ -117,6 +127,7 @@ public class ZooPanel extends JPanel implements Runnable{
                 for (int j = i + 1; j < AnimalsInZoo.size(); j++) {
                     if ((AnimalsInZoo.get(i).calcDistance(AnimalsInZoo.get(j).getLocation())) <= AnimalsInZoo.get(i).getEAT_DISTANCE()) {
                         if (AnimalsInZoo.get(i).eat(AnimalsInZoo.get(j))) {
+                            AnimalsInZoo.get(i).setTerminated(true); // terminate the thread
                             AnimalsInZoo.remove(j); // delete the animal from the zoo
                             setCounter(Integer.parseInt(getCounter()) + 1);
                         }
@@ -176,7 +187,7 @@ public class ZooPanel extends JPanel implements Runnable{
     @Override
     public void run() {
         Animal animal;
-        while (true) { //TODO: Add exit point
+        while (!isTerminated()) {
                 repaint();
                 checkIfEat(); // Check if the animals can eat
                 for (Animal value : AnimalsInZoo) {
@@ -193,6 +204,10 @@ public class ZooPanel extends JPanel implements Runnable{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+        for (int i = 0; i < AnimalsInZoo.size(); i++) {
+            animal = AnimalsInZoo.get(i);
+            animal.setTerminated(true); // Terminate the animal threads
         }
     }
 }

@@ -123,11 +123,13 @@ public class ZooFrame extends JFrame {
 
         // Add action to exit item
         menuItemExit.addActionListener(e -> { //TODO: Kill all the animals and their threads
+            zooPanel.setTerminated(true);
             for (Frame frame:
                  getFrames()) {
                 frame.dispose();
             }
             getFrames()[0].dispose(); // Close all windows
+            System.exit(0);
         });
         menuFile.add(menuItemExit);
 
@@ -209,11 +211,13 @@ public class ZooFrame extends JFrame {
         infoButton.addActionListener(e -> animalData = new AnimalData(getFrames()[0],"Animal Data", true));
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(e -> {//TODO: Kill all the animals and their threads
+            zooPanel.setTerminated(true);
             for (Frame frame:
                     getFrames()) {
                 frame.dispose();
             }
             getFrames()[0].dispose(); // Close all windows
+            System.exit(0);
         });
 
         buttons.add(addAnimalButton);

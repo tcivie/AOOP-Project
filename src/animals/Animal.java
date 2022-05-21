@@ -48,6 +48,16 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
     protected volatile boolean threadSuspended;
 
+    private volatile boolean isTerminated = false;
+
+    public boolean isTerminated() {
+        return isTerminated;
+    }
+
+    public void setTerminated(boolean terminated) {
+        isTerminated = terminated;
+    }
+
     public synchronized boolean isThreadSuspended() {
         return threadSuspended;
     }
@@ -110,7 +120,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     public void run() {
         Point currentLocation;
         setResumed();
-        while (true) { // TODO: Add exit point
+        while (!isTerminated()) { // TODO: Add exit point
             currentLocation = getLocation();
             move(currentLocation.getX() + getHorSpeed() * getX_dir(), currentLocation.getY() + getVerSpeed() * getY_dir());
             try {
