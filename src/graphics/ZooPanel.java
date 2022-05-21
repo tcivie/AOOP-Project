@@ -127,7 +127,7 @@ public class ZooPanel extends JPanel implements Runnable{
                 for (int j = i + 1; j < AnimalsInZoo.size(); j++) {
                     if ((AnimalsInZoo.get(i).calcDistance(AnimalsInZoo.get(j).getLocation())) <= AnimalsInZoo.get(i).getEAT_DISTANCE()) {
                         if (AnimalsInZoo.get(i).eat(AnimalsInZoo.get(j))) {
-                            AnimalsInZoo.get(i).setTerminated(true); // terminate the thread
+                            AnimalsInZoo.get(j).setTerminated(true); // terminate the thread
                             AnimalsInZoo.remove(j); // delete the animal from the zoo
                             setCounter(Integer.parseInt(getCounter()) + 1);
                         }
