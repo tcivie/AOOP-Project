@@ -19,9 +19,7 @@ public class Omnivore extends Diet implements IDiet {
      */
     @Override
     public boolean canEat(EFoodType food) {
-        if (food == EFoodType.MEAT || food == EFoodType.VEGETABLE)
-            return true;
-        return false;
+        return food == EFoodType.MEAT || food == EFoodType.VEGETABLE;
     }
 
     /**

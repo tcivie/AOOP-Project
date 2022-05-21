@@ -1,7 +1,6 @@
 package zoo;
 
 import animals.Animal;
-import food.EFoodType;
 import food.IEdible;
 import mobility.Point;
 
@@ -15,11 +14,7 @@ public abstract class ZooActions{
      */
     public static boolean eat(Object animal, IEdible food) {
         Animal ani = (Animal) animal;
-        boolean isSuccess = ani.eat(food);
-        if (isSuccess) {
-            ani.makeSound();
-        }
-        return isSuccess;
+        return ani.eat(food);
     }
 
     /**
@@ -28,6 +23,7 @@ public abstract class ZooActions{
      * @param point To where we want to move the animal
      * @return True if the animal has moved / False otherwise
      */
+    @Deprecated
     public static boolean move(Object animal, Point point) {
         return ((Animal) animal).move(point) > 0;
     }

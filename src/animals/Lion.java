@@ -3,9 +3,7 @@ package animals;
 import diet.Carnivore;
 import food.EFoodType;
 import food.IEdible;
-import graphics.ZooFrame;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import java.io.IOException;
 import java.util.Random;
@@ -28,7 +26,7 @@ public class Lion extends Animal {
      */
     public Lion(String name, int x, int y, int size, String col, int horSpeed, int verSpeed, double weight) throws IOException {
         super(name, new Point(x,y), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
-        MessageUtility.logConstractor("Lion", name);
+//        MessageUtility.logConstractor("Lion", name);
         setWeight(weight);
         setDiet(new Carnivore());
     }
@@ -38,7 +36,6 @@ public class Lion extends Animal {
      * @return
      */
     public int getScarCount() {
-        fireLog("logGetter", "getScarCount", this.scarCount);
         return this.scarCount;
     }
 
@@ -53,11 +50,11 @@ public class Lion extends Animal {
             this.scarCount = scarCount;
         else
             this.scarCount = 0;
-        fireLog("logSetter", "setScarCount", scarCount, isSuccess);
         return isSuccess;
     }
 
     @Override
+    @Deprecated
     public void makeSound() {
         roar();
     } //TODO: find better approach
@@ -65,6 +62,7 @@ public class Lion extends Animal {
     /**
      * Plays the roar sound with the help of the Firelog method in Animal
      */
+    @Deprecated
     public void roar() {
         fireLog("logSound","Roars, then stretches and shakes its mane");
     }
@@ -75,18 +73,7 @@ public class Lion extends Animal {
      */
     @Override
     public EFoodType getFoodtype() {
-        fireLog("logGetter", "getFoodType", EFoodType.NOTFOOD);
         return EFoodType.NOTFOOD;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return super.toString();
     }
 
     /**
@@ -104,7 +91,6 @@ public class Lion extends Animal {
                 setScarCount(++this.scarCount);
             super.eat(food);
         }
-        fireLog("logBooleanFunction", "eat", food, isSuccess);
         return isSuccess;
     }
 

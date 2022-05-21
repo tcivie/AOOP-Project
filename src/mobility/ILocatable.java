@@ -8,5 +8,5 @@ public interface ILocatable {
 
     Point getLocation();
 
-    boolean setLocation(Point point);
+    void setLocation(Point point);
 }

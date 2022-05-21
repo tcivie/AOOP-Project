@@ -16,9 +16,11 @@ import java.awt.event.ItemListener;
  */
 public class MoveAnimalDialog extends JDialog implements ItemListener {
 
-    private JTextField oldX;
-    private JTextField oldY;
-    private JTextField newX;
+    private final JTextField oldX;
+    private final JTextField oldY;
+    private final JTextField newX;
+    private final JTextField newY;
+
 
     public int getNewX() {
         try {
@@ -39,8 +41,6 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
     public Animal getCurrentCard() {
         return currentCard;
     }
-
-    private JTextField newY;
 
     private JComboBox<Animal> animals;
     private Animal currentCard;
@@ -124,25 +124,17 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
 
         JPanel buttons = new JPanel(new BorderLayout());
         JButton cancel = new JButton("Cancel");
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        cancel.addActionListener(e -> dispose());
         buttons.add(cancel,BorderLayout.LINE_START);
 
         JButton accept = new JButton("Accept");
-        accept.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Point newPoint = new Point(getNewX(),getNewY());
-                if (Point.checkBounderies(newPoint)) {
-                    getCurrentCard().move(new Point(getNewX(), getNewY())); // moves animal to new location
-                    dispose();
-                } else
-                    JOptionPane.showMessageDialog(getRootPane(),"Please chose valid location", "Animal movement Error" ,JOptionPane.ERROR_MESSAGE);
-            }
+        accept.addActionListener(e -> {
+            Point newPoint = new Point(getNewX(),getNewY());
+            if (Point.checkBounderies(newPoint)) {
+                getCurrentCard().move(new Point(getNewX(), getNewY())); // moves animal to new location
+                dispose();
+            } else
+                JOptionPane.showMessageDialog(getRootPane(),"Please chose valid location", "Animal movement Error" ,JOptionPane.ERROR_MESSAGE);
         });
         buttons.add(accept,BorderLayout.LINE_END);
 
@@ -164,7 +156,7 @@ public class MoveAnimalDialog extends JDialog implements ItemListener {
      * Gets all the initiated animals in the zoo and displays them in the dropdown menu
      */
     private void getAllAnimals() {
-        animals = new JComboBox<Animal>();
+        animals = new JComboBox<>();
         for (int i = 0; i < ZooPanel.AnimalsInZoo.size(); i++) {
             animals.addItem(ZooPanel.AnimalsInZoo.get(i));
         }

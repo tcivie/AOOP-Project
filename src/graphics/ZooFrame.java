@@ -2,7 +2,6 @@ package graphics;
 
 import animals.Animal;
 import food.Food;
-import food.IEdible;
 import mobility.Point;
 
 import javax.imageio.ImageIO;
@@ -122,15 +121,13 @@ public class ZooFrame extends JFrame {
         JMenuItem menuItemExit = new JMenuItem("Exit"); // Add exit item
 
 
-        menuItemExit.addActionListener(new ActionListener() { // Add action to exit item
-            @Override
-            public void actionPerformed(ActionEvent e) { //TODO: Kill all the animals and their threads
-                for (Frame frame:
-                     getFrames()) {
-                    frame.dispose();
-                }
-                getFrames()[0].dispose(); // Close all windows
+        // Add action to exit item
+        menuItemExit.addActionListener(e -> { //TODO: Kill all the animals and their threads
+            for (Frame frame:
+                 getFrames()) {
+                frame.dispose();
             }
+            getFrames()[0].dispose(); // Close all windows
         });
         menuFile.add(menuItemExit);
 
@@ -139,36 +136,27 @@ public class ZooFrame extends JFrame {
         JMenuItem menuItemGreen = new JMenuItem("Green"); // Add green item
         JMenuItem menuItemNone = new JMenuItem("None"); // Add none item
 
-        menuItemImage.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { // Add Background image
-                final JFileChooser fc = new JFileChooser();
-                int returnVal = fc.showOpenDialog(getFrames()[0]);
+        menuItemImage.addActionListener(e -> { // Add Background image
+            final JFileChooser fc = new JFileChooser();
+            int returnVal = fc.showOpenDialog(getFrames()[0]);
 
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        BufferedImage bgImage = ImageIO.read(fc.getSelectedFile());
-                        zooPanel.setBackgroundImage(bgImage);
-                        zooPanel.setSize(bgImage.getWidth(), bgImage.getHeight()); // resize the panel to match the zoo size
-                        getFrames()[0].setSize(bgImage.getWidth(), bgImage.getHeight() + actionButtons.getHeight()*2); // resize the frame to include the image
-                    } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(getFrames()[0], "There's an issue with the file you chose", "Error: File choosing", JOptionPane.ERROR_MESSAGE);
-                    }
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                try {
+                    BufferedImage bgImage = ImageIO.read(fc.getSelectedFile());
+                    zooPanel.setBackgroundImage(bgImage);
+                    zooPanel.setSize(bgImage.getWidth(), bgImage.getHeight()); // resize the panel to match the zoo size
+                    getFrames()[0].setSize(bgImage.getWidth(), bgImage.getHeight() + actionButtons.getHeight()*2); // resize the frame to include the image
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(getFrames()[0], "There's an issue with the file you chose", "Error: File choosing", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-        menuItemGreen.addActionListener(new ActionListener() { // Set background color to green
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                zooPanel.setBackgroundColor(Color.GREEN);
-            }
-        });
-        menuItemNone.addActionListener(new ActionListener() { // Remove all backgrounds
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                zooPanel.setBackgroundColor(null);
-                zooPanel.setBackgroundImage(null);
-            }
+        // Set background color to green
+        menuItemGreen.addActionListener(e -> zooPanel.setBackgroundColor(Color.GREEN));
+        // Remove all backgrounds
+        menuItemNone.addActionListener(e -> {
+            zooPanel.setBackgroundColor(null);
+            zooPanel.setBackgroundImage(null);
         });
         menuBackground.add(menuItemImage);
         menuBackground.add(menuItemGreen);
@@ -177,11 +165,9 @@ public class ZooFrame extends JFrame {
         JMenu menuHelp = new JMenu("Help"); // Create section Background
         JMenuItem menuItemHelp = new JMenuItem("Help"); // Add image item
 
-        menuItemHelp.addActionListener(new ActionListener() { // Display help popup
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(getFrames()[0],"Home Work 2\nGUI"); // Show popup with the message
-            }
+        // Display help popup
+        menuItemHelp.addActionListener(e -> {
+            JOptionPane.showMessageDialog(getFrames()[0],"Home Work 2\nGUI"); // Show popup with the message
         });
         menuHelp.add(menuItemHelp);
 
@@ -196,63 +182,38 @@ public class ZooFrame extends JFrame {
         JPanel cards = new JPanel(new CardLayout());
 
         JButton addAnimalButton = new JButton("Add Animal");
-        addAnimalButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { // Creates new animals
-                addAnimalDialog = new AddAnimalDialog(getFrames()[0], "New Animal", true);
-                zooPanel.repaint();
-            }
+        addAnimalButton.addActionListener(e -> { // Creates new animals
+            addAnimalDialog = new AddAnimalDialog(getFrames()[0], "New Animal", true);
+            zooPanel.repaint();
         });
         JButton sleepAnimalButton = new JButton("Sleep");
-        sleepAnimalButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { // Moves the animal
+        sleepAnimalButton.addActionListener(e -> { // Moves the animal
 //                moveAnimalDialog = new MoveAnimalDialog(getFrames()[0], "Sleep", true );
-                zooPanel.setAnimalsSuspended(true);
+            zooPanel.setAnimalsSuspended(true);
 //                zooPanel.repaint();
-            }
         });
         JButton wakeUpAnimalsButton = new JButton("WakeUp");
-        wakeUpAnimalsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                zooPanel.setAnimalsSuspended(false);
-            }
-        });
+        wakeUpAnimalsButton.addActionListener(e -> zooPanel.setAnimalsSuspended(false));
         JButton clearButton = new JButton("Clear");
-        clearButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { // Kills all the animals :(
-                ZooPanel.AnimalsInZoo = new ArrayList<Animal>();
-                ZooPanel.foodInZoo = null;
-                zooPanel.repaint();
-            }
+        clearButton.addActionListener(e -> { // Kills all the animals :(
+            ZooPanel.AnimalsInZoo = new ArrayList<>();
+            ZooPanel.foodInZoo = null;
+            zooPanel.repaint();
         });
         JButton foodButton = new JButton("Food");
-        foodButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addFoodDialog = new AddFoodDialog(getZooPanel(),"Please choose food", "Food for animals");
-                zooPanel.repaint();
-            }
+        foodButton.addActionListener(e -> {
+            addFoodDialog = new AddFoodDialog(getZooPanel(),"Please choose food", "Food for animals");
+            zooPanel.repaint();
         });
         JButton infoButton = new JButton("Info");
-        infoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                animalData = new AnimalData(getFrames()[0],"Animal Data", true);
-            }
-        });
+        infoButton.addActionListener(e -> animalData = new AnimalData(getFrames()[0],"Animal Data", true));
         JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {//TODO: Kill all the animals and their threads
-                for (Frame frame:
-                        getFrames()) {
-                    frame.dispose();
-                }
-                getFrames()[0].dispose(); // Close all windows
+        exitButton.addActionListener(e -> {//TODO: Kill all the animals and their threads
+            for (Frame frame:
+                    getFrames()) {
+                frame.dispose();
             }
+            getFrames()[0].dispose(); // Close all windows
         });
 
         buttons.add(addAnimalButton);

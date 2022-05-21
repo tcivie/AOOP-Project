@@ -2,7 +2,6 @@ package animals;
 
 import diet.Herbivore;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import java.io.IOException;
 
@@ -38,7 +37,7 @@ public class Giraffe extends Animal {
         setNeckLength(neckLength);
         setWeight(weight);
         setDiet(new Herbivore());
-        MessageUtility.logConstractor("Giraffe", name);
+//        MessageUtility.logConstractor("Giraffe", name);
     }
 
 //    /**
@@ -64,7 +63,6 @@ public class Giraffe extends Animal {
             this.neckLength = length;
         else
             this.neckLength = 1.5;
-        fireLog("logSetter", "setNeckLength", length, isSuccess);
         return isSuccess;
     }
 
@@ -73,11 +71,11 @@ public class Giraffe extends Animal {
      * @return Giraffes neck length
      */
     public double getNeckLength() {
-        fireLog("logGetter", "getNeckLength", this.neckLength);
         return this.neckLength;
     }
 
     @Override
+    @Deprecated
     public void makeSound() {
         chew();
     } //TODO: find better approach
@@ -85,18 +83,9 @@ public class Giraffe extends Animal {
     /**
      * Plays the chew sound with the help of the Firelog method in Animal
      */
+    @Deprecated
     public void chew() {
         fireLog("logSound","Bleats and Stomps its legs, then chews");
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return super.toString();
     }
 
 

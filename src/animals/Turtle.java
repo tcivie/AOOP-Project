@@ -2,7 +2,6 @@ package animals;
 
 import diet.Herbivore;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import java.io.IOException;
 
@@ -27,7 +26,7 @@ public class Turtle extends Animal {
         setAge(age);
         setWeight(weight);
         setDiet(new Herbivore());
-        MessageUtility.logConstractor("Turtle", name);
+//        MessageUtility.logConstractor("Turtle", name);
     }
 
 
@@ -36,7 +35,6 @@ public class Turtle extends Animal {
      * @return age
      */
     public int getAge() {
-        fireLog("logGetter", "getAge", this.Age);
         return Age;
     }
 
@@ -49,11 +47,11 @@ public class Turtle extends Animal {
         boolean isSuccess = (0 <= age && age <= 500);
         if (isSuccess)
             this.Age = age;
-        fireLog("logSetter", "setAge", age, isSuccess);
         return isSuccess;
     }
 
     @Override
+    @Deprecated
     public void makeSound() {
         chew();
     } //TODO: find better approach
@@ -61,18 +59,9 @@ public class Turtle extends Animal {
     /**
      * Plays the chew sound with the help of the Firelog method in Animal
      */
+    @Deprecated
     public void chew() {
         fireLog("logSound","Retracts its head in then eats quietly");
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return super.toString();
     }
 
 

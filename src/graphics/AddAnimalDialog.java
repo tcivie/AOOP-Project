@@ -112,8 +112,6 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
 
     private String currentCard;
 
-    private StringBuilder sb;
-
     private static final int PARAMS = 8;
     private static final String[] COLORS= {"RED","BLUE","NORMAL"};
 
@@ -156,11 +154,9 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
         super(owner, title, modal);
         setSize(500,460);
 
-        sb = new StringBuilder();
-
         JPanel comboBoxPane = new JPanel();
         String[] comboBoxItems = {"Bear","Elephant","Giraffe","Lion","Turtle"};
-        JComboBox<String> cb = new JComboBox<String>(comboBoxItems);
+        JComboBox<String> cb = new JComboBox<>(comboBoxItems);
         cb.addItemListener(this);
         cb.setEditable(false);
         comboBoxPane.add(cb);
@@ -182,7 +178,7 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
         v_speed = new JTextField();
         h_speed = new JTextField();
         String[] animalColors = {"Normal","Red","Blue"};
-        color = new JComboBox<String>(animalColors);
+        color = new JComboBox<>(animalColors);
         weight = new JTextField();
         weight.setEditable(false);
 
@@ -228,45 +224,39 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
 
         JPanel buttons = new JPanel(new BorderLayout());
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // close window
-            }
+        cancelButton.addActionListener(e -> {
+            dispose(); // close window
         });
         buttons.add(cancelButton,BorderLayout.LINE_START);
         JButton acceptButton = new JButton("Accept");
-        acceptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        acceptButton.addActionListener(e -> {
 
-                // Get all elements
-                String name = getAnimalName();
-                int x_cord = getX_cord();
-                int y_cord = getY_cord();
-                int size = getAnimalSize();
-                int v_speed = getV_speed();
-                int h_speed = getH_speed();
-                String color = getColor();
-                double weight = getWeight();
-                String addParam = getAdditionalParamField();
+            // Get all elements
+            String name = getAnimalName();
+            int x_cord = getX_cord();
+            int y_cord = getY_cord();
+            int size = getAnimalSize();
+            int v_speed = getV_speed();
+            int h_speed = getH_speed();
+            String color = getColor();
+            double weight = getWeight();
+            String addParam = getAdditionalParamField();
 
-                // Test the data
-                if (checkName(name) && checkXCoordinates(x_cord) && checkYCoordinates(y_cord) && checkSize(size) && checkVerSpeed(v_speed) && checkHorSpeed(h_speed) && checkColor(color) && checkNumOfAnimalsInZoo()) {
-                    try {
-                        switch(getCurrentCard()) {
-                            case "Bear" -> {ZooFrame.addAnimalToZoo(new Bear(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,addParam));}
-                            case "Elephant" -> {ZooFrame.addAnimalToZoo(new Elephant(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));}
-                            case "Giraffe" -> {ZooFrame.addAnimalToZoo(new Giraffe(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));}
-                            case "Lion" -> {ZooFrame.addAnimalToZoo(new Lion(name,x_cord,y_cord,size,color,h_speed,v_speed,weight));}
-                            case "Turtle" -> {ZooFrame.addAnimalToZoo(new Turtle(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Integer.parseInt(addParam)));}
-                        }
-                        //Successfully created animal
-                        JOptionPane.showMessageDialog(AddAnimalDialog.super.getFocusOwner(),name + " Has been added to the zoo, his ID is: " + ZooPanel.AnimalsInZoo.size(),"Animal creation", JOptionPane.INFORMATION_MESSAGE);
-                        dispose();
-                    } catch (IOException ex) { // If image path is not right throw exception
-                        ex.printStackTrace();
+            // Test the data
+            if (checkName(name) && checkXCoordinates(x_cord) && checkYCoordinates(y_cord) && checkSize(size) && checkVerSpeed(v_speed) && checkHorSpeed(h_speed) && checkColor(color) && checkNumOfAnimalsInZoo()) {
+                try {
+                    switch(getCurrentCard()) {
+                        case "Bear" -> ZooFrame.addAnimalToZoo(new Bear(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,addParam));
+                        case "Elephant" -> ZooFrame.addAnimalToZoo(new Elephant(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));
+                        case "Giraffe" -> ZooFrame.addAnimalToZoo(new Giraffe(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));
+                        case "Lion" -> ZooFrame.addAnimalToZoo(new Lion(name,x_cord,y_cord,size,color,h_speed,v_speed,weight));
+                        case "Turtle" -> ZooFrame.addAnimalToZoo(new Turtle(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Integer.parseInt(addParam)));
                     }
+                    //Successfully created animal
+                    JOptionPane.showMessageDialog(AddAnimalDialog.super.getFocusOwner(),name + " Has been added to the zoo, his ID is: " + ZooPanel.AnimalsInZoo.size(),"Animal creation", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                } catch (IOException ex) { // If image path is not right throw exception
+                    ex.printStackTrace();
                 }
             }
         });
@@ -414,7 +404,7 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
     private boolean checkColor(String color) {
         color = color.toUpperCase(Locale.ROOT);
         if (!(Arrays.stream(COLORS).anyMatch(color::contains))) {
-            JOptionPane.showMessageDialog(this,"Please enter one of the following colors: " + COLORS, "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Please enter one of the following colors: " + Arrays.toString(COLORS), "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
@@ -438,7 +428,7 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
         int getSize = getAnimalSize();
         switch (currentCard) {
             case "Bear" -> weight.setText(df.format(1.5 * getSize));
-            case "Elephant" -> weight.setText(df.format(10 * getSize));
+            case "Elephant" -> weight.setText(df.format(10L * getSize));
             case "Giraffe" -> weight.setText(df.format(2.2 * getSize));
             case "Lion" -> weight.setText(df.format(0.8 * getSize));
             case "Turtle" -> weight.setText(df.format(0.5 * getSize));
@@ -454,14 +444,7 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
      */
     @Override
     public void removeUpdate(DocumentEvent e) {
-        int getSize = getAnimalSize();
-        switch (currentCard) {
-            case "Bear" -> weight.setText(df.format(1.5 * getSize));
-            case "Elephant" -> weight.setText(df.format(10 * getSize));
-            case "Giraffe" -> weight.setText(df.format(2.2 * getSize));
-            case "Lion" -> weight.setText(df.format(0.8 * getSize));
-            case "Turtle" -> weight.setText(df.format(0.5 * getSize));
-        }
+
     }
 
     /**

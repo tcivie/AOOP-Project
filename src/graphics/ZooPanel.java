@@ -1,15 +1,11 @@
 package graphics;
 
 import animals.Animal;
-import diet.Carnivore;
-import diet.IDiet;
 import food.Food;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
@@ -86,15 +82,11 @@ public class ZooPanel extends JPanel implements Runnable{
         setPreferredSize(new Dimension(width, height));
         setMaximumSize(new Dimension(width, height));
         setBackgroundColor(Color.WHITE);
-        AnimalsInZoo = new ArrayList<Animal>();
+        AnimalsInZoo = new ArrayList<>();
         setCounter(0);
         setVisible(true);
         setAnimalsSuspended(false);
         this.controller = new Thread(this);
-    }
-
-    public void manageZoo() { // Change this method to be invoked on every change, instead of repaint()
-
     }
 
 
@@ -184,7 +176,7 @@ public class ZooPanel extends JPanel implements Runnable{
     @Override
     public void run() {
         Animal animal;
-        while (true) {
+        while (true) { //TODO: Add exit point
                 repaint();
                 checkIfEat(); // Check if the animals can eat
                 for (Animal value : AnimalsInZoo) {

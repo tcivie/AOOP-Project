@@ -27,7 +27,7 @@ public class AddFoodDialog extends JOptionPane implements ActionListener {
     }
 
     /**
-     * Creates a instance of <code>JOptionPane</code> to display a
+     * Creates instance of <code>JOptionPane</code> to display a
      * message using the
      * plain-message message type and the default options delivered by
      * the UI.
@@ -63,9 +63,9 @@ public class AddFoodDialog extends JOptionPane implements ActionListener {
         JPanel panel = getPanel();
         try {
             switch ((String) e.getActionCommand()) {
-                case "Meat" -> {ZooFrame.addFoodToZoo(new Meat(new Point(panel.getWidth()/2,panel.getHeight()/2)));} // Position at center of screen
-                case "Cabbage" -> {ZooFrame.addFoodToZoo(new Cabbage(new Point(panel.getWidth()/2,panel.getHeight()/2)));}
-                case "Lettuce" -> {ZooFrame.addFoodToZoo(new Lettuce(new Point(panel.getWidth()/2,panel.getHeight()/2)));}
+                case "Meat" -> ZooFrame.addFoodToZoo(new Meat(new Point(panel.getWidth()/2,panel.getHeight()/2))); // Position at center of screen
+                case "Cabbage" -> ZooFrame.addFoodToZoo(new Cabbage(new Point(panel.getWidth()/2,panel.getHeight()/2)));
+                case "Lettuce" -> ZooFrame.addFoodToZoo(new Lettuce(new Point(panel.getWidth()/2,panel.getHeight()/2)));
             }
 
             getRootFrame().dispose();

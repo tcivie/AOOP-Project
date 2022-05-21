@@ -66,20 +66,17 @@ public abstract class Mobile implements ILocatable {
      * @return True if the operation was successful / False otherwise
      */
     @Override
-    public boolean setLocation(Point point) {
+    public void setLocation(Point point) {
         this.location = point;
-        return true;
     }
 
     /**
      * Sets a new location for the animal with the given point
      * @param x New x coord for the animal
      * @param y New y coord for the animal
-     * @return True if the operation was successful / False otherwise
      */
-    public boolean setLocation(int x, int y) {
+    public void setLocation(int x, int y) {
         this.location.setX(x);
         this.location.setY(y);
-        return true;
     }
 }

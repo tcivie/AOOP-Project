@@ -2,7 +2,6 @@ package animals;
 
 import diet.Herbivore;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import java.io.IOException;
 
@@ -36,7 +35,7 @@ public class Elephant extends Animal{
      */
     public Elephant(String name, int x, int y, int size, String col, int horSpeed, int verSpeed, double weight, double trunkLength) throws IOException {
         super(name, new Point(x,y), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
-        MessageUtility.logConstractor("Elephant", name);
+//        MessageUtility.logConstractor("Elephant", name);
         setWeight(weight);
         settrunkLength(trunkLength);
         setDiet(new Herbivore());
@@ -56,6 +55,7 @@ public class Elephant extends Animal{
 //    }
 
     @Override
+    @Deprecated
     public void makeSound() {
         chew();
     } //TODO: find better approach
@@ -63,6 +63,7 @@ public class Elephant extends Animal{
     /**
      * Plays the chew sound with the help of the Firelog method in Animal
      */
+    @Deprecated
     public void chew() {
         fireLog("logSound","Trumpets with joy while flapping its ears, then chews");
     }
@@ -72,7 +73,6 @@ public class Elephant extends Animal{
      * @return Trunk length
      */
     public double getTrunkLength() {
-        fireLog("logGetter", "getTrunkLength", this.trunkLength);
         return this.trunkLength;
     }
 
@@ -87,18 +87,7 @@ public class Elephant extends Animal{
             this.trunkLength = length;
         else
             this.trunkLength = 1;
-        fireLog("logSetter", "settrunkLength", length, isSuccess);
         return isSuccess;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return super.toString();
     }
 
     public static String getPATH() {

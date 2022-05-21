@@ -5,7 +5,6 @@ import food.EFoodType;
 import food.IEdible;
 import graphics.IAnimalBehavior;
 import graphics.IDrawable;
-import graphics.ZooFrame;
 import graphics.ZooPanel;
 import mobility.Mobile;
 import mobility.Point;
@@ -16,34 +15,35 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker
  * @Date 5/4/22
  */
 public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior, IDrawable, Runnable {
+    public int getEAT_DISTANCE() {
+        return 100;
+    }
 
     private String name;
     private double weight;
+
     private IDiet diet;
-
-    private final int EAT_DISTANCE = 100;
-
 
     private final int size;
     private final String col;
     private final int horSpeed;
+
     private final int verSpeed;
 
-    private int x_dir;
+    private volatile int x_dir;
 
-    private int y_dir;
+    private volatile int y_dir;
 
     private int eatCount = 0;
-
     private ZooPanel pan;
     private final BufferedImage img1, img2;
+
     protected final Thread thread;
 
     protected volatile boolean threadSuspended;
@@ -77,7 +77,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         this.img1 = img1;
         this.img2 = img2;
         this.weight = weight;
-        MessageUtility.logConstractor("Animal", name);
         setName(name);
         this.thread = new Thread(this);
     }
@@ -111,7 +110,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     public void run() {
         Point currentLocation;
         setResumed();
-        while (true) {
+        while (true) { // TODO: Add exit point
             currentLocation = getLocation();
             move(currentLocation.getX() + getHorSpeed() * getX_dir(), currentLocation.getY() + getVerSpeed() * getY_dir());
             try {
@@ -130,6 +129,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     /**
      * Play sound of the animal
      */
+    @Deprecated
     public abstract void makeSound();
 
     /**
@@ -137,7 +137,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return type of food from the Enum
      */
     public EFoodType getFoodtype() {
-        fireLog("logGetter", "getFoodType", EFoodType.MEAT);
         return EFoodType.MEAT;
     }
 
@@ -146,7 +145,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return animals weight
      */
     public double getWeight() {
-        fireLog("logGetter", "getWeight", this.weight);
         return this.weight;
     }
 
@@ -161,7 +159,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             this.weight = weight;
         else
             this.weight = 0;
-        fireLog("logSetter", "setWeight", weight, isSuccess);
         return isSuccess;
     }
 
@@ -170,30 +167,23 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return IDiet object of the animals diet
      */
     public IDiet getDiet() {
-        fireLog("logGetter", "getDiet", this.diet);
         return this.diet;
     }
 
     /**
      * Sets the animals Diet
      * @param diet the animals diet
-     * @return True if the set was successful/ False otherwise
      */
-    public boolean setDiet(IDiet diet) {
+    public void setDiet(IDiet diet) {
         this.diet = diet;
-        fireLog("logSetter", "setDiet", diet, true);
-        return true;
     }
 
     /**
      * Sets the animals name
      * @param name The animals name
-     * @return True if the set was successful/ False otherwise
      */
-    public boolean setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        fireLog("logSetter", "setName", name, true);
-        return true;
     }
 
     /**
@@ -201,7 +191,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return Name of the animal
      */
     public String getName() {
-        fireLog("logGetter", "getName", this.name);
         return this.name;
     }
 
@@ -217,7 +206,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             setWeight(this.diet.eat(this, food) + this.weight);
             eatInc();
         }
-        fireLog("logBooleanFunction", "eat", food, isSuccess);
         return isSuccess;
     }
 
@@ -240,14 +228,11 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @param value the value that the function received
      * @param isSuccess True/False if the operation succeeded
      */
+    @Deprecated
     public void fireLog(String methodName , String funcName, Object value, boolean isSuccess) {
         switch (methodName) {
-            case "logBooleanFunction":
-                MessageUtility.logBooleanFunction(this.name, funcName, value, isSuccess);
-                break;
-            case "logSetter":
-                MessageUtility.logSetter(this.name, funcName, value, isSuccess);
-                break;
+            case "logBooleanFunction" -> MessageUtility.logBooleanFunction(this.name, funcName, value, isSuccess);
+            case "logSetter" -> MessageUtility.logSetter(this.name, funcName, value, isSuccess);
         }
     }
 
@@ -257,11 +242,10 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @param funcName Name of the function that executes the method
      * @param value the value that the function returned
      */
+    @Deprecated
     public void fireLog(String methodName , String funcName, Object value) {
-        switch (methodName) {
-            case "logGetter":
-                MessageUtility.logGetter(this.name, funcName, value);
-                break;
+        if ("logGetter".equals(methodName)) {
+            MessageUtility.logGetter(this.name, funcName, value);
         }
     }
 
@@ -270,11 +254,10 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @param methodName What method to fire [logSound]
      * @param message The message to pass to logSound
      */
+    @Deprecated
     public void fireLog(String methodName , String message) {
-        switch (methodName) {
-            case "logSound":
-                MessageUtility.logSound(this.name,message);
-                break;
+        if ("logSound".equals(methodName)) {
+            MessageUtility.logSound(this.name, message);
         }
     }
 
@@ -284,6 +267,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @param point Where the animal should go
      * @return If the move is possible then the moved distance / Otherwise 0
      */
+    @Deprecated
     public double move(Point point) {
         boolean isSuccess = Point.checkBounderies(point);
         double distance = 0;
@@ -308,7 +292,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      */
     public double move(int x, int y) {
         boolean isSuccess = Point.checkBounderies(x,y);
-        double distance = 0;
+        double distance;
         if (isSuccess) {
             double weight = this.getWeight();
             distance = calcDistance(x,y);
@@ -320,22 +304,21 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
                  if (x >= Point.MAX_X)
                      x = Point.MAX_X - (x - Point.MAX_X);
                  else
-                     x = Point.MIN_X + Math.abs(x);
+                     x = Point.MIN_X - x;
                  setX_dir(-getX_dir()); // Invert move direction
              } if ( y >= Point.MAX_Y || y <= Point.MIN_Y) {
                 if (y >= Point.MAX_Y)
                     y = Point.MAX_Y - (y - Point.MAX_Y);
                 else
-                    y = Point.MIN_Y + Math.abs(y);
+                    y = Point.MIN_Y - y;
                 setY_dir(-getY_dir()); // Invert move direction
             }
              return move(x,y); // Calls the method again so that the changes will take effect
         }
-        fireLog("logBooleanFunction","move","(" + x + "," + y + ")",isSuccess);
         return distance;
     }
 
-    public String getAnimalName() { //TODO: Add implementation
+    public String getAnimalName() {
         return getName();
     }
 
@@ -344,7 +327,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return Animal size
      */
     public int getSize() {
-        fireLog("logGetter", "getSize", this.size);
         return this.size;
     }
 
@@ -356,20 +338,16 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         return eatCount;
     }
 
-    public void loadImages(String nm) { //TODO: Add implementation
-//        try {
-//            ImageIO.read(new File(nm));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    @Deprecated
+    public void loadImages(String nm) {
     }
 
     public void drawObject(Graphics g) {
         Point location = getLocation();
         if(x_dir==1)
-            g.drawImage(getImg1(), Math.abs(location.getX()-getSize()/2), Math.abs(location.getY()-getSize()/10), getSize()/2, getSize(), getPan()); // animal goes to the left side
+            g.drawImage(getImg1(), Math.abs(location.getX()-getSize()/2), Math.abs(location.getY()-getSize()/2), getSize(), getSize(), getPan()); // animal goes to the left side
         else
-            g.drawImage(getImg2(), location.getX(), Math.abs(location.getY()-getSize()/10), getSize()/2, getSize(), getPan()); // animal goes to the right
+            g.drawImage(getImg2(), Math.abs(location.getX()-getSize()/2), Math.abs(location.getY()-getSize()/2), getSize(), getSize(), getPan()); // animal goes to the right
     }
 
     /**
@@ -377,7 +355,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return String color
      */
     public String getColor() {
-        fireLog("logGetter", "getColor", this.col);
         return this.col;
     }
 
@@ -386,7 +363,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return Zoo panel
      */
     public ZooPanel getPan() {
-        fireLog("logGetter", "getPan", this.pan);
         return pan;
     }
 
@@ -395,7 +371,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return first image
      */
     public BufferedImage getImg1() {
-        fireLog("logGetter", "getImg1", this.img1);
         return img1;
     }
 
@@ -404,7 +379,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return second image
      */
     public BufferedImage getImg2() {
-        fireLog("logGetter", "getImg2", this.img1);
         return img2;
     }
 
@@ -413,7 +387,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return if the animal is moving in the direction
      */
     public int getX_dir() {
-        fireLog("logGetter", "getX_dir", this.x_dir);
         return x_dir;
     }
 
@@ -422,13 +395,12 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return if the animal is moving in the direction
      */
     public int getY_dir() {
-        fireLog("logGetter", "getY_dir", this.y_dir);
         return y_dir;
     }
 
     /**
      * Creates buffered image from given path
-     * @param path
+     * @param path Path to the file
      * @return Buffered image
      */
     protected static BufferedImage convertFromFilename(String path) throws IOException {
@@ -441,10 +413,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
     public int getVerSpeed() {
         return verSpeed;
-    }
-
-    public int getEAT_DISTANCE() {
-        return EAT_DISTANCE;
     }
 
     public void setX_dir(int x_dir) {

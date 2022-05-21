@@ -1,17 +1,8 @@
 package food;
 
-import graphics.IDrawable;
-import graphics.ZooPanel;
-import mobility.ILocatable;
 import mobility.Point;
-import utilities.MessageUtility;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker

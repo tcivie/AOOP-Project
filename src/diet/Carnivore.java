@@ -18,9 +18,7 @@ public class Carnivore extends Diet implements IDiet {
      */
     @Override
     public boolean canEat(EFoodType food) {
-        if (food == EFoodType.MEAT)
-            return true;
-        return false;
+        return food == EFoodType.MEAT;
     }
 
     /**

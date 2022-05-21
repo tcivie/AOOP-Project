@@ -17,9 +17,7 @@ public class Herbivore extends Diet implements IDiet{
      */
     @Override
     public boolean canEat(EFoodType food) {
-        if (food == EFoodType.VEGETABLE)
-            return true;
-        return false;
+        return food == EFoodType.VEGETABLE;
     }
 
     /**

@@ -4,7 +4,6 @@ import graphics.IDrawable;
 import graphics.ZooPanel;
 import mobility.ILocatable;
 import mobility.Point;
-import utilities.MessageUtility;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -97,9 +96,8 @@ public abstract class Food implements IEdible, ILocatable, IDrawable {
     }
 
     @Override
-    public boolean setLocation(Point point) {
+    public void setLocation(Point point) {
         location = new Point(point);
-        return true;
     }
 
     /**
