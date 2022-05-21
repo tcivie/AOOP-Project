@@ -36,9 +36,9 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
     private final int verSpeed;
 
-    private volatile int x_dir;
+    private int x_dir;
 
-    private volatile int y_dir;
+    private int y_dir;
 
     private int eatCount = 0;
     private ZooPanel pan;
@@ -291,30 +291,32 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @return If the move is possible then the moved distance / Otherwise 0
      */
     public double move(int x, int y) {
-        boolean isSuccess = Point.checkBounderies(x,y);
+        int size = getSize()/2; // Get the padding which is half of the image
+        boolean isSuccess = Point.checkBounderies(x,y,size);
         double distance;
-        if (isSuccess) {
-            double weight = this.getWeight();
-            distance = calcDistance(x,y);
-            isSuccess = setWeight(Math.round((weight - ( distance * weight * 0.00025 )) * 100) / 100.);
-            setLocation(x,y);
-            this.addTotalDistance(distance);
-        } else {
-             if ( x >= Point.MAX_X || x <= Point.MIN_X) {
-                 if (x >= Point.MAX_X)
-                     x = Point.MAX_X - (x - Point.MAX_X);
-                 else
-                     x = Point.MIN_X - x;
-                 setX_dir(-getX_dir()); // Invert move direction
-             } if ( y >= Point.MAX_Y || y <= Point.MIN_Y) {
-                if (y >= Point.MAX_Y)
+        if (!isSuccess) {
+            if (x + size > Point.MAX_X || x - size < Point.MIN_X) {
+                setX_dir(-getX_dir()); // Invert move direction
+                if (x + size > Point.MAX_X)
+                    x = Point.MAX_X - (x - Point.MAX_X);
+                else
+                    x = Point.MIN_X - x;
+            }
+            if (y + size > Point.MAX_Y || y - size < Point.MIN_Y) {
+                setY_dir(-getY_dir()); // Invert move direction
+                if (y + size > Point.MAX_Y)
                     y = Point.MAX_Y - (y - Point.MAX_Y);
                 else
                     y = Point.MIN_Y - y;
-                setY_dir(-getY_dir()); // Invert move direction
             }
-             return move(x,y); // Calls the method again so that the changes will take effect
         }
+
+        double weight = this.getWeight();
+        distance = calcDistance(x,y);
+        setWeight(Math.round((weight - ( distance * weight * 0.00025 )) * 100) / 100.);
+        setLocation(x,y);
+        this.addTotalDistance(distance);
+
         return distance;
     }
 
@@ -345,9 +347,9 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     public void drawObject(Graphics g) {
         Point location = getLocation();
         if(x_dir==1)
-            g.drawImage(getImg1(), Math.abs(location.getX()-getSize()/2), Math.abs(location.getY()-getSize()/2), getSize(), getSize(), getPan()); // animal goes to the left side
+            g.drawImage(getImg1(), location.getX()-getSize()/2, location.getY()-getSize()/2, getSize(), getSize(), getPan()); // animal goes to the left side
         else
-            g.drawImage(getImg2(), Math.abs(location.getX()-getSize()/2), Math.abs(location.getY()-getSize()/2), getSize(), getSize(), getPan()); // animal goes to the right
+            g.drawImage(getImg2(), location.getX()-getSize()/2, location.getY()-getSize()/2, getSize(), getSize(), getPan()); // animal goes to the right
     }
 
     /**

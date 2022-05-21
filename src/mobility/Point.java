@@ -30,9 +30,16 @@ public class Point {
                 && newLocation.y <= MAX_Y && newLocation.y >= MIN_Y);
     }
 
-    public static boolean checkBounderies(int x, int y) {
-        return (x <= MAX_X && x >= MIN_X
-                && y <= MAX_Y && y >= MIN_Y);
+    /**
+     * Checks if we are out of boundries with the padding
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param padding The padding to check
+     * @return True if in bounds
+     */
+    public static boolean checkBounderies(int x, int y, int padding) {
+        return (x + padding <= MAX_X && x - padding >= MIN_X
+                && y + padding <= MAX_Y && y - padding >= MIN_Y);
     }
 
 //
