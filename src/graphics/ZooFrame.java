@@ -81,7 +81,6 @@ public class ZooFrame extends JFrame {
         if (ZooPanel.AnimalsInZoo.size() >= ZooPanel.MAX_ANIMALS)
             return false;
         ZooPanel.AnimalsInZoo.add(animal);
-        animal.getThread().start(); // Start animal thread
         return true;
     }
 

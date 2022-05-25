@@ -44,8 +44,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private ZooPanel pan;
     private final BufferedImage img1, img2;
 
-    protected final Thread thread;
-
     protected volatile boolean threadSuspended;
 
     private volatile boolean isTerminated = false;
@@ -88,11 +86,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         this.img2 = img2;
         this.weight = weight;
         setName(name);
-        this.thread = new Thread(this);
-    }
-
-    public Thread getThread() {
-        return thread;
     }
 
     @Override
