@@ -15,8 +15,16 @@ import java.util.concurrent.ThreadPoolExecutor;
  * Handles rejections of max wait in the threads in the ThreadPool.java class
  */
 class RejectionHandler extends Component implements RejectedExecutionHandler {
+
+    private final int maxConcurrentThreads;
+    private final int maxWaitQueue;
+    public RejectionHandler(int maxConcurrentThreads, int maxWaitQueue) {
+        this.maxConcurrentThreads = maxConcurrentThreads;
+        this.maxWaitQueue = maxWaitQueue;
+    }
+
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-        JOptionPane.showMessageDialog(this,"You cannot add more than " + ZooPanel.MAX_ANIMALS + " animals to the zoo", "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this,"You cannot add more than " + maxConcurrentThreads + " animals to the zoo and " + maxWaitQueue, "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
     }
 }
