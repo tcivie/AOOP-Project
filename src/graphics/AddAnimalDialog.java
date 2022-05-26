@@ -324,7 +324,7 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
      * @return True if passes the test / False otherwise
      */
     private boolean checkName(String name) {
-        if (name.matches(".*[0-9].*")) {
+        if (name.matches(".*\\d.*")) {
             JOptionPane.showMessageDialog(this,"Please name should include only letters", "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
             return false;
         }
