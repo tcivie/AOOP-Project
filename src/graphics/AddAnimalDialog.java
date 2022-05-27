@@ -115,6 +115,8 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
     private static final int PARAMS = 8;
     private static final String[] COLORS= {"RED","BLUE","NORMAL"};
 
+    private ZooPanel zooPanel;
+
 
     /**
      * Creates a dialog with the specified title, owner {@code Frame}
@@ -134,12 +136,13 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
      * {@code JDialog(Dialog)} constructor with an argument of
      * {@code null}.
      *
-     * @param owner the {@code Frame} from which the dialog is displayed
-     * @param title the {@code String} to display in the dialog's
-     *              title bar
-     * @param modal specifies whether dialog blocks user input to other top-level
-     *              windows when shown. If {@code true}, the modality type property is set to
-     *              {@code DEFAULT_MODALITY_TYPE} otherwise the dialog is modeless
+     * @param zooPanel
+     * @param owner    the {@code Frame} from which the dialog is displayed
+     * @param title    the {@code String} to display in the dialog's
+     *                 title bar
+     * @param modal    specifies whether dialog blocks user input to other top-level
+     *                 windows when shown. If {@code true}, the modality type property is set to
+     *                 {@code DEFAULT_MODALITY_TYPE} otherwise the dialog is modeless
      * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}
      *                           returns {@code true}.
      * @see ModalityType
@@ -150,10 +153,10 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
      * @see GraphicsEnvironment#isHeadless
      * @see JComponent#getDefaultLocale
      */
-    public AddAnimalDialog(Frame owner, String title, boolean modal) {
+    public AddAnimalDialog(ZooPanel zooPanel, Frame owner, String title, boolean modal) {
         super(owner, title, modal);
         setSize(500,460);
-
+        this.zooPanel = zooPanel;
         JPanel comboBoxPane = new JPanel();
         String[] comboBoxItems = {"Bear","Elephant","Giraffe","Lion","Turtle"};
         JComboBox<String> cb = new JComboBox<>(comboBoxItems);
@@ -243,22 +246,26 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
             String addParam = getAdditionalParamField();
 
             // Test the data
-            if (checkName(name) && checkXCoordinates(x_cord) && checkYCoordinates(y_cord) && checkSize(size) && checkVerSpeed(v_speed) && checkHorSpeed(h_speed) && checkColor(color) && checkNumOfAnimalsInZoo()) {
+            if (checkName(name) && checkXCoordinates(x_cord) && checkYCoordinates(y_cord) && checkSize(size) && checkVerSpeed(v_speed) && checkHorSpeed(h_speed) && checkColor(color)) {
+                boolean isSuccess = false;
                 try {
                     switch(getCurrentCard()) {
-                        case "Bear" -> ZooFrame.addAnimalToZoo(new Bear(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,addParam));
-                        case "Elephant" -> ZooFrame.addAnimalToZoo(new Elephant(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));
-                        case "Giraffe" -> ZooFrame.addAnimalToZoo(new Giraffe(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));
-                        case "Lion" -> ZooFrame.addAnimalToZoo(new Lion(name,x_cord,y_cord,size,color,h_speed,v_speed,weight));
-                        case "Turtle" -> ZooFrame.addAnimalToZoo(new Turtle(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Integer.parseInt(addParam)));
+                        case "Bear" -> isSuccess = this.zooPanel.addAnimalToZoo(new Bear(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,addParam));
+                        case "Elephant" -> isSuccess = this.zooPanel.addAnimalToZoo(new Elephant(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));
+                        case "Giraffe" -> isSuccess = this.zooPanel.addAnimalToZoo(new Giraffe(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Double.parseDouble(addParam)));
+                        case "Lion" -> isSuccess = this.zooPanel.addAnimalToZoo(new Lion(name,x_cord,y_cord,size,color,h_speed,v_speed,weight));
+                        case "Turtle" -> isSuccess = this.zooPanel.addAnimalToZoo(new Turtle(name,x_cord,y_cord,size,color,h_speed,v_speed,weight,Integer.parseInt(addParam)));
                     }
-                    //Successfully created animal
-                    JOptionPane.showMessageDialog(AddAnimalDialog.super.getFocusOwner(),name + " Has been added to the zoo, his ID is: " + ZooPanel.AnimalsInZoo.size(),"Animal creation", JOptionPane.INFORMATION_MESSAGE);
+                    if (isSuccess) {
+                        //Successfully created animal
+                        JOptionPane.showMessageDialog(AddAnimalDialog.super.getFocusOwner(), name + " Has been added to the zoo, his ID is: " + ZooPanel.AnimalsInZoo.size(), "Animal creation", JOptionPane.INFORMATION_MESSAGE);
+                    }
                     dispose();
                 } catch (IOException ex) { // If image path is not right throw exception
                     ex.printStackTrace();
                 }
             }
+            dispose();
         });
         buttons.add(acceptButton,BorderLayout.LINE_END);
         add(buttons,BorderLayout.PAGE_END);

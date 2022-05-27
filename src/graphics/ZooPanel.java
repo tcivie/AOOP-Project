@@ -16,16 +16,21 @@ import static java.lang.Thread.sleep;
  */
 public class ZooPanel extends JPanel implements Runnable{
 
-    private BufferedImage backgroundImage;
-    private Color backgroundColor;
-    public static ArrayList<Animal> AnimalsInZoo;
-    public static Food foodInZoo;
+    private static final int MAX_CONCURRENT_THREADS = 2;
+    private static final int MAX_WAIT_QUEUE = 1;
 
+    private ThreadPool pool;
+
+    private BufferedImage backgroundImage;
+
+    private Color backgroundColor;
+    public static volatile ArrayList<Animal> AnimalsInZoo;
+    public static Food foodInZoo;
     private volatile boolean isTerminated = false;
 
     private String counter;
 
-    public static final int MAX_ANIMALS = 10;
+    public static final int MAX_ANIMALS = 2;
 
     private final Thread controller;
 
@@ -97,6 +102,7 @@ public class ZooPanel extends JPanel implements Runnable{
         setVisible(true);
         setAnimalsSuspended(false);
         this.controller = new Thread(this);
+        this.pool = new ThreadPool(MAX_CONCURRENT_THREADS,MAX_WAIT_QUEUE); // Create thread pool
     }
 
 
@@ -119,30 +125,43 @@ public class ZooPanel extends JPanel implements Runnable{
 
     /**
      * Method that check if the animal at any time can eat something of someone
+     * @return returns True if ate Animal/ False otherwise
      */
-    private void checkIfEat() {
+    private boolean checkIfEat() {
+        boolean ateAnimal = false;
          // check if there are any other animals in the zoo
         for (int i = 0; i < AnimalsInZoo.size(); i++) {
             if (AnimalsInZoo.size() > 1) {
                 for (int j = i + 1; j < AnimalsInZoo.size(); j++) {
-                    if ((AnimalsInZoo.get(i).calcDistance(AnimalsInZoo.get(j).getLocation())) <= AnimalsInZoo.get(i).getEAT_DISTANCE()) {
-                        if (AnimalsInZoo.get(i).eat(AnimalsInZoo.get(j))) {
-                            AnimalsInZoo.get(j).setTerminated(true); // terminate the thread
-                            AnimalsInZoo.remove(j); // delete the animal from the zoo
-                            setCounter(Integer.parseInt(getCounter()) + 1);
+                    if (!pool.checkIfObjectBlocked(AnimalsInZoo.get(i)) && !pool.checkIfObjectBlocked(AnimalsInZoo.get(j))) {
+                        if ((AnimalsInZoo.get(i).calcDistance(AnimalsInZoo.get(j).getLocation())) <= AnimalsInZoo.get(i).getEAT_DISTANCE()) {
+                            synchronized (AnimalsInZoo.get(i)) {
+                                if (AnimalsInZoo.get(i).eat(AnimalsInZoo.get(j))) {
+                                    synchronized (AnimalsInZoo.get(j)) {
+                                        AnimalsInZoo.get(j).setTerminated(true); // terminate the thread
+                                        AnimalsInZoo.get(j).notify(); // Wake the animal and let the thread finish his work
+                                        AnimalsInZoo.remove(j); // delete the animal from the zoo
+                                        setCounter(Integer.parseInt(getCounter()) + 1);
+                                        ateAnimal = true;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
             if (ZooPanel.foodInZoo != null) {
-                if (AnimalsInZoo.get(i).calcDistance(ZooPanel.foodInZoo.getLocation()) < AnimalsInZoo.get(i).getEAT_DISTANCE()) {
-                    if (AnimalsInZoo.get(i).eat(ZooPanel.foodInZoo)) {
-                        ZooPanel.foodInZoo = null;
-                        setCounter(Integer.parseInt(getCounter()) + 1);
+                if (!pool.checkIfObjectBlocked(AnimalsInZoo.get(i))) {
+                    if (AnimalsInZoo.get(i).calcDistance(ZooPanel.foodInZoo.getLocation()) < AnimalsInZoo.get(i).getEAT_DISTANCE()) {
+                        if (AnimalsInZoo.get(i).eat(ZooPanel.foodInZoo)) {
+                            ZooPanel.foodInZoo = null;
+                            setCounter(Integer.parseInt(getCounter()) + 1);
+                        }
                     }
                 }
             }
         }
+        return ateAnimal;
     }
 
 
@@ -162,7 +181,8 @@ public class ZooPanel extends JPanel implements Runnable{
         }
         if (AnimalsInZoo.size() > 0) { // Check if there are animals in the zoo
             for (Animal animal : AnimalsInZoo) {
-                animal.drawObject(g);
+                if (!pool.checkIfObjectBlocked(animal)) // Check if the animal is in the blocked queue
+                    animal.drawObject(g);
             }
         }
         if (ZooPanel.foodInZoo != null) { // Check if there is animal
@@ -189,13 +209,17 @@ public class ZooPanel extends JPanel implements Runnable{
         Animal animal;
         while (!isTerminated()) {
                 repaint();
-                checkIfEat(); // Check if the animals can eat
+                checkIfEat();
+//                if(checkIfEat()) // Check if the animals can eat
+//                    this.pool.pollQueue();
                 for (Animal value : AnimalsInZoo) {
-                    animal = value;
-                    if (animal.isThreadSuspended() && !isAnimalsSuspended()) {
-                        synchronized (animal) {
-                            animal.setResumed();
-                            animal.notify();
+                    if (!pool.checkIfObjectBlocked(value)) {
+                        animal = value;
+                        if (animal.isThreadSuspended() && !isAnimalsSuspended()) {
+                            synchronized (animal) {
+                                animal.setResumed();
+                                animal.notify();
+                            }
                         }
                     }
                 }
@@ -209,5 +233,18 @@ public class ZooPanel extends JPanel implements Runnable{
             animal = AnimalsInZoo.get(i);
             animal.setTerminated(true); // Terminate the animal threads
         }
+        this.pool.killAll(); // Kill all running threads
+    }
+
+    /**
+     * Adds animal to the zoo
+     * @param animal
+     * @return True if operation succeeded / False otherwise
+     */
+    public boolean addAnimalToZoo(Animal animal) {
+        if (!(this.pool.addToThreadPool(animal)))
+            return false;
+        AnimalsInZoo.add(animal);
+        return true;
     }
 }

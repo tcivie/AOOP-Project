@@ -113,7 +113,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     public void run() {
         Point currentLocation;
         setResumed();
-        while (!isTerminated()) { // TODO: Add exit point
+        while (!isTerminated()) {
             currentLocation = getLocation();
             move(currentLocation.getX() + getHorSpeed() * getX_dir(), currentLocation.getY() + getVerSpeed() * getY_dir());
             try {
@@ -127,6 +127,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
                 e.printStackTrace();
             }
         }
+        System.out.println("Terminated : " + getAnimalName());
     }
 
     /**

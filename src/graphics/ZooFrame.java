@@ -67,21 +67,9 @@ public class ZooFrame extends JFrame {
 
     public static void main(String[] args) {
         ZooFrame frame = new ZooFrame("AOOP Assignment 2 - Zoo");
-        Thread zooPanel = new Thread(frame.zooPanel);
-        zooPanel.start();
-    }
-
-
-    /**
-     * Adds animal to the zoo
-     * @param animal
-     * @return True if operation succeeded / False otherwise
-     */
-    public static boolean addAnimalToZoo(Animal animal) {
-        if (ZooPanel.AnimalsInZoo.size() >= ZooPanel.MAX_ANIMALS)
-            return false;
-        ZooPanel.AnimalsInZoo.add(animal);
-        return true;
+//        synchronized (frame.zooPanel.getController()) {
+//            frame.zooPanel.getController().start();
+//        }
     }
 
     /**
@@ -121,7 +109,7 @@ public class ZooFrame extends JFrame {
 
 
         // Add action to exit item
-        menuItemExit.addActionListener(e -> { //TODO: Kill all the animals and their threads
+        menuItemExit.addActionListener(e -> {
             zooPanel.setTerminated(true);
             for (Frame frame:
                  getFrames()) {
@@ -184,8 +172,8 @@ public class ZooFrame extends JFrame {
 
         JButton addAnimalButton = new JButton("Add Animal");
         addAnimalButton.addActionListener(e -> { // Creates new animals
-            addAnimalDialog = new AddAnimalDialog(getFrames()[0], "New Animal", true);
-            zooPanel.repaint();
+            addAnimalDialog = new AddAnimalDialog(zooPanel,getFrames()[0], "New Animal", true);
+//            zooPanel.repaint();
         });
         JButton sleepAnimalButton = new JButton("Sleep");
         sleepAnimalButton.addActionListener(e -> { // Moves the animal
