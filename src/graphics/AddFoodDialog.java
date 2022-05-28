@@ -63,9 +63,9 @@ public class AddFoodDialog extends JOptionPane implements ActionListener {
         JPanel panel = getPanel();
         try {
             switch ((String) e.getActionCommand()) {
-                case "Meat" -> ZooFrame.addFoodToZoo(new Meat(new Point(panel.getWidth()/2,panel.getHeight()/2))); // Position at center of screen
-                case "Cabbage" -> ZooFrame.addFoodToZoo(new Cabbage(new Point(panel.getWidth()/2,panel.getHeight()/2)));
-                case "Lettuce" -> ZooFrame.addFoodToZoo(new Lettuce(new Point(panel.getWidth()/2,panel.getHeight()/2)));
+                case "Meat" -> ZooFrame.addFoodToZoo(Meat.getInstance(new Point(panel.getWidth()/2,panel.getHeight()/2))); // Position at center of screen
+                case "Cabbage" -> ZooFrame.addFoodToZoo(Cabbage.getInstance(new Point(panel.getWidth()/2,panel.getHeight()/2)));
+                case "Lettuce" -> ZooFrame.addFoodToZoo(Lettuce.getInstance(new Point(panel.getWidth()/2,panel.getHeight()/2)));
             }
 
             getRootFrame().dispose();

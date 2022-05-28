@@ -10,9 +10,18 @@ import java.io.IOException;
  */
 public class Meat extends Food {
 
+    private static Meat meat = null;
+
+    public static synchronized Meat getInstance(Point point) throws IOException {
+        if (meat == null) {
+            meat = new Meat(point);
+        }
+        return meat;
+    }
+
     private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/meat.gif";
 
-    public Meat(Point point) throws IOException {
+    private Meat(Point point) throws IOException {
         super(point,PICTURE_PATH);
     }
 
