@@ -117,7 +117,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
             currentLocation = getLocation();
             move(currentLocation.getX() + getHorSpeed() * getX_dir(), currentLocation.getY() + getVerSpeed() * getY_dir());
             try {
-                if (!isThreadSuspended()) {
+                if (!isThreadSuspended() && !isTerminated()) {
                     synchronized (this) {
                         setSuspended();
                         this.wait();

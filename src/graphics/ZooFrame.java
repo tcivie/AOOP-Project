@@ -185,6 +185,13 @@ public class ZooFrame extends JFrame {
         wakeUpAnimalsButton.addActionListener(e -> zooPanel.setAnimalsSuspended(false));
         JButton clearButton = new JButton("Clear");
         clearButton.addActionListener(e -> { // Kills all the animals :(
+            while (ZooPanel.AnimalsInZoo.size() > 0) {
+                synchronized (ZooPanel.AnimalsInZoo.get(0)) {
+                    ZooPanel.AnimalsInZoo.get(0).setTerminated(true); // terminate the thread
+                    ZooPanel.AnimalsInZoo.get(0).notify(); // Wake the animal and let the thread finish his work
+                    ZooPanel.AnimalsInZoo.remove(0); // delete the animal from the zoo
+                }
+            }
             ZooPanel.AnimalsInZoo = new ArrayList<>();
             ZooPanel.foodInZoo = null;
             zooPanel.repaint();
@@ -197,7 +204,14 @@ public class ZooFrame extends JFrame {
         JButton infoButton = new JButton("Info");
         infoButton.addActionListener(e -> animalData = new AnimalData(getFrames()[0],"Animal Data", true));
         JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(e -> {//TODO: Kill all the animals and their threads
+        exitButton.addActionListener(e -> {
+            while (ZooPanel.AnimalsInZoo.size() > 0) {
+                synchronized (ZooPanel.AnimalsInZoo.get(0)) {
+                    ZooPanel.AnimalsInZoo.get(0).setTerminated(true); // terminate the thread
+                    ZooPanel.AnimalsInZoo.get(0).notify(); // Wake the animal and let the thread finish his work
+                    ZooPanel.AnimalsInZoo.remove(0); // delete the animal from the zoo
+                }
+            }
             zooPanel.setTerminated(true);
             for (Frame frame:
                     getFrames()) {
