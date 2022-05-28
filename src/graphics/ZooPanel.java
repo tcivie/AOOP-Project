@@ -16,6 +16,15 @@ import static java.lang.Thread.sleep;
  */
 public class ZooPanel extends JPanel implements Runnable{
 
+    private static ZooPanel zooPanel = null;
+
+    public static synchronized ZooPanel getInstance(int width, int height) {
+        if (zooPanel == null) {
+            zooPanel = new ZooPanel(width, height);
+        }
+        return zooPanel;
+    }
+
     private static final int MAX_CONCURRENT_THREADS = 2;
     private static final int MAX_WAIT_QUEUE = 1;
 
@@ -91,7 +100,7 @@ public class ZooPanel extends JPanel implements Runnable{
      * Creates a new <code>JPanel</code> with a double buffer
      * and a flow layout.
      */
-    public ZooPanel(int width, int height) {
+    private ZooPanel(int width, int height) {
         super();
         setMinimumSize(new Dimension(width, height));
         setPreferredSize(new Dimension(width, height));

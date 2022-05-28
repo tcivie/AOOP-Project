@@ -48,7 +48,7 @@ public class ZooFrame extends JFrame {
         super(title);
         setLayout(new BorderLayout()); // Set border layout
 
-        zooPanel = new ZooPanel(Point.MAX_X,Point.MAX_Y);
+        zooPanel = ZooPanel.getInstance(Point.MAX_X,Point.MAX_Y);
         JPanel actionButtons = actionButtons();
 
         setJMenuBar(setMenuBar(zooPanel,actionButtons)); // add the menu to the frame
@@ -177,9 +177,7 @@ public class ZooFrame extends JFrame {
         });
         JButton sleepAnimalButton = new JButton("Sleep");
         sleepAnimalButton.addActionListener(e -> { // Moves the animal
-//                moveAnimalDialog = new MoveAnimalDialog(getFrames()[0], "Sleep", true );
             zooPanel.setAnimalsSuspended(true);
-//                zooPanel.repaint();
         });
         JButton wakeUpAnimalsButton = new JButton("WakeUp");
         wakeUpAnimalsButton.addActionListener(e -> zooPanel.setAnimalsSuspended(false));
