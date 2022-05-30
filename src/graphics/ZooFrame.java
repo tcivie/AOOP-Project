@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class ZooFrame extends JFrame {
 
-    private AddAnimalDialog addAnimalDialog;
+    private AnimalFactoryChooser addAnimalDialog;
     private MoveAnimalDialog moveAnimalDialog;
     private final ZooPanel zooPanel;
     private AddFoodDialog addFoodDialog;
@@ -172,7 +172,7 @@ public class ZooFrame extends JFrame {
 
         JButton addAnimalButton = new JButton("Add Animal");
         addAnimalButton.addActionListener(e -> { // Creates new animals
-            addAnimalDialog = new AddAnimalDialog(zooPanel,getFrames()[0], "New Animal", true);
+            addAnimalDialog = new AnimalFactoryChooser(zooPanel,getFrames()[0],this);
 //            zooPanel.repaint();
         });
         JButton sleepAnimalButton = new JButton("Sleep");

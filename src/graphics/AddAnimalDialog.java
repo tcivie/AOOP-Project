@@ -153,26 +153,27 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
      * @see GraphicsEnvironment#isHeadless
      * @see JComponent#getDefaultLocale
      */
-    public AddAnimalDialog(ZooPanel zooPanel, Frame owner, String title, boolean modal) {
+    public AddAnimalDialog(ZooPanel zooPanel, Frame owner, String title, boolean modal, String[] animalTypes) {
         super(owner, title, modal);
         setSize(500,460);
         this.zooPanel = zooPanel;
         JPanel comboBoxPane = new JPanel();
-        String[] comboBoxItems = {"Bear","Elephant","Giraffe","Lion","Turtle"};
+        String[] comboBoxItems = animalTypes;
         JComboBox<String> cb = new JComboBox<>(comboBoxItems);
         cb.addItemListener(this);
         cb.setEditable(false);
         comboBoxPane.add(cb);
 
-        initParams();
+        initParams(animalTypes);
         add(comboBoxPane, BorderLayout.PAGE_START);
+        cb.setSelectedIndex(0);
         setVisible(true);
     }
 
     /**
      * Creates the basic view of the animal creation
      */
-    private void initParams() {
+    private void initParams(String[] animalTypes) {
         name = new JTextField();
         x_cord = new JTextField();
         y_cord = new JTextField();
@@ -209,8 +210,15 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
         // Add the middle optional animal parameters
         JPanel additional = new JPanel(new GridLayout(1,2));
         additional.setBorder(BorderFactory.createTitledBorder("Additional Parameters"));
-        currentCard = "Bear";
-        additionalParam = new JLabel("Fur Color");
+        currentCard = animalTypes[0]; // Set default card
+        additionalParam = new JLabel();
+        switch (animalTypes[0]) {
+            case "Bear" -> additionalParam = new JLabel("Fur Color");
+            case "Elephant" -> additionalParam = new JLabel("Trunk Length");
+            case "Giraffe" -> additionalParam = new JLabel("Neck Length");
+            case "Lion" -> additionalParam = new JLabel("");
+            case "Turtle" -> additionalParam = new JLabel("Age");
+        }
         additionalParamField = new JTextField();
         additional.add(additionalParam);
         additional.add(additionalParamField);
@@ -273,7 +281,15 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
 
 
         // Init image for bear
-        image = new JLabel("",createImage(Bear.getPATH()),JLabel.CENTER);
+//        image = new JLabel("",createImage(Bear.getPATH()),JLabel.CENTER);
+        switch (animalTypes[0]) {
+            case "Bear" -> image = new JLabel("",createImage(Bear.getPATH()),JLabel.CENTER);
+            case "Elephant" -> image = new JLabel("",createImage(Elephant.getPATH()),JLabel.CENTER);
+            case "Giraffe" -> image = new JLabel("",createImage(Giraffe.getPATH()),JLabel.CENTER);
+            case "Lion" -> image = new JLabel("",createImage(Lion.getPATH()),JLabel.CENTER);
+            case "Turtle" -> image = new JLabel("",createImage(Turtle.getPATH()),JLabel.CENTER);
+        }
+
         add(image,BorderLayout.LINE_START);
     }
 
