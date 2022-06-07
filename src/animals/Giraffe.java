@@ -12,19 +12,6 @@ import java.io.IOException;
 public class Giraffe extends Animal {
 
     private double neckLength;
-    private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/grf_n_1.png";
-    private static final String PICTURE_PATH2 = "src/graphics/assignment2_pictures/grf_n_2.png";
-
-//    /**
-//     * Ctor
-//     * @param name Giraffes name
-//     */
-//    public Giraffe(String name) {
-//        super(name, new Point(50,0), size, col, horSpeed, verSpeed, x_dir, y_dir, img1, img2);
-//        setNeckLength(1.5);
-//        setDiet(new Herbivore());
-//        MessageUtility.logConstractor("Giraffe", name);
-//    }
 
     /**
      * Ctor
@@ -33,24 +20,12 @@ public class Giraffe extends Animal {
      * @param y y point
      */
     public Giraffe(String name, int x, int y, int size, String col, int horSpeed, int verSpeed, double weight, double neckLength) throws IOException {
-        super(name, new Point(x,y), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
+        super(name, new Point(x,y), size, col, horSpeed, verSpeed,weight);
         setNeckLength(neckLength);
         setWeight(weight);
         setDiet(new Herbivore());
-//        MessageUtility.logConstractor("Giraffe", name);
+        loadImages("grf");
     }
-
-//    /**
-//     * Ctor
-//     * @param name Giraffes name
-//     * @param length Length of the neck
-//     */
-//    public Giraffe(String name, double length) {
-//        super(name, new Point(50,0), size, col, horSpeed, verSpeed, x_dir, y_dir, img1, img2);
-//        setNeckLength(length);
-//        setDiet(new Herbivore());
-//        MessageUtility.logConstractor("Giraffe", name);
-//    }
 
     /**
      * Sets the Giraffes neck length
@@ -88,8 +63,4 @@ public class Giraffe extends Animal {
         fireLog("logSound","Bleats and Stomps its legs, then chews");
     }
 
-
-    public static String getPATH() {
-        return PICTURE_PATH;
-    }
 }

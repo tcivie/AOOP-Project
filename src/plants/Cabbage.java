@@ -22,6 +22,5 @@ public class Cabbage extends Plant {
 	private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/cabbage.png";
 	private Cabbage(Point point) throws IOException {
 		super(point,PICTURE_PATH);
-//		MessageUtility.logConstractor("Cabbage", "Cabbage");
 	}
 }

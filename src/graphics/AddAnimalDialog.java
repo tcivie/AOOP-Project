@@ -283,11 +283,11 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
         // Init image for bear
 //        image = new JLabel("",createImage(Bear.getPATH()),JLabel.CENTER);
         switch (animalTypes[0]) {
-            case "Bear" -> image = new JLabel("",createImage(Bear.getPATH()),JLabel.CENTER);
-            case "Elephant" -> image = new JLabel("",createImage(Elephant.getPATH()),JLabel.CENTER);
-            case "Giraffe" -> image = new JLabel("",createImage(Giraffe.getPATH()),JLabel.CENTER);
-            case "Lion" -> image = new JLabel("",createImage(Lion.getPATH()),JLabel.CENTER);
-            case "Turtle" -> image = new JLabel("",createImage(Turtle.getPATH()),JLabel.CENTER);
+            case "Bear" -> image = new JLabel("",createImage(Animal.getPicturePath("bea")),JLabel.CENTER);
+            case "Elephant" -> image = new JLabel("",createImage(Animal.getPicturePath("elf")),JLabel.CENTER);
+            case "Giraffe" -> image = new JLabel("",createImage(Animal.getPicturePath("grf")),JLabel.CENTER);
+            case "Lion" -> image = new JLabel("",createImage(Animal.getPicturePath("lio")),JLabel.CENTER);
+            case "Turtle" -> image = new JLabel("",createImage(Animal.getPicturePath("trt")),JLabel.CENTER);
         }
 
         add(image,BorderLayout.LINE_START);
@@ -306,24 +306,24 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
         additionalParamField.setVisible(true);
         switch ((String) e.getItem()) {
             case "Bear" -> {
-                image.setIcon(createImage(Elephant.getPATH()));
+                image.setIcon(createImage(Animal.getPicturePath("bea")));
                 additionalParam.setText("Fur Color");
             }
             case "Elephant" -> {
-                image.setIcon(createImage(Elephant.getPATH()));
+                image.setIcon(createImage(Animal.getPicturePath("elf")));
                 additionalParam.setText("Trunk Length");
             }
             case "Giraffe" -> {
-                image.setIcon(createImage(Giraffe.getPATH()));
+                image.setIcon(createImage(Animal.getPicturePath("grf")));
                 additionalParam.setText("Neck Length");
             }
             case "Lion" -> {
-                image.setIcon(createImage(Lion.getPATH()));
+                image.setIcon(createImage(Animal.getPicturePath("lio")));
                 additionalParam.setText("");
                 additionalParamField.setVisible(false);
             }
             case "Turtle" -> {
-                image.setIcon(createImage(Turtle.getPATH()));
+                image.setIcon(createImage(Animal.getPicturePath("trt")));
                 additionalParam.setText("Set Age");
             }
         }

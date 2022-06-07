@@ -25,6 +25,8 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         return 100;
     }
 
+    protected static final String PICTURE_PATH = "src/graphics/assignment2_pictures/";
+
     private String name;
     private double weight;
 
@@ -42,7 +44,8 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
     private int eatCount = 0;
     private ZooPanel pan;
-    private final BufferedImage img1, img2;
+    private BufferedImage img1;
+    private BufferedImage img2;
 
     protected volatile boolean threadSuspended;
 
@@ -68,11 +71,9 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @param col Color from the list
      * @param horSpeed Horizontal movement speed
      * @param verSpeed vertical movement speed
-     * @param img1 One side image
-     * @param img2 Second side image
      * @param weight Weight of the animal
      */
-    public Animal(String name, Point point, int size, String col, int horSpeed, int verSpeed, BufferedImage img1, BufferedImage img2, double weight) {
+    public Animal(String name, Point point, int size, String col, int horSpeed, int verSpeed, double weight) {
         super(point);
         this.size = size;
         this.col = col;
@@ -82,8 +83,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         this.y_dir = verSpeed > 0 ? 1 : -1;
         this.x_dir = 1;
         this.y_dir = 1;
-        this.img1 = img1;
-        this.img2 = img2;
         this.weight = weight;
         setName(name);
     }
@@ -344,8 +343,22 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
         return eatCount;
     }
 
-    @Deprecated
+    /**
+     * loadImages - loads right facing image to img1 and left facing image to img2
+     *
+     * @param nm - type of the animal e.g : "bear".
+     */
     public void loadImages(String nm) {
+        try {
+            img1 = ImageIO.read(new File(PICTURE_PATH + nm + "_n_1.png"));
+            img2 = ImageIO.read(new File(PICTURE_PATH + nm + "_n_2.png"));
+        } catch (IOException e) {
+            System.out.println("Cannot load image");
+        }
+    }
+
+    public static String getPicturePath(String nm) {
+        return PICTURE_PATH + nm + "_n_1.png";
     }
 
     public void drawObject(Graphics g) {
@@ -402,15 +415,6 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      */
     public int getY_dir() {
         return y_dir;
-    }
-
-    /**
-     * Creates buffered image from given path
-     * @param path Path to the file
-     * @return Buffered image
-     */
-    protected static BufferedImage convertFromFilename(String path) throws IOException {
-        return ImageIO.read(new File(path));
     }
 
     public int getHorSpeed() {

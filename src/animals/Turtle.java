@@ -12,8 +12,6 @@ import java.io.IOException;
 public class Turtle extends Animal {
 
     private int Age;
-    private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/trt_n_1.png";
-    private static final String PICTURE_PATH2 = "src/graphics/assignment2_pictures/trt_n_2.png";
 
     /**
      * Ctor
@@ -22,11 +20,11 @@ public class Turtle extends Animal {
      * @param y y point
      */
     public Turtle(String name, int x, int y, int size, String col, int horSpeed, int verSpeed, double weight, int age) throws IOException {
-        super(name, new Point(x,y), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
+        super(name, new Point(x,y), size, col, horSpeed, verSpeed, weight);
         setAge(age);
         setWeight(weight);
         setDiet(new Herbivore());
-//        MessageUtility.logConstractor("Turtle", name);
+        loadImages("trt");
     }
 
 
@@ -64,8 +62,4 @@ public class Turtle extends Animal {
         fireLog("logSound","Retracts its head in then eats quietly");
     }
 
-
-    public static String getPATH() {
-        return PICTURE_PATH;
-    }
 }

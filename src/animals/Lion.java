@@ -15,8 +15,6 @@ import java.util.Random;
 public class Lion extends Animal {
 
     private int scarCount;
-    private static final String PICTURE_PATH = "src/graphics/assignment2_pictures/lio_n_1.png";
-    private static final String PICTURE_PATH2 = "src/graphics/assignment2_pictures/lio_n_2.png";
 
     /**
      * Ctor
@@ -25,10 +23,10 @@ public class Lion extends Animal {
      * @param y y point
      */
     public Lion(String name, int x, int y, int size, String col, int horSpeed, int verSpeed, double weight) throws IOException {
-        super(name, new Point(x,y), size, col, horSpeed, verSpeed, convertFromFilename(PICTURE_PATH), convertFromFilename(PICTURE_PATH2), weight);
-//        MessageUtility.logConstractor("Lion", name);
+        super(name, new Point(x,y), size, col, horSpeed, verSpeed,weight);
         setWeight(weight);
         setDiet(new Carnivore());
+        loadImages("lio");
     }
 
     /**
@@ -92,10 +90,6 @@ public class Lion extends Animal {
             super.eat(food);
         }
         return isSuccess;
-    }
-
-    public static String getPATH() {
-        return PICTURE_PATH;
     }
 
 
