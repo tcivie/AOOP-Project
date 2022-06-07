@@ -3,6 +3,7 @@ package animals;
 import diet.IDiet;
 import food.EFoodType;
 import food.IEdible;
+import graphics.EColors;
 import graphics.IAnimalBehavior;
 import graphics.IDrawable;
 import graphics.ZooPanel;
@@ -33,7 +34,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     private IDiet diet;
 
     private final int size;
-    private final String col;
+    private final EColors col;
     private final int horSpeed;
 
     private final int verSpeed;
@@ -76,7 +77,7 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
     public Animal(String name, Point point, int size, String col, int horSpeed, int verSpeed, double weight) {
         super(point);
         this.size = size;
-        this.col = col;
+        this.col = EColors.valueOf(col.toUpperCase());
         this.horSpeed = horSpeed;
         this.x_dir = horSpeed > 0 ? 1 : -1;
         this.verSpeed = verSpeed;
@@ -349,9 +350,14 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
      * @param nm - type of the animal e.g : "bear".
      */
     public void loadImages(String nm) {
+        String col = switch (this.col) {
+            case NORMAL -> "n";
+            case BLUE -> "b";
+            case RED -> "r";
+        };
         try {
-            img1 = ImageIO.read(new File(PICTURE_PATH + nm + "_n_1.png"));
-            img2 = ImageIO.read(new File(PICTURE_PATH + nm + "_n_2.png"));
+            img1 = ImageIO.read(new File(PICTURE_PATH + nm + "_" + col + "_1.png"));
+            img2 = ImageIO.read(new File(PICTURE_PATH + nm + "_" + col + "_2.png"));
         } catch (IOException e) {
             System.out.println("Cannot load image");
         }
@@ -371,10 +377,11 @@ public abstract class Animal extends Mobile implements IEdible, IAnimalBehavior,
 
     /**
      * Get animal color
+     *
      * @return String color
      */
     public String getColor() {
-        return this.col;
+        return this.col.toString();
     }
 
     /**

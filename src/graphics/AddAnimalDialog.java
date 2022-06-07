@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Arrays;
-import java.util.Locale;
 
 /**
  * @author Gleb Tcivie & Orel Dandeker
@@ -113,7 +112,6 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
     private String currentCard;
 
     private static final int PARAMS = 8;
-    private static final String[] COLORS= {"RED","BLUE","NORMAL"};
 
     private ZooPanel zooPanel;
 
@@ -425,12 +423,14 @@ public class AddAnimalDialog extends JDialog implements ItemListener, DocumentLi
      * @return True if passes the test / False otherwise
      */
     private boolean checkColor(String color) {
-        color = color.toUpperCase(Locale.ROOT);
-        if (!(Arrays.stream(COLORS).anyMatch(color::contains))) {
-            JOptionPane.showMessageDialog(this,"Please enter one of the following colors: " + Arrays.toString(COLORS), "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
-            return false;
+        color = color.toUpperCase();
+        for (EColors c : EColors.values()) {
+            if (c.name().equals(color)) {
+                return true;
+            }
         }
-        return true;
+        JOptionPane.showMessageDialog(this,"Please enter one of the following colors: " + Arrays.toString(EColors.values()), "Animal creation Error" ,JOptionPane.ERROR_MESSAGE);
+        return false;
     }
 
     private boolean checkNumOfAnimalsInZoo() {
