@@ -55,7 +55,7 @@ public abstract class Food implements IEdible, ILocatable, IDrawable {
     }
 
 
-    public Food(Point point, String imagePath) throws IOException {
+    public Food(Point point, String imagePath) {
         Random rand = new Random();
         setLocation(new Point(point));
         setHeight(rand.nextInt(30));
@@ -72,8 +72,12 @@ public abstract class Food implements IEdible, ILocatable, IDrawable {
     public abstract EFoodType getFoodtype();
 
     @Override
-    public void loadImages(String nm) throws IOException {
-        setImg(convertFromFilename(nm));
+    public void loadImages(String nm) {
+        try {
+            img = ImageIO.read(new File(nm));
+        } catch (IOException e) {
+            System.out.println("Cannot load image");
+        }
     }
 
     @Override

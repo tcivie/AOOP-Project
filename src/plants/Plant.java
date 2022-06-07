@@ -13,7 +13,7 @@ import mobility.Point;
 public abstract class Plant extends Food {
 
 
-	public Plant(Point point, String imagePath) throws IOException {
+	public Plant(Point point, String imagePath) {
 		super(point, imagePath);
 	}
 
